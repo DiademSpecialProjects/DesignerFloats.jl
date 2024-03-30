@@ -1,0 +1,16 @@
+name = "DesignerFloats"
+authors = ["Jeffrey A. Sarnoff <jeffrey.sarnoff@ieee.org>"]
+uuid = "caa10ebf-0725-4344-8b75-9cf0ea6c06a8"
+version = "0.1.0"
+
+[deps]
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+ColorBitstring = "ce91de38-7578-4b98-aebb-6a5df05791d6"
+BitOperations = "e1e0eea2-bc69-5bf6-8574-13634873a17c"
+
+[compat]
+ColorBitstring = "0.2 - 0.5"
+BitOperations = "0.2 - 0.5"
+Printf = "1.11"
+julia = "1.10"
+
