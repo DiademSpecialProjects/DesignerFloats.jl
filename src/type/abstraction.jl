@@ -17,14 +17,14 @@ SignedFloat and UnsignedFloat.
 abstract type BinaryFloat{W,P} <: AbstractFloat end
 
 """
-     Width(x::BinaryFloat{W,P})
+     Width(::BinaryFloat{W,P})
 
 Width is a bit count: the storage width (memory spanned).
 """
 Width(::Type{<:BinaryFloat{W,P}}) where {W,P} = W
 
 """
-     Precision(x::BinaryFloat{W,P})
+     Precision(::BinaryFloat{W,P})
 
 Precision is a bit count of complete significand.
     - this includes the implicit bit
@@ -35,7 +35,7 @@ When realized, this the "significand".
 Precision(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
 
 """
-    ExpBits(x::BinaryFloat{W,P})
+    ExpBits(::BinaryFloat{W,P})
 
 ExpBits is the number of bits in the exponent field.
 """
@@ -46,38 +46,38 @@ ExpBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W - P
 
 ExpBias is the offset applied to the raw exponent field.
 """
-ExpBias(::Type{<:BinaryFloat{W,P}}) where {W,P} = (2^ExpBits(x) - 1) >> 1
+ExpBias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}  = (2^ExpBits(T) - 1) >> 1
 
 """
-     Significance(x::BinaryFloat{W,P})
+     SignificanceBits(::BinaryFloat{W,P})
 
 This is explict significand field width in bits.
 - by definition this is Precision - 1
 
 When realized, this is the "trailing_significand".
 """
-Significance(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
+SignificanceBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
 
 """
-    Count(x::BinaryFloat{W,P})
+    Count(::BinaryFloat{W,P})
 
 counts the distinct values of x
 - the number of encodings
 """
-Count(::Type{BinaryFloat{W,P}}) where {W,P} = 2^Width(x)
+Count(::Type{BinaryFloat{W,P}}) where {W,P} = 2^W
 
 """
-    CountExps(x::BinaryFloat{W,P})
+    CountExps(::BinaryFloat{W,P})
 
 counts the distinct exponent values
 - the number of (biased) exponents
 """
-CountExps(::Type{BinaryFloat{W,P}}) where {W,P} = 2^ExpBits(x)
+CountExps(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^ExpBits(T)
 
 """
-    CountSignificances(x::BinaryFloat{W,P})
+    CountSignificances(::BinaryFloat{W,P})
 
 counts the distinct, explicitly stored significance values
 """
-CountSignificances(::Type{BinaryFloat{W,P}}) where {W,P} = 2^Significance(x)
+CountSignificances(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^SignificanceBits(T)
 

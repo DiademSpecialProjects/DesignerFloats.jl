@@ -28,7 +28,7 @@ CountFinite
 counts the distinct values of x ignoring Infs, NaN, Zero
 - the number of ordinary value encodings
 """
-CountOrdinary
+CountOrdinaries
 
 """
     CountSpecials(x::BinaryFloat{W,P})

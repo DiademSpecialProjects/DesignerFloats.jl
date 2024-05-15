@@ -2,7 +2,7 @@ Width(x::BinaryFloat{W,P}) where {W,P} = Width(typeof(x))
 Precision(x::BinaryFloat{W,P}) where {W,P} = Precision(typeof(x))
 ExpBits(x::BinaryFloat{W,P}) where {W,P} = ExpBits(typeof(x))
 ExpBias(x::BinaryFloat{W,P}) where {W,P} = ExpBias(typeof(x))
-Significance(x::BinaryFloat{W,P}) where {W,P} = Significance(typeof(x))
+SignificanceBits(x::BinaryFloat{W,P}) where {W,P} = SignificanceBits(typeof(x))
 
 # field value retreivals
 
