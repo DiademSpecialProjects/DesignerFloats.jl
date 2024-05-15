@@ -55,6 +55,12 @@ CountOrdinary(x::UnsignedFloat{W,P}) where {W,P} =
 CountOrdinary(x::SignedFloat{W,P}) where {W,P} =
     CountFinite(x) - 1 # Zero is Special, not Ordinary
 
+CountOrdinaryMagnitudes(x::UnsignedFloat{W,P}) where {W,P} =
+    CountOrdinary(x)
+
+CountOrdinaryMagnitudes(x::SignedFloat{W,P}) where {W,P} =
+    CountOrdinary(x) >> 1
+
 CountSpecials(x::UnsignedFloat{W,P}) where {W,P} =
     1 + nan(x) + inf(x) # Zero is Special and omnipresent
 

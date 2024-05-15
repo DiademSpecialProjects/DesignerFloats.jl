@@ -70,3 +70,15 @@ n_subnormal_significances(x::BinaryFloat{W,P}) where {W,P} =
 
 n_normal_significances(x::BinaryFloat{W,P}) where {W,P} =
     n_normal_significances(typeof(x))
+
+# magnitude counts
+
+n_subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    n_subnormal_significances(x)
+
+n_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    CountOrdinaryMagnitudes(x) - n_subnormal_magnitudes(x)
+
+n_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    CountOrdinaryMagnitudes(x) + 1 + inf(x)  # 1 for Zero
+
