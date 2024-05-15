@@ -22,6 +22,7 @@ abstract type BinaryFloat{W,P} <: AbstractFloat end
 Width is a bit count: the storage width (memory spanned).
 """
 Width(::Type{<:BinaryFloat{W,P}}) where {W,P} = W
+Width(x::BinaryFloat{W,P}) where {W,P} = Width(typeof(x))
 
 """
      Precision(x::BinaryFloat{W,P})
@@ -33,6 +34,7 @@ Precision is a bit count of complete significand.
 When realized, this the "significand".
 """
 Precision(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
+Precision(x::BinaryFloat{W,P}) where {W,P} = Precision(typeof(x))
 
 """
     ExpBits(x::BinaryFloat{W,P})
@@ -40,6 +42,7 @@ Precision(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
 ExpBits is the number of bits in the exponent field.
 """
 ExpBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W - Precision(x)
+ExpBits(x::BinaryFloat{W,P}) where {W,P} = ExpBits(typeof(x))
 
 """
      Significance(x::BinaryFloat{W,P})
@@ -50,6 +53,7 @@ This is explict significand field width in bits.
 When realized, this is the "trailing_significand".
 """
 Significance(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
+Significance(x::BinaryFloat{W,P}) where {W,P} = Significance(typeof(x))
 
 # field value retreivals
 
