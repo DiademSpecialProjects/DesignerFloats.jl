@@ -91,7 +91,7 @@ Base.@kwdef struct UnsignedFloat{W,P} <: BinaryFloat{W,P}
     inf::Bool = false
     nan::Bool = true
 
-    function UnsignedFloat{W,P}(inf::Bool, nan::Bool)
+    function UnsignedFloat{W,P}(inf::Bool, nan::Bool) where {W,P}
         @assert (W > P) && (P > 0)
         new{W,P}(inf, nan)
     end
@@ -101,7 +101,7 @@ UnsignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
     UnsignedFloat{Width, Precision}(inf, nan)
 
 UnsignedFloat(Width, Precision; inf::Bool=false) =
-    UnsignedFloat{Width,Precision}(inf, true)
+    UnsignedFloat{Width, Precision}(inf, true)
 
 """
     SignedFloat{Width, Precision}
@@ -116,14 +116,14 @@ Base.@kwdef struct SignedFloat{W,P} <: BinaryFloat{W,P}
     inf::Bool = false
     nan::Bool = true
 
-    function SignedFloat{W,P}(inf::Bool, nan::Bool)
+    function SignedFloat{W,P}(inf::Bool, nan::Bool) where {W,P}
         @assert (W > P) && (P > 0)
         new{W,P}(inf, nan)
     end
 end
 
 SignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
-    SignedFloat{Width,Precision}(inf, nan)
+    SignedFloat{Width, Precision}(inf, nan)
 
 SignedFloat(Width, Precision; inf::Bool=false) =
-    SignedFloat{Width,Precision}(inf, true)
+    SignedFloat{Width, Precision}(inf, true)
