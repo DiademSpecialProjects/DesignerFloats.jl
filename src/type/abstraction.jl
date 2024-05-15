@@ -90,6 +90,11 @@ All `UnsignedFloats` encode a single Zero value.
 Base.@kwdef struct UnsignedFloat{W,P} <: BinaryFloat{W,P}
     inf::Bool = false
     nan::Bool = true
+
+    function UnsignedFloat{W,P}(inf::Bool, nan::Bool)
+        @assert (W > P) && (P > 0)
+        new{W,P}(inf, nan)
+    end
 end
 
 UnsignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
@@ -110,6 +115,11 @@ All `SignedFloats` encode a single Zero value.
 Base.@kwdef struct SignedFloat{W,P} <: BinaryFloat{W,P}
     inf::Bool = false
     nan::Bool = true
+
+    function SignedFloat{W,P}(inf::Bool, nan::Bool)
+        @assert (W > P) && (P > 0)
+        new{W,P}(inf, nan)
+    end
 end
 
 SignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
