@@ -21,7 +21,7 @@ abstract type BinaryFloat{W,P} <: AbstractFloat end
 
 Width is a bit count: the storage width (memory spanned).
 """
-Width(x::BinaryFloat{W,P}) = W
+Width(::Type{<:BinaryFloat{W,P}}) where {W,P} = W
 
 """
      Precision(x::BinaryFloat{W,P})
@@ -32,14 +32,14 @@ Precision is a bit count of complete significand.
 
 When realized, this the "significand".
 """
-Precision(x::BinaryFloat{W,P}) = P
+Precision(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
 
 """
     ExpBits(x::BinaryFloat{W,P})
 
 ExpBits is the number of bits in the exponent field.
 """
-ExpBits(x::BinaryFloat{W,P}) = W - Precision(x)
+ExpBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W - Precision(x)
 
 """
      Significance(x::BinaryFloat{W,P})
@@ -49,27 +49,27 @@ This is explict significand field width in bits.
 
 When realized, this is the "trailing_significand".
 """
-Significance(x::BinaryFloat{W,P}) = P - 1
+Significance(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
 
 # field value retreivals
 
 """
-     inf(::BinaryFloat)
+     inf(<:BinaryFloat)
 
 true iff the format encodes Inf
 - UnsignedFloats may have +Inf, or not
 - SignedFloats may have both +Inf and -Inf, or neither
 """
-inf(x::BinaryFloat) = getfield(x, :inf)
+inf(x::T) where {W,P, T<:BinaryFloat{W,P}} = getfield(x, :inf)
 
 """
-     nan(::BinaryFloat)
+     nan(<:BinaryFloat)
 
 true iff the format encodes NaN
 - UnsignedFloats may enode one NaN, or not
 - SignedFloats **always** encode one NaN
 """
-nan(x::BinaryFloat) = getfield(x, :nan)
+nan(x::T) where {W,P,T<:BinaryFloat{W,P}} = getfield(x, :nan)
 
 #=
    concrete subtypes of BinaryFloat
@@ -92,6 +92,12 @@ Base.@kwdef struct UnsignedFloat{W,P} <: BinaryFloat{W,P}
     nan::Bool = true
 end
 
+UnsignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
+    UnsignedFloat{Width, Precision}(inf, nan)
+
+UnsignedFloat(Width, Precision; inf::Bool=false) =
+    UnsignedFloat{Width,Precision}(inf, true)
+
 """
     SignedFloat{Width, Precision}
 
@@ -105,3 +111,9 @@ Base.@kwdef struct SignedFloat{W,P} <: BinaryFloat{W,P}
     inf::Bool = false
     nan::Bool = true
 end
+
+SignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
+    SignedFloat{Width,Precision}(inf, nan)
+
+SignedFloat(Width, Precision; inf::Bool=false) =
+    SignedFloat{Width,Precision}(inf, true)
