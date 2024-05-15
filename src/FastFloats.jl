@@ -3,10 +3,11 @@ module FastFloats
 export BinaryFloat, SignedFloat, UnsignedFloat
 
 using BitOperations                     # bitfields: mask, shift, unmask
-using BitIntegers, Quadmath             # Rational{Int1024}, Float128
+using BitIntegers, Quadmath             # Int1024, Float128
 using Printf                            # hexadecimal strings
 using CSV, Tables, DataFrames           # tables in memory and in files
 
+include("type/constants.jl")
 include("type/abstraction.jl")
 include("type/realization.jl")
 

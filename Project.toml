@@ -1,6 +1,6 @@
-name = "DesignerFloats"
+name = "FastFloats"
 authors = ["Jeffrey A. Sarnoff <jeffrey.sarnoff@ieee.org>"]
-uuid = "caa10ebf-0725-4344-8b75-9cf0ea6c06a8"
+uuid = "ec36baa4-957c-4e30-af06-14b0ffd378b5"
 version = "0.1.0"
 
 [deps]
