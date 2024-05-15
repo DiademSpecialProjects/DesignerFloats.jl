@@ -72,6 +72,7 @@ Base.@kwdef struct SignedFloat{W,P} <: BinaryFloat{W,P}
 
     function SignedFloat{W,P}(inf::Bool, nan::Bool) where {W,P}
         @assert (W > P) && (P > 0)
+        inf && @assert (W > 2)
         new{W,P}(inf, nan)
     end
 end
