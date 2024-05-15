@@ -1,0 +1,6 @@
+project = "FastFloats"
+author = ["Jeffrey A. Sarnoff", "jeffrey.sarnoff@ieee.org"]
+dates = [initial_edit = "2024-15-05", ]
+
+maintainer = ["Jeffrey A. Sarnoff", "jeffrey.sarnoff@ieee.org"]
+
