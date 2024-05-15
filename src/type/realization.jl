@@ -54,9 +54,6 @@ end
 UnsignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
     UnsignedFloat{Width,Precision}(inf, nan)
 
-UnsignedFloat(Width, Precision; inf::Bool=false) =
-    UnsignedFloat{Width,Precision}(inf, true)
-
 """
     SignedFloat{Width, Precision}
 
@@ -80,5 +77,3 @@ end
 SignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
     SignedFloat{Width,Precision}(inf, nan)
 
-SignedFloat(Width, Precision; inf::Bool=false) =
-    SignedFloat{Width,Precision}(inf, true)
