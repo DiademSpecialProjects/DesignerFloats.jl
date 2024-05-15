@@ -20,6 +20,9 @@ function n_normal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     CountExps(T)
 end
 
+n_ordinary_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+   n_normal_exponents(T)
+
 """
      n_subnormal_significances(::BinaryFloat{W,P})
 
@@ -30,9 +33,10 @@ otherwise
 - there is one less subnormal significand than normal significands
     - subnormal significands never include 1, normal significands do
 """
-function n_subnormal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    isone(P) && return 0
-    P == W && n_ordianary_significances(T)
+function n_subnormal_significances(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    P == 1 && return 0
+    P == 2 && return 1
+    P == W && n_normal_significances(T) - 2
     n_normal_significances(T) - 1
 end
 
@@ -45,10 +49,13 @@ end
     - there are no normal values, no normal significances
 """
 function n_normal_significances(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    P==W && return 0
-    P==1 && return n_ordianary_significances(x)
+    P == W && return 0
+    P == 1 && return 1
     CountSignificances(T)
 end
+
+n_ordinary_significances(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    n_normal_significances(T)
 
 # concrete counts
 
