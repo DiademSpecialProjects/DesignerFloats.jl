@@ -12,7 +12,7 @@ function simple_values(minval, maxval)
     if isequal(minval, maxval)
         ValType[minval]
     else
-        ValType[mival, maxval]
+        ValType[minval, maxval]
     end
 end
 
