@@ -47,7 +47,7 @@ Base.@kwdef struct UnsignedFloat{W,P} <: BinaryFloat{W,P}
     nan::Bool = true
 
     function UnsignedFloat{W,P}(inf::Bool, nan::Bool) where {W,P}
-        @assert (W > P) && (P > 0)
+        @assert (W >= P) && (P > 0)
         new{W,P}(inf, nan)
     end
 end
@@ -69,7 +69,7 @@ Base.@kwdef struct SignedFloat{W,P} <: BinaryFloat{W,P}
     nan::Bool = true
 
     function SignedFloat{W,P}(inf::Bool, nan::Bool) where {W,P}
-        @assert (W > P) && (P > 0)
+        @assert (W >= P) && (P > 0)
         inf && @assert (W > 2)  # W==2 -> {-Inf, 0, NaN, +Inf}
         new{W,P}(inf, nan)
     end

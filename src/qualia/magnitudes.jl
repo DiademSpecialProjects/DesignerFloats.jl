@@ -33,7 +33,7 @@ function normal_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     iszero(n) && return NoValues
     isone(n) && return ValType[min_normal_significand(x)]
 
-    mn, mx = extremal_subnormal_significands(x)
+    mn, mx = extremal_normal_significands(x)
     mn2mx = range(start=mn, stop=mx, length=n)
     ValType[collect(mn2mx)...]
 end
