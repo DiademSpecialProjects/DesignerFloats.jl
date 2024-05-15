@@ -1,12 +1,12 @@
 BitIntegers.@define_integers 2048
 const Int1K = BitIntegers.Int1024
 const Int2K = Int2048
-const HugeInt = Int2K
+const IntNK = Int2K
 
-const RationalNK = Rational{HugeInt}
+const RationalNK = Rational{IntNK}
 const Rational64 = Rational{Int64}
 
-const ValType  = Union{RationalNK, Rational64, Float64}
+const ValType  = Union{Int64, IntNK, Float64, Rational64, RationalNK}
 const NoValues = ValType[]
 
 const Zero   = RationalNK( 0, 1)
