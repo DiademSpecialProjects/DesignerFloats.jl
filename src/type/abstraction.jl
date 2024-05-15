@@ -42,6 +42,13 @@ ExpBits is the number of bits in the exponent field.
 ExpBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W - Precision(x)
 
 """
+    ExpBias(x::BinaryFloat{W,P})
+
+ExpBias is the offset applied to the raw exponent field.
+"""
+ExpBias(::Type{<:BinaryFloat{W,P}}) where {W,P} = (2^ExpBits(x) - 1) >> 1
+
+"""
      Significance(x::BinaryFloat{W,P})
 
 This is explict significand field width in bits.

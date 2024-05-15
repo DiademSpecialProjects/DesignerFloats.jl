@@ -57,6 +57,10 @@ end
 n_ordinary_significances(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     n_normal_significances(T)
 
+const n_subnormal_significands = n_subnormal_significances
+const n_normal_significands = n_normal_significances
+const n_ordinary_significands = n_ordinary_significances
+
 # concrete counts
 
 n_subnormal_exponents(x::BinaryFloat{W,P}) where {W,P} =
