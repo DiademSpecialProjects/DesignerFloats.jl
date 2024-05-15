@@ -39,7 +39,7 @@ Precision(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
 
 ExpBits is the number of bits in the exponent field.
 """
-ExpBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W - Precision(x)
+ExpBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W - P
 
 """
     ExpBias(x::BinaryFloat{W,P})

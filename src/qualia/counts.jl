@@ -23,7 +23,7 @@ counts the distinct values of x ignoring Infs, NaN
 CountFinite
 
 """
-    CountOrdinary(x::BinaryFloat{W,P})
+    CountOrdinaries(x::BinaryFloat{W,P})
 
 counts the distinct values of x ignoring Infs, NaN, Zero
 - the number of ordinary value encodings
@@ -49,17 +49,17 @@ CountFinite(x::UnsignedFloat{W,P}) where {W,P} =
 CountFinite(x::SignedFloat{W,P}) where {W,P} =
     Count(x) - nan(x) - 2inf(x)
 
-CountOrdinary(x::UnsignedFloat{W,P}) where {W,P} =
+CountOrdinaries(x::UnsignedFloat{W,P}) where {W,P} =
     CountFinite(x) - 1 # Zero is Special, not Ordinary
 
-CountOrdinary(x::SignedFloat{W,P}) where {W,P} =
+CountOrdinaries(x::SignedFloat{W,P}) where {W,P} =
     CountFinite(x) - 1 # Zero is Special, not Ordinary
 
 CountOrdinaryMagnitudes(x::UnsignedFloat{W,P}) where {W,P} =
-    CountOrdinary(x)
+    CountOrdinaries(x)
 
 CountOrdinaryMagnitudes(x::SignedFloat{W,P}) where {W,P} =
-    CountOrdinary(x) >> 1
+    CountOrdinaries(x) >> 1
 
 CountSpecials(x::UnsignedFloat{W,P}) where {W,P} =
     1 + nan(x) + inf(x) # Zero is Special and omnipresent
