@@ -4,6 +4,8 @@ Count(x::BinaryFloat{W,P}) where {W,P} = Count(typeof(x))
 
 CountExps(x::BinaryFloat{W,P}) where {W,P} = CountExps(typeof(x))
 
+CountSignificances(x::BinaryFloat{W,P}) where {W,P} = CountSignificances(typeof(x))
+
 """
     CountNumbers(x::BinaryFloat{W,P})
 

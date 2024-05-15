@@ -67,3 +67,10 @@ counts the distinct exponent values
 """
 CountExps(::Type{BinaryFloat{W,P}}) where {W,P} = 2^ExpBits(x)
 
+"""
+    CountSignificances(x::BinaryFloat{W,P})
+
+counts the distinct, explicitly stored significance values
+"""
+CountSignificances(::Type{BinaryFloat{W,P}}) where {W,P} = 2^Significance(x)
+
