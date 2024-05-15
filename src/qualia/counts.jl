@@ -1,14 +1,8 @@
-# abstract counts
-
-"""
-    Count(x::BinaryFloat{W,P})
-
-counts the distinct values of x
-- the number of encodings
-"""
-Count(x::BinaryFloat{W,P}) where {W,P} = 2^Width(x)
-
 # concrete counts
+
+Count(x::BinaryFloat{W,P}) where {W,P} = Count(typeof(x))
+
+CountExps(x::BinaryFloat{W,P}) where {W,P} = CountExps(typeof(x))
 
 """
     CountNumbers(x::BinaryFloat{W,P})

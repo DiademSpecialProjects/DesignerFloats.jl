@@ -50,3 +50,20 @@ This is explict significand field width in bits.
 When realized, this is the "trailing_significand".
 """
 Significance(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
+
+"""
+    Count(x::BinaryFloat{W,P})
+
+counts the distinct values of x
+- the number of encodings
+"""
+Count(::Type{BinaryFloat{W,P}}) where {W,P} = 2^Width(x)
+
+"""
+    CountExps(x::BinaryFloat{W,P})
+
+counts the distinct exponent values
+- the number of (biased) exponents
+"""
+CountExps(::Type{BinaryFloat{W,P}}) where {W,P} = 2^ExpBits(x)
+
