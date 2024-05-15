@@ -22,7 +22,6 @@ abstract type BinaryFloat{W,P} <: AbstractFloat end
 Width is a bit count: the storage width (memory spanned).
 """
 Width(::Type{<:BinaryFloat{W,P}}) where {W,P} = W
-Width(x::BinaryFloat{W,P}) where {W,P} = Width(typeof(x))
 
 """
      Precision(x::BinaryFloat{W,P})
@@ -34,7 +33,6 @@ Precision is a bit count of complete significand.
 When realized, this the "significand".
 """
 Precision(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
-Precision(x::BinaryFloat{W,P}) where {W,P} = Precision(typeof(x))
 
 """
     ExpBits(x::BinaryFloat{W,P})
@@ -42,7 +40,6 @@ Precision(x::BinaryFloat{W,P}) where {W,P} = Precision(typeof(x))
 ExpBits is the number of bits in the exponent field.
 """
 ExpBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W - Precision(x)
-ExpBits(x::BinaryFloat{W,P}) where {W,P} = ExpBits(typeof(x))
 
 """
      Significance(x::BinaryFloat{W,P})
@@ -53,81 +50,3 @@ This is explict significand field width in bits.
 When realized, this is the "trailing_significand".
 """
 Significance(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
-Significance(x::BinaryFloat{W,P}) where {W,P} = Significance(typeof(x))
-
-# field value retreivals
-
-"""
-     inf(<:BinaryFloat)
-
-true iff the format encodes Inf
-- UnsignedFloats may have +Inf, or not
-- SignedFloats may have both +Inf and -Inf, or neither
-"""
-inf(x::T) where {W,P, T<:BinaryFloat{W,P}} = getfield(x, :inf)
-
-"""
-     nan(<:BinaryFloat)
-
-true iff the format encodes NaN
-- UnsignedFloats may enode one NaN, or not
-- SignedFloats **always** encode one NaN
-"""
-nan(x::T) where {W,P,T<:BinaryFloat{W,P}} = getfield(x, :nan)
-
-#=
-   concrete subtypes of BinaryFloat
-
-- UnsigneFloat (encodes non-negative values)
-- SignedFloat  (encodes non-negative and negative values)
-=#
-
-"""
-    UnsignedFloat{Width, Precision}
-
-All `UnsignedFloats` encode a single Zero value.
-- Zero is neither positive nor negative.
-- There is no -0. When converting, -0 is mapped to Zero.
-
-- supertype is BinaryFloat{W,P} <: AbstractFloat
-"""
-Base.@kwdef struct UnsignedFloat{W,P} <: BinaryFloat{W,P}
-    inf::Bool = false
-    nan::Bool = true
-
-    function UnsignedFloat{W,P}(inf::Bool, nan::Bool) where {W,P}
-        @assert (W > P) && (P > 0)
-        new{W,P}(inf, nan)
-    end
-end
-
-UnsignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
-    UnsignedFloat{Width, Precision}(inf, nan)
-
-UnsignedFloat(Width, Precision; inf::Bool=false) =
-    UnsignedFloat{Width, Precision}(inf, true)
-
-"""
-    SignedFloat{Width, Precision}
-
-All `SignedFloats` encode a single Zero value.
-- Zero is neither positive nor negative.
-- There is no -0, When converting, -0 is mapped to Zero.
-
-- supertype is BinaryFloat{W,P} <: AbstractFloat
-"""
-Base.@kwdef struct SignedFloat{W,P} <: BinaryFloat{W,P}
-    inf::Bool = false
-    nan::Bool = true
-
-    function SignedFloat{W,P}(inf::Bool, nan::Bool) where {W,P}
-        @assert (W > P) && (P > 0)
-        new{W,P}(inf, nan)
-    end
-end
-
-SignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
-    SignedFloat{Width, Precision}(inf, nan)
-
-SignedFloat(Width, Precision; inf::Bool=false) =
-    SignedFloat{Width, Precision}(inf, true)
