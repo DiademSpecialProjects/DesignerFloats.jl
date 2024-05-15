@@ -11,6 +11,7 @@ include("type/abstraction.jl")
 include("type/realization.jl")
 
 include("qualia/counts.jl")
+include("qualia/tallys.jl")
 include("qualia/extrema.jl")
 include("qualia/magnitudes.jl")
 
