@@ -1,6 +1,7 @@
 # DesignerFloats.jl
 ## 
-### Copyright 2024 by Jeffrey A. Sarnoff <jeffrey.sarnoff@ieee.org>.
-#### Released under the MIT License (_use this work with attribution_).
+### Copyright 2024 by Jeffrey A. Sarnoff
+#### For commercial use, contact <jeffrey.sarnoff@ieee.org>.
+##### For non-commercial use, _provide attribution_ and let me know.
 ----
 
