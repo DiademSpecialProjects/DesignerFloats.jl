@@ -18,12 +18,12 @@ const NegInf = RationalNK(-1, 0)
 const One = Float128(1)
 const Two = Float128(2)
 
-Base.convert(::Type{Quadmath.Float128}, x::BitIntegers.Int1024) =
+Base.convert(::Type{Quadmath.Float128}, x::Int1024) =
     Float128(BigFloat(BigInt(x)))
-Base.convert(::Type{Quadmath.Float128}, x::BitIntegers.Int2048) =
+Base.convert(::Type{Quadmath.Float128}, x::Int2048) =
     Float128(BigFloat(BigInt(x)))
 
-Quadmath.Float128(x::BitIntegers.Int1024) =
+Quadmath.Float128(x::Int1024) =
     convert(Quadmath.Float128, x)
-Quadmath.Float128(x::BitIntegers.Int2048) =
+Quadmath.Float128(x::Int2048) =
     convert(Quadmath.Float128, x)
