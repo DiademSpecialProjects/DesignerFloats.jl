@@ -5,7 +5,7 @@
 =#
 
 function simple_values(minval, maxval)
-    (isnothing(minval) && isnothing(maxval)) && return NoValues
+    (isnothing(minval) && isnothing(maxval)) && return copy(NoValues)
     isnothing(maxval)  && return ValType[minval]
     isnothing(minval)  && return ValType[maxval]
     
@@ -18,37 +18,37 @@ end
 
 function extremal_subnormal_exponent_values(x::BinaryFloat{W,P}) where {W,P}
     n = n_subnormal_exponents(x)
-    iszero(n) && return NoValues
+    iszero(n) && return copy(NoValues)
     simple_values(min_subnormal_exponent_value(x), max_subnormal_exponent_value(x))
 end
 
 function extremal_normal_exponent_values(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_exponents(x)
-    iszero(n) && return NoValues
+    iszero(n) && return copy(NoValues)
     simple_values(min_normal_exponent_value(x), max_normal_exponent_value(x))
 end
 
 function extremal_subnormal_exponents(x::BinaryFloat{W,P}) where {W,P}
     n = n_subnormal_exponents(x)
-    iszero(n) && return NoValues
+    iszero(n) && return copy(NoValues)
     simple_values(min_subnormal_exponent(x), max_subnormal_exponent(x))
 end
 
 function extremal_normal_exponents(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_exponents(x)
-    iszero(n) && return NoValues
+    iszero(n) && return copy(NoValues)
     simple_values(min_normal_exponent(x), max_normal_exponent(x))
 end
 
 function extremal_subnormal_significands(x::BinaryFloat{W,P}) where {W,P}
     n = n_subnormal_significands(x)
-    iszero(n) && return NoValues
+    iszero(n) && return copy(NoValues)
     simple_values(min_subnormal_significand(x), max_subnormal_significand(x))
 end
 
 function extremal_normal_significands(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_significands(x)
-    iszero(n) && return NoValues
+    iszero(n) && return copy(NoValues)
     simple_values(min_normal_significand(x), max_normal_significand(x))
 end
 
