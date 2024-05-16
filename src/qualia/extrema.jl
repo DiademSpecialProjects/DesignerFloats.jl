@@ -1,7 +1,7 @@
 #=
     obtain the extremal magnitudes for subnormal and normal
         (unbiased) exponents
-        signficands
+        significands
 =#
 
 function simple_values(minval, maxval)
