@@ -21,8 +21,6 @@ function valueseq(x::SignedFloat{W,P}) where {W,P}
     end
     if nan(x)
         seq = vcat(seq, NaN, -1 .* ordinary_magnitudes(x))
-    if nan(x)
-        seq = vcat(seq, NaN)
     end
     if inf(x)
         if nan(x)
