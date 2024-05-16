@@ -15,3 +15,5 @@ const NegOne = RationalNK(-1, 1)
 const PosInf = RationalNK( 1, 0)
 const NegInf = RationalNK(-1, 0)
 
+const One = Float128(1)
+const Two = Float128(2)

@@ -1,3 +1,20 @@
+# magnitude counts
+
+n_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    n_ordinary_magnitudes(x) + n_special_magnitudes(x)
+
+n_ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    CountOrdinaryMagnitudes(x)
+
+n_subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    n_subnormal_significances(x)
+
+n_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    n_ordinary_magnitudes(x) - n_subnormal_magnitudes(x)
+
+n_special_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    1 + inf(x)  # 1 for Zero
+
 """
      n_subnormal_exponents(::BinaryFloat{W,P})
 
@@ -75,14 +92,4 @@ n_subnormal_significances(x::BinaryFloat{W,P}) where {W,P} =
 n_normal_significances(x::BinaryFloat{W,P}) where {W,P} =
     n_normal_significances(typeof(x))
 
-# magnitude counts
-
-n_subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
-    n_subnormal_significances(x)
-
-n_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
-    CountOrdinaryMagnitudes(x) - n_subnormal_magnitudes(x)
-
-n_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
-    CountOrdinaryMagnitudes(x) + 1 + inf(x)  # 1 for Zero
 

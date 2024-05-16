@@ -1,9 +1,15 @@
+function subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+    n = n_subnormal_significances(x)
+    iszero(n) && return NoValues
+
+end
+
 function subnormal_exponent_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     n = n_subnormal_exponents(x)
     iszero(n) && return NoValues
     isone(n)  && return ValType[min_subnormal_exponent(x)]
 
-    mn, mx = extremal_subnormal_significands(x)
+    mn, mx = extremal_subnormal_exponents(x)
     mn2mx = range(start=mn, stop=mx, length=n)
     ValType[collect(mn2mx)...]
 end
@@ -37,6 +43,5 @@ function normal_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mn2mx = range(start=mn, stop=mx, length=n)
     ValType[collect(mn2mx)...]
 end
-
 
 
