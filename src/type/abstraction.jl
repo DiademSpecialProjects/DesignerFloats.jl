@@ -64,7 +64,7 @@ SignificanceBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
 counts the distinct values of x
 - the number of encodings
 """
-Count(::Type{BinaryFloat{W,P}}) where {W,P} = 2^W
+Count(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^W
 
 """
     CountExps(::BinaryFloat{W,P})
