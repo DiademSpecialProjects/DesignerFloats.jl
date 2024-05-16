@@ -8,7 +8,7 @@ function subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     n = n_subnormal_magnitudes(x)
     iszero(n) && return copy(NoValues)
     xps = range(extremal_subnormal_exponent_values(x)..., length=n_subnormal_exponents(x))
-    sgs = range(extremal_subnormal_significand_values(x)..., length=n_subnormal_signficands(x))
+    sgs = range(extremal_subnormal_significands(x)..., length=n_subnormal_signficands(x))
     mags = copy(NoValues)
     for xp in xps
         for sg in sgs
@@ -22,7 +22,7 @@ function normal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_magnitudes(x)
     iszero(n) && return copy(NoValues)
     xps = range(extremal_normal_exponent_values(x)..., length=n_normal_exponents(x))
-    sgs = range(extremal_normal_significand_values(x)..., length=n_normal_signficands(x))
+    sgs = range(extremal_normal_significands(x)..., length=n_normal_signficands(x))
     mags = copy(NoValues)
     for xp in xps
         for sg in sgs
