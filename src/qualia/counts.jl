@@ -48,9 +48,6 @@ CountSpecialValues
 CountSigns(x::UnsignedFloat{W,P}) where {W,P} = 1
 CountSigns(x::SignedFloat{W,P}) where {W,P} = 2
 
-CountOrdinaryMagnitudes(x::SignedFloat{W,P}) where {W,P} =
-    CountOrdinaryValues(x) >> 1
-
 CountSpecialValues(x::UnsignedFloat{W,P}) where {W,P} =
     1 + nan(x) + inf(x) # Zero is Special and omnipresent
 
@@ -72,8 +69,9 @@ CountFiniteValues(x::SignedFloat{W,P}) where {W,P} =
 CountOrdinaryValues(x::BinaryFloat{W,P}) where {W,P} =
     CountFiniteValues(x) - 1 # Zero is Special, not Ordinary
 
+CountOrdinaryMagnitudes(x::SignedFloat{W,P}) where {W,P} =
+    CountOrdinaryValues(x) >> 1
+
 CountOrdinaryMagnitudes(x::UnsignedFloat{W,P}) where {W,P} =
     CountOrdinaryValues(x)
 
-CountOrdinaryMagnitudes(x::SignedFloat{W,P}) where {W,P} =
-    CountOrdinaryValues(x) >> 1
