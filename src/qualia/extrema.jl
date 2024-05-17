@@ -112,14 +112,14 @@ end
 function min_subnormal_significand(x::BinaryFloat{W,P}) where {W,P}
     n = n_subnormal_significands(x)
     iszero(n) && return nothing
-    RationalNK(1, CountSignficands(x))
+    RationalNK(1, CountSignificands(x))
 end
 
 function max_subnormal_significand(x::BinaryFloat{W,P}) where {W,P}
     n = n_subnormal_significands(x)
     iszero(n) && return nothing
     isone(n)  && return min_subnormal_significand(x)
-    RationalNK(CountSignficands(x) - 1, CountSignficands(x))
+    RationalNK(CountSignificands(x) - 1, CountSignificands(x))
 end
 
 function min_normal_significand(x::BinaryFloat{W,P}) where {W,P}
@@ -132,5 +132,5 @@ function max_normal_significand(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_significands(x)
     iszero(n) && return nothing
     isone(n) && return min_normal_significand(x)
-    PosOne + RationalNK(CountSignficands(x) - 1, CountSignficands(x))
+    PosOne + RationalNK(CountSignificands(x) - 1, CountSignificands(x))
 end
