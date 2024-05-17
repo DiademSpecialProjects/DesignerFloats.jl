@@ -42,35 +42,37 @@ ExpBias is the offset applied to the raw exponent field.
 ExpBias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}  = (2^ExpBits(T) - 1) >> 1
 
 """
-     SignificanceBits(::BinaryFloat{W,P})
+     TrailingSignificandBits(::BinaryFloat{W,P})
 
 This is explict significand field width in bits.
 - by definition this is Precision - 1
 
 When realized, this is the "trailing_significand".
 """
-SignificanceBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
+TrailingSignificandBits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
 
 """
-    Count(::BinaryFloat{W,P})
+    CountValues(::BinaryFloat{W,P})
 
 counts the distinct values of x
 - the number of encodings
 """
-Count(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^W
+CountValues(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^W
 
 """
-    CountExps(::BinaryFloat{W,P})
+    CountExponents(::BinaryFloat{W,P})
 
 counts the distinct exponent values
 - the number of (biased) exponents
 """
-CountExps(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^ExpBits(T)
+CountExponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^ExpBits(T)
 
 """
-    CountSignificances(::BinaryFloat{W,P})
+    CountSignificands(::BinaryFloat{W,P})
 
-counts the distinct, explicitly stored significance values
+counts the significand values available 
+- max(n_subnormal_signficands, n_normal_significands)
 """
-CountSignificances(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^SignificanceBits(T)
+CountSignificands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    2^TrailingSignificandBits(T)
 

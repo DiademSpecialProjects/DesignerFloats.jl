@@ -14,7 +14,7 @@ function valueseq(x::UnsignedFloat{W,P}) where {W,P}
 end
 
 function valueseq(x::SignedFloat{W,P}) where {W,P}
-    n = Count(x)
+    n = CountValues(x)
     seq = vcat(Zero, ordinary_magnitudes(x))
     if inf(x)
         seq = vcat(seq, Inf)
