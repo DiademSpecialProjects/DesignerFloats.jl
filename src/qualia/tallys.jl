@@ -12,8 +12,21 @@ n_signs(x::BinaryFloat{W,P}) where {W,P} = CountSigns(x)
 
 # magnitude counts
 
+"""
+    n_magnitudes(x::BinaryFloat)
+
+tallys the magnitudes, including {Zero, abs(Inf)}
+"""
 n_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
     n_ordinary_magnitudes(x) + n_special_magnitudes(x)
+
+"""
+    n_finite_magnitudes(x::BinaryFloat)
+
+tallys the magnitudes, including {Zero}
+"""
+n_finite_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    n_ordinary_magnitudes(x) + 1
 
 n_ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
     CountOrdinaryMagnitudes(x)
