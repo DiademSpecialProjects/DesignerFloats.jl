@@ -1,3 +1,11 @@
+"""
+    ExpBits(::BinaryFloat{W,P})
+
+ExpBits is the number of bits in the exponent field.
+"""
+ExpBits(::Type{<:SignedFloat{W,P}}) where {W,P} = W - P
+ExpBits(::Type{<:UnsignedFloat{W,P}}) where {W,P} = W - P + 1
+
 Width(x::BinaryFloat{W,P}) where {W,P} = Width(typeof(x))
 Precision(x::BinaryFloat{W,P}) where {W,P} = Precision(typeof(x))
 ExpBits(x::BinaryFloat{W,P}) where {W,P} = ExpBits(typeof(x))

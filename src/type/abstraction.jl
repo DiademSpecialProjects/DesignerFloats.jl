@@ -35,14 +35,6 @@ When realized, this the "significand".
 Precision(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
 
 """
-    ExpBits(::BinaryFloat{W,P})
-
-ExpBits is the number of bits in the exponent field.
-"""
-ExpBits(::Type{<:SignedFloat{W,P}}) where {W,P} = W - P
-ExpBits(::Type{<:UnsignedFloat{W,P}}) where {W,P} = W - P + 1
-
-"""
     ExpBias(x::BinaryFloat{W,P})
 
 ExpBias is the offset applied to the raw exponent field.
