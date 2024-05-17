@@ -1,17 +1,3 @@
-"""
-    ExpBits(::BinaryFloat{W,P})
-
-ExpBits is the number of bits in the exponent field.
-"""
-ExpBits(::Type{<:SignedFloat{W,P}}) where {W,P} = W - P
-ExpBits(::Type{<:UnsignedFloat{W,P}}) where {W,P} = W - P + 1
-
-Width(x::BinaryFloat{W,P}) where {W,P} = Width(typeof(x))
-Precision(x::BinaryFloat{W,P}) where {W,P} = Precision(typeof(x))
-ExpBits(x::BinaryFloat{W,P}) where {W,P} = ExpBits(typeof(x))
-ExpBias(x::BinaryFloat{W,P}) where {W,P} = ExpBias(typeof(x))
-SignificanceBits(x::BinaryFloat{W,P}) where {W,P} = SignificanceBits(typeof(x))
-
 # field value retreivals
 
 """
@@ -86,3 +72,18 @@ end
 SignedFloat(Width, Precision; inf::Bool=false, nan::Bool=true) =
     SignedFloat{Width,Precision}(inf, nan)
 
+# characteristics
+
+"""
+    ExpBits(::BinaryFloat{W,P})
+
+ExpBits is the number of bits in the exponent field.
+"""
+ExpBits(::Type{<:SignedFloat{W,P}}) where {W,P} = W - P
+ExpBits(::Type{<:UnsignedFloat{W,P}}) where {W,P} = W - P + 1
+
+Width(x::BinaryFloat{W,P}) where {W,P} = Width(typeof(x))
+Precision(x::BinaryFloat{W,P}) where {W,P} = Precision(typeof(x))
+ExpBits(x::BinaryFloat{W,P}) where {W,P} = ExpBits(typeof(x))
+ExpBias(x::BinaryFloat{W,P}) where {W,P} = ExpBias(typeof(x))
+SignificanceBits(x::BinaryFloat{W,P}) where {W,P} = SignificanceBits(typeof(x))
