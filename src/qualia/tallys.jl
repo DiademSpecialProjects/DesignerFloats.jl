@@ -80,7 +80,7 @@ end
 function n_normal_signficands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     P == W && return 0
     P == 1 && return 1
-    CountSignficands(T)
+    CountSignificands(T)
 end
 
 n_ordinary_signficands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
