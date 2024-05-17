@@ -1,9 +1,7 @@
 # concrete counts
 
 CountValues(x::BinaryFloat{W,P}) where {W,P} = CountValues(typeof(x))
-
 CountExponents(x::BinaryFloat{W,P}) where {W,P} = CountExponents(typeof(x))
-
 CountSignificands(x::BinaryFloat{W,P}) where {W,P} = CountSignificands(typeof(x))
 
 """
