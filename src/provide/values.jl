@@ -21,7 +21,7 @@ function all_values(x::UnsignedFloat{W,P}) where {W,P}
     elseif nan(x)
         seq[end] = NaN
     end
-    retype(x)[seq...]
+    Real[seq...]
 end
 
 function all_values(x::SignedFloat{W,P}) where {W,P}
@@ -43,7 +43,7 @@ function all_values(x::SignedFloat{W,P}) where {W,P}
     elseif nan(x)
         seq[end] = NaN
     end
-    retype(x)[seq...]
+    Real[seq...]
 end
 
 """
