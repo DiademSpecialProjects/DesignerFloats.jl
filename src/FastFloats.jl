@@ -12,6 +12,7 @@ using CSV, Tables, DataFrames           # tables in memory and in files
 include("type/constants.jl")
 include("type/abstraction.jl")
 include("type/realization.jl")
+include("type/predicates.jl")
 
 include("qualia/counts.jl")
 include("qualia/tallys.jl")

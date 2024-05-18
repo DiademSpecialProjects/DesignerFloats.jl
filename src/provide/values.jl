@@ -1,9 +1,17 @@
-function all_encodings(x::UnsignedFloat{W,P}) where {W,P}
+function offsets_and_values(x::UnsignedFloat{W,P}) where {W,P}
     values = all_values(x)
     offsets = all_offsets(x)
     offset2value = Dictionary(offsets, values)
     value2offset = Dictionary(values, offsets)
     (offset2value, value2offset)
+end
+
+function indicies_and_values(x::UnsignedFloat{W,P}) where {W,P}
+    values = all_values(x)
+    indices = all_indices(x)
+    index2value = Dictionary(indices, values)
+    value2index = Dictionary(values, indicess)
+    (index2value, value2index)
 end
 
 function all_values(x::UnsignedFloat{W,P}) where {W,P}
@@ -20,6 +28,27 @@ function all_values(x::SignedFloat{W,P}) where {W,P}
     n = n_values(x)
     iszero(n) && return copy(NoValues)
     nonnegseq = magnitudes(x)
+    if nan(x)
+        Real[vcat(nonnegseq, NaN, NegOne .* nonnegseq[2:end])...]
+    else
+        throw(ErrorException("SignedFloats should have NaN"))
+    end
+end
+
+function all_significand_values(x::UnsignedFloat{W,P}) where {W,P}
+    n = n_values(x)
+    iszero(n) && return copy(NoValues)
+    seq = significand_magnitudes(x)
+    if nan(x)
+        push!(seq, NaN)
+    end
+    Real[seq...]
+end
+
+function all_significand_values(x::SignedFloat{W,P}) where {W,P}
+    n = n_values(x)
+    iszero(n) && return copy(NoValues)
+    nonnegseq = significand_magnitudes(x)
     if nan(x)
         Real[vcat(nonnegseq, NaN, NegOne .* nonnegseq[2:end])...]
     else
