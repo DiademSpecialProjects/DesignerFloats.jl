@@ -1,4 +1,4 @@
-function offsets_and_values(x::UnsignedFloat{W,P}) where {W,P}
+function offsets_and_values(x::UnsignedFLOAT{W,P}) where {W,P}
     values = all_values(x)
     offsets = all_offsets(x)
     offset2value = Dictionary(offsets, values)
@@ -6,7 +6,7 @@ function offsets_and_values(x::UnsignedFloat{W,P}) where {W,P}
     (offset2value, value2offset)
 end
 
-function indicies_and_values(x::UnsignedFloat{W,P}) where {W,P}
+function indicies_and_values(x::UnsignedFLOAT{W,P}) where {W,P}
     values = all_values(x)
     indices = all_indices(x)
     index2value = Dictionary(indices, values)
@@ -14,7 +14,7 @@ function indicies_and_values(x::UnsignedFloat{W,P}) where {W,P}
     (index2value, value2index)
 end
 
-function all_values(x::UnsignedFloat{W,P}) where {W,P}
+function all_values(x::UnsignedFLOAT{W,P}) where {W,P}
     n = n_values(x)
     iszero(n) && return copy(NoValues)
     seq = magnitudes(x)
@@ -24,21 +24,21 @@ function all_values(x::UnsignedFloat{W,P}) where {W,P}
     Real[seq...]
 end
 
-function all_values(x::SignedFloat{W,P}) where {W,P}
+function all_values(x::SignedFLOAT{W,P}) where {W,P}
     n = n_values(x)
     iszero(n) && return copy(NoValues)
     nonnegseq = magnitudes(x)
     if nan(x)
         Real[vcat(nonnegseq, NaN, NegOne .* nonnegseq[2:end])...]
     else
-        throw(ErrorException("SignedFloats should have NaN"))
+        throw(ErrorException("SignedFLOATs should have NaN"))
     end
 end
 
 all_significand_absvalues(x::BinaryFloat{W,P}) where {W,P} = 
    map(abs, all_significand_values(x))
 
-function all_significand_values(x::UnsignedFloat{W,P}) where {W,P}
+function all_significand_values(x::UnsignedFLOAT{W,P}) where {W,P}
     n = n_values(x)
     iszero(n) && return copy(NoValues)
     seq = significand_magnitudes(x)
@@ -48,14 +48,14 @@ function all_significand_values(x::UnsignedFloat{W,P}) where {W,P}
     Real[seq...]
 end
 
-function all_significand_values(x::SignedFloat{W,P}) where {W,P}
+function all_significand_values(x::SignedFLOAT{W,P}) where {W,P}
     n = n_values(x)
     iszero(n) && return copy(NoValues)
     nonnegseq = significand_magnitudes(x)
     if nan(x)
         Real[vcat(nonnegseq, NaN, NegOne .* nonnegseq[2:end])...]
     else
-        throw(ErrorException("SignedFloats should have NaN"))
+        throw(ErrorException("SignedFLOATs should have NaN"))
     end
 end
 
@@ -77,11 +77,11 @@ function all_exponent_values(x::BinaryFloat{W,P}) where {W,P}
     exponents
 end
 
-function all_sign_values(x::UnsignedFloat{W,P}) where {W,P}
+function all_sign_values(x::UnsignedFLOAT{W,P}) where {W,P}
     fill(0, n_values(x))
 end
 
-function all_sign_values(x::SignedFloat{W,P}) where {W,P}
+function all_sign_values(x::SignedFLOAT{W,P}) where {W,P}
     vcat(fill(0, n_values(x)>>1), fill(1, n_values(x)>>1))
 end
 

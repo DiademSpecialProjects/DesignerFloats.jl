@@ -7,8 +7,8 @@ CountSignificands(x::BinaryFloat{W,P}) where {W,P} = CountSignificands(typeof(x)
 """
     CountSigns(x::BinaryFloat{W,P})
 
-- counts 1 for UnsignedFloats
-- counts 2 for SignedFloats
+- counts 1 for UnsignedFLOATs
+- counts 2 for SignedFLOATs
 """
 CountSigns
 
@@ -43,33 +43,33 @@ counts Zero, NaN, Infs
 """
 CountSpecialValues
 
-CountSigns(x::UnsignedFloat{W,P}) where {W,P} = 1
-CountSigns(x::SignedFloat{W,P}) where {W,P} = 2
+CountSigns(x::UnsignedFLOAT{W,P}) where {W,P} = 1
+CountSigns(x::SignedFLOAT{W,P}) where {W,P} = 2
 
-CountSpecialValues(x::UnsignedFloat{W,P}) where {W,P} =
+CountSpecialValues(x::UnsignedFLOAT{W,P}) where {W,P} =
     1 + nan(x) + inf(x) # Zero is Special and omnipresent
 
-CountSpecialValues(x::SignedFloat{W,P}) where {W,P} =
+CountSpecialValues(x::SignedFLOAT{W,P}) where {W,P} =
     1 + nan(x) + 2inf(x) # Zero is Special and omnipresent
 
-CountNumericValues(x::SignedFloat{W,P}) where {W,P} =
+CountNumericValues(x::SignedFLOAT{W,P}) where {W,P} =
     CountValues(x) - nan(x)
 
-CountNumericValues(x::UnsignedFloat{W,P}) where {W,P} =
+CountNumericValues(x::UnsignedFLOAT{W,P}) where {W,P} =
     CountValues(x) - nan(x)
 
-CountFiniteValues(x::UnsignedFloat{W,P}) where {W,P} =
+CountFiniteValues(x::UnsignedFLOAT{W,P}) where {W,P} =
     CountNumericValues(x) - inf(x)
 
-CountFiniteValues(x::SignedFloat{W,P}) where {W,P} =
+CountFiniteValues(x::SignedFLOAT{W,P}) where {W,P} =
     CountNumericValues(x) - 2inf(x)
 
 CountOrdinaryValues(x::BinaryFloat{W,P}) where {W,P} =
     CountFiniteValues(x) - 1 # Zero is Special, not Ordinary
 
-CountOrdinaryMagnitudes(x::SignedFloat{W,P}) where {W,P} =
+CountOrdinaryMagnitudes(x::SignedFLOAT{W,P}) where {W,P} =
     CountOrdinaryValues(x) >> 1
 
-CountOrdinaryMagnitudes(x::UnsignedFloat{W,P}) where {W,P} =
+CountOrdinaryMagnitudes(x::UnsignedFLOAT{W,P}) where {W,P} =
     CountOrdinaryValues(x)
 

@@ -9,7 +9,7 @@ This is an abstract type, the subtype of AbstractFloat.
     - when converting from a format with -0, -0 maps to 0
 
 It is the immediate (and shared) supertype of 
-SignedFloat and UnsignedFloat.
+SignedFLOAT and UnsignedFLOAT.
 
 - Width is the storage width in bits.
 - Precision is significand (with implicit bit) bitwidth. 
