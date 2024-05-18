@@ -1,7 +1,47 @@
-function ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function magnitudes(x::BinaryFloat{W,P}) where {W,P}
     n = n_magnitudes(x)
     iszero(n) && return copy(NoValues)
-    vcat(subnormal_magnitudes(x), normal_magnitudes(x))
+    mags = finite_magnitudes(x)
+    inf(x) && push!(mags, Inf)
+    mags
+end
+
+function finite_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+    n = n_finite_magnitudes(x)
+    iszero(n) && return copy(NoValues)
+    mags = admissible_finite_magnitudes(x)
+    nextra = length(mags) - n
+    while nextra > 0
+        nextra -= 1
+        pop!(mags)
+    end
+    mags
+end
+
+function ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+    n = n_ordinary_magnitudes(x)
+    iszero(n) && return copy(NoValues)
+    mags = admissible_ordinary_magnitudes(x)
+    nextra = length(mags) - n
+    while nextra > 0
+        nextra -= 1
+        pop!(mags)
+    end
+    mags
+end
+
+function admissible_finite_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+    n = n_finite_magnitudes(x)
+    iszero(n) && return copy(NoValues)
+    mags = admissible_ordinary_magnitudes(x)
+    pushfirst!(mags, Zero)
+    mags
+end
+
+function admissible_ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+    n = n_magnitudes(x)
+    iszero(n) && return copy(NoValues)
+    vcat(subnormal_magnitudes(x), admissable_normal_magnitudes(x))
 end
 
 function subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P}

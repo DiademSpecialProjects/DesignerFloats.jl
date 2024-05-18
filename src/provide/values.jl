@@ -10,40 +10,24 @@ function all_encodings(x::UnsignedFloat{W,P}) where {W,P}
 end
 
 function all_values(x::UnsignedFloat{W,P}) where {W,P}
-    seq = vcat(Zero, ordinary_magnitudes(x))
-    if inf(x)
-        if nan(x)
-            seq[end-1] = Inf
-            seq[end] = NaN
-        else
-            seq[end] = Inf
-        end
-    elseif nan(x)
+    n = n_values(x)
+    iszero(n) && return copy(NoValues)
+    seq = magnitudes(x)
+    if nan(x)
         seq[end] = NaN
     end
     Real[seq...]
 end
 
 function all_values(x::SignedFloat{W,P}) where {W,P}
-    n = CountValues(x)
-    seq = vcat(Zero, ordinary_magnitudes(x))
-    if inf(x)
-        seq = vcat(seq, Inf)
-    end
+    n = n_values(x)
+    iszero(n) && return copy(NoValues)
+    nonnegseq = magnitudes(x)
     if nan(x)
-        seq = vcat(seq, NaN, -1 .* ordinary_magnitudes(x))
+        Real[vcat(nonnegseq, NaN, NegOne .* nonnegseq[2:end])...]
+    else
+        throw(ErrorException("SignedFloats should have NaN")
     end
-    if inf(x)
-        if nan(x)
-            seq[end-1] = Inf
-            seq[end] = NaN
-        else
-            seq[end] = Inf
-        end
-    elseif nan(x)
-        seq[end] = NaN
-    end
-    Real[seq...]
 end
 
 """
