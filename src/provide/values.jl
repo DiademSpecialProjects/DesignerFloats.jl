@@ -66,7 +66,7 @@ end
 
 indices are 1-based
 """
-function allindices(x::BinaryFloat{W,P}) where {W,P}
+function all_indices(x::BinaryFloat{W,P}) where {W,P}
     n = CountValues(x)
     if n < 256
         indices = map(Int8, collect(1:n))

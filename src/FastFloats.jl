@@ -1,6 +1,7 @@
 module FastFloats
 
-export BinaryFloat, SignedFloat, UnsignedFloat
+export BinaryFloat, SignedFloat, UnsignedFloat,
+       all_values
 
 using BitOperations                     # bitfields: mask, shift, unmask
 using BitIntegers, Quadmath             # Int1024, Float128
@@ -17,6 +18,7 @@ include("qualia/tallys.jl")
 include("qualia/extrema.jl")
 include("qualia/magnitudes.jl")
 
+include("provide/support.jl")
 include("provide/values.jl")
 include("provide/tables.jl")
 
