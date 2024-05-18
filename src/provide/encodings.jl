@@ -4,36 +4,36 @@ encoding_sign_exponent_significand_value(x::BinaryFloat{W,P}) where {W,P} =
 sign_exponent_significand_value(x::BinaryFloat{W,P}) where {W,P} =
     map(Tuple, zip(signs_exponents_significands_values(x)...))
 
-function exponents_and_significands(x::BinaryFloat{W,P}) where {W,P}
+function exponents_significands(x::BinaryFloat{W,P}) where {W,P}
+    exponents = all_exponent_values(x)
+    significands = all_absignificand_values(x)
+    (exponents, significands)
+end
+
+function exponents_signedsignificands(x::BinaryFloat{W,P}) where {W,P}
     exponents = all_exponent_values(x)
     significands = all_significand_values(x)
     (exponents, significands)
 end
 
-function signbits_exponents_and_significands(x::BinaryFloat{W,P}) where {W,P}
+function signbits_exponents_significands(x::BinaryFloat{W,P}) where {W,P}
     signs = all_sign_values(x)
     exponents = all_exponent_values(x)
-    significands = all_significand_values(x)
+    significands = all_abssignificand_values(x)
     (signs, exponents, significands)
 end
 
 function signs_exponents_significands(x::BinaryFloat{W,P}) where {W,P}
     numsigns = map(x -> 1 - 2 * x, all_sign_values(x))
     exponents = all_exponent_values(x)
-    significands = all_significand_values(x)
+    significands = all_abssignificand_values(x)
     (numsigns, exponents, significands)
 end 
-
-function exponents_signedsignificands(x::BinaryFloat{W,P}) where {W,P}
-    numsigns, exponents, significands = signs_exponents_and_significands(x)
-    signedsignificands = map((a,b)->copysign(a,b), significands, numsigns)
-    (exponents, signedsignificands)
-end
 
 function signs_exponents_significands_values(x::BinaryFloat{W,P}) where {W,P}
     numsigns = map(x -> 1 - 2 * x, all_sign_values(x))
     exponents = all_exponent_values(x)
-    significands = all_significand_values(x)
+    significands = all_abssignificand_values(x)
     values = all_values(x)
     (numsigns, exponents, significands, values)
 end

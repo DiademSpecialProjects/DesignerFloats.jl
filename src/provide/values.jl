@@ -35,6 +35,9 @@ function all_values(x::SignedFloat{W,P}) where {W,P}
     end
 end
 
+all_significand_absvalues(x::BinaryFloat{W,P}) where {W,P} = 
+   map(abs, all_significand_values(x))
+
 function all_significand_values(x::UnsignedFloat{W,P}) where {W,P}
     n = n_values(x)
     iszero(n) && return copy(NoValues)
