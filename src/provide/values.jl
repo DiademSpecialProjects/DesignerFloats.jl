@@ -56,27 +56,21 @@ function all_significand_values(x::SignedFloat{W,P}) where {W,P}
     end
 end
 
-function all_exponent_values(x::UnsignedFloat{W,P}) where {W,P}
+function all_exponent_values(x::BinaryFloat{W,P}) where {W,P}
     vals = all_values(x)
     sigvals = all_significand_values(x)
-    exponents = Vector{typeof{vals}}(undef, n_values(x))
+    exponents = Vector{Real}(undef, n_values(x))
+    rational_idxs = map(x->isa(x, Rational), all_values(x))
+    nonrational_idxs = map(x -> !isa(x, Rational), all_values(x))
+    rational_idxs[1] = 0
+    nonrational_idxs[1] = 0
     exponents[1] = vals[1]
-    rational_idxs = map(x->isa(x, Rational), all_values(x))[2:end]
-    nonrational_idxs = map(x -> !isa(x, Rational), all_values(x))[2:end]
-    exponents[rational_idxs] .= vals[rational_idxs] .// sigvals[rational_idxs]
-    exponents[nonrational_idxs] .= vals[nonrational_idxs]
-    exponents
-end
-
-function all_exponent_values(x::SignedFloat{W,P}) where {W,P}
-    vals = all_values(x)
-    sigvals = all_significand_values(x)
-    exponents = Vector{typeof{vals}}(undef, n_values(x))
-    exponents[1] = vals[1]
-    rational_idxs = map(x -> isa(x, Rational), all_values(x))[2:end]
-    nonrational_idxs = map(x -> !isa(x, Rational), all_values(x))[2:end]
-    exponents[rational_idxs] .= vals[rational_idxs] .// sigvals[rational_idxs]
-    exponents[nonrational_idxs] .= vals[nonrational_idxs]
+    if !iszero(sum(rational_idxs))
+        exponents[rational_idxs] .= vals[rational_idxs] .// sigvals[rational_idxs]
+    end
+    if !iszero(sum(nonrational_idxs))
+        exponents[nonrational_idxs] .= vals[nonrational_idxs]
+    end
     exponents
 end
 
@@ -85,7 +79,7 @@ function all_sign_values(x::UnsignedFloat{W,P}) where {W,P}
 end
 
 function all_sign_values(x::SignedFloat{W,P}) where {W,P}
-    vcat(fill(0, n_values(x)>>1), fill(1, nvalues(x)>>1))
+    vcat(fill(0, n_values(x)>>1), fill(1, n_values(x)>>1))
 end
 
 """

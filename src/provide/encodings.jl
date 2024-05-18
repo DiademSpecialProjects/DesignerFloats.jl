@@ -1,16 +1,22 @@
-function exponents_and_significands(x::UnsignedFloat{W,P}) where {W,P}
-    exponents, trailing_significands = exponents_and_trailing_significands(x)
-    significands = copy(trailing_significands)
-    n = n_subnormal_significands(x)
-    if !iszero(n)
-
+function exponents_and_significands(x::BinaryFloat{W,P}) where {W,P}
+    exponents = all_exponent_values(x)
+    significands = all_significand_values(x)
+    (exponents, significands)
 end
 
-function exponents_and_trailing_significands(x::BinaryFloat{W,P}) where {W,P}
-    offsets, values = offsets_and_values(x)
-    exponents = offsets .>> TrailingSignificandBits(x)
-    trailing_significands = (offsets .<< ExpBits(x)) .>> ExpBits(x)
-    (exponents, trailing_significands)
+function signs_exponents_and_significands(x::BinaryFloat{W,P}) where {W,P}
+    signs = all_sign_values(x)
+    exponents = all_exponent_values(x)
+    significands = all_significand_values(x)
+    (signs, exponents, significands)
+end
+
+function exponents_and_signed_significands(x::BinaryFloat{W,P}) where {W,P}
+    signs = (all_sign_values(x) .* 2) .- 1
+    exponents = all_exponent_values(x)
+    significands = all_significand_values(x)
+    signedsignificands = map((a,b)->copysign(a,b), significands, signs)
+    (exponents, signedsignificands)
 end
 
 

@@ -20,6 +20,7 @@ include("qualia/extrema.jl")
 include("qualia/magnitudes.jl")
 
 include("provide/values.jl")
+include("provide/encodings.jl")
 include("provide/tables.jl")
 
 end  # DesignerFloats
