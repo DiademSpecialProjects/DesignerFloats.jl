@@ -14,7 +14,7 @@ function all_values(x::UnsignedFloat{W,P}) where {W,P}
     iszero(n) && return copy(NoValues)
     seq = magnitudes(x)
     if nan(x)
-        seq[end] = NaN
+        push!(seq, NaN)
     end
     Real[seq...]
 end
