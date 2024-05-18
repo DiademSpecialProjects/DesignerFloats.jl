@@ -35,7 +35,7 @@ function all_values(x::SignedFLOAT{W,P}) where {W,P}
     end
 end
 
-all_significand_absvalues(x::BinaryFloat{W,P}) where {W,P} = 
+all_significand_absvalues(x::BinaryFLOAT{W,P}) where {W,P} = 
    map(abs, all_significand_values(x))
 
 function all_significand_values(x::UnsignedFLOAT{W,P}) where {W,P}
@@ -59,7 +59,7 @@ function all_significand_values(x::SignedFLOAT{W,P}) where {W,P}
     end
 end
 
-function all_exponent_values(x::BinaryFloat{W,P}) where {W,P}
+function all_exponent_values(x::BinaryFLOAT{W,P}) where {W,P}
     vals = all_values(x)
     sigvals = all_significand_values(x)
     exponents = Vector{Real}(undef, n_values(x))
@@ -86,11 +86,11 @@ function all_sign_values(x::SignedFLOAT{W,P}) where {W,P}
 end
 
 """
-    all_offsets(x::BinaryFloat{W,P})
+    all_offsets(x::BinaryFLOAT{W,P})
 
 offsets are 0-based
 """
-function all_offsets(x::BinaryFloat{W,P}) where {W,P}
+function all_offsets(x::BinaryFLOAT{W,P}) where {W,P}
     n = CountValues(x)
     if n <= 256
         offsets = map(UInt8, collect(0:n-1))
@@ -101,11 +101,11 @@ function all_offsets(x::BinaryFloat{W,P}) where {W,P}
 end
 
 """
-    all_indices(x::BinaryFloat{W,P})
+    all_indices(x::BinaryFLOAT{W,P})
 
 indices are 1-based
 """
-function all_indices(x::BinaryFloat{W,P}) where {W,P}
+function all_indices(x::BinaryFLOAT{W,P}) where {W,P}
     n = CountValues(x)
     if n < 256
         indices = map(Int8, collect(1:n))

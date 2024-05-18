@@ -5,9 +5,9 @@
 ##### For non-commercial use, _provide attribution_ and tell me how you are using this material.
 ----
 
-The abstract type for all FastFloats is `BinaryFloat`.
+The abstract type for all FastFloats is `BinaryFLOAT`.
 
-There are two general types of BinaryFloat, SignedFLOAT and UnsignedFLOAT.
+There are two general types of BinaryFLOAT, SignedFLOAT and UnsignedFLOAT.
 
 Concrete types specify a Bitwdith (number of bits spanned by the representation) and a Precision (number of significand bits, including the implicit bit).
 
@@ -31,10 +31,10 @@ UFloat53i = UnsignedFLOAT(bitwidth, precision; inf=true, nan=false)
 
 ## Exported Functions
 ```
-all_values(x::BinaryFloat)
+all_values(x::BinaryFLOAT)
 - a vector of Rational + Float64 values in encoding order
 
-all_encodings(x::BinaryFloat)
+all_encodings(x::BinaryFLOAT)
 - a unit step vector of UInt8 or UInt16 values starting with 0
 - the matching all_values vector
 ```

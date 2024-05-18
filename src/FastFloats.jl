@@ -1,6 +1,6 @@
 module FastFloats
 
-export BinaryFloat, SignedFLOAT, UnsignedFLOAT,
+export BinaryFLOAT, SignedFLOAT, UnsignedFLOAT,
        all_values
 
 using BitOperations                     # bitfields: mask, shift, unmask

@@ -1,4 +1,4 @@
-function magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = finite_magnitudes(x)
@@ -6,7 +6,7 @@ function magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function significand_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = finite_significand_magnitudes(x)
@@ -14,7 +14,7 @@ function significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function finite_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function finite_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_finite_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = admissable_finite_magnitudes(x)
@@ -26,7 +26,7 @@ function finite_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function finite_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function finite_significand_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_finite_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = admissable_finite_significand_magnitudes(x)
@@ -38,7 +38,7 @@ function finite_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function ordinary_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_ordinary_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = admissable_ordinary_magnitudes(x)
@@ -50,7 +50,7 @@ function ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function ordinary_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function ordinary_significand_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_ordinary_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = admissable_ordinary_significand_magnitudes(x)
@@ -62,7 +62,7 @@ function ordinary_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function admissable_finite_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function admissable_finite_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_finite_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = admissable_ordinary_magnitudes(x)
@@ -70,7 +70,7 @@ function admissable_finite_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function admissable_finite_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function admissable_finite_significand_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_finite_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = admissable_ordinary_significand_magnitudes(x)
@@ -78,19 +78,19 @@ function admissable_finite_significand_magnitudes(x::BinaryFloat{W,P}) where {W,
     mags
 end
 
-function admissable_ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function admissable_ordinary_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_magnitudes(x)
     iszero(n) && return copy(NoValues)
     vcat(subnormal_magnitudes(x), admissable_normal_magnitudes(x))
 end
 
-function admissable_ordinary_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function admissable_ordinary_significand_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_magnitudes(x)
     iszero(n) && return copy(NoValues)
     vcat(subnormal_significand_magnitudes(x), admissable_normal_significand_magnitudes(x))
 end
 
-function subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function subnormal_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_subnormal_magnitudes(x)
     iszero(n) && return copy(NoValues)
     xps = range(extremal_subnormal_exponent_values(x)..., length=n_subnormal_exponents(x))
@@ -104,7 +104,7 @@ function subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function subnormal_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function subnormal_significand_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_subnormal_magnitudes(x)
     iszero(n) && return copy(NoValues)
     xps = range(extremal_subnormal_exponent_values(x)..., length=n_subnormal_exponents(x))
@@ -118,7 +118,7 @@ function subnormal_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function normal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function normal_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_normal_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = admissable_normal_magnitudes(x)
@@ -127,7 +127,7 @@ function normal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function admissable_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function admissable_normal_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_admissable_normal_magnitudes(x)
     iszero(n) && return copy(NoValues)
     xps = range(extremal_normal_exponent_values(x)..., length=n_normal_exponents(x))
@@ -141,7 +141,7 @@ function admissable_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function normal_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function normal_significand_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_normal_significand_magnitudes(x)
     iszero(n) && return copy(NoValues)
     mags = admissable_normal_magnitudes(x)
@@ -150,7 +150,7 @@ function normal_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function admissable_normal_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function admissable_normal_significand_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_admissable_normal_magnitudes(x)
     iszero(n) && return copy(NoValues)
     xps = range(extremal_normal_exponent_values(x)..., length=n_normal_exponents(x))
@@ -164,7 +164,7 @@ function admissable_normal_significand_magnitudes(x::BinaryFloat{W,P}) where {W,
     mags
 end
 
-function subnormal_exponent_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function subnormal_exponent_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_subnormal_exponents(x)
     iszero(n) && return copy(NoValues)
     isone(n)  && return ValType[min_subnormal_exponent(x)]
@@ -174,7 +174,7 @@ function subnormal_exponent_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     ValType[collect(mn2mx)...]
 end
 
-function normal_exponent_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function normal_exponent_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_normal_exponents(x)
     iszero(n) && return copy(NoValues)
     isone(n) && return ValType[min_normal_exponent(x)]

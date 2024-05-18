@@ -1,7 +1,7 @@
 # realizations
 
 #=
-   concrete subtypes of BinaryFloat
+   concrete subtypes of BinaryFLOAT
 
 - UnsigneFloat (encodes non-negative values)
 - SignedFLOAT  (encodes non-negative and negative values)
@@ -14,9 +14,9 @@ All `UnsignedFLOATs` encode a single Zero value.
 - Zero is neither positive nor negative.
 - There is no -0. When converting, -0 is mapped to Zero.
 
-- supertype is BinaryFloat{W,P} <: AbstractFloat
+- supertype is BinaryFLOAT{W,P} <: AbstractFloat
 """
-Base.@kwdef struct UnsignedFLOAT{W,P} <: BinaryFloat{W,P}
+Base.@kwdef struct UnsignedFLOAT{W,P} <: BinaryFLOAT{W,P}
     inf::Bool = false
     nan::Bool = true
 
@@ -36,9 +36,9 @@ All `SignedFLOATs` encode a single Zero value.
 - Zero is neither positive nor negative.
 - There is no -0, When converting, -0 is mapped to Zero.
 
-- supertype is BinaryFloat{W,P} <: AbstractFloat
+- supertype is BinaryFLOAT{W,P} <: AbstractFloat
 """
-Base.@kwdef struct SignedFLOAT{W,P} <: BinaryFloat{W,P}
+Base.@kwdef struct SignedFLOAT{W,P} <: BinaryFLOAT{W,P}
     inf::Bool = false
     nan::Bool = true
 
@@ -55,35 +55,35 @@ SignedFLOAT(Width, Precision; inf::Bool=false, nan::Bool=true) =
 # field value retreivals
 
 """
-     inf(<:BinaryFloat)
+     inf(<:BinaryFLOAT)
 
 true iff the format encodes Inf
 - UnsignedFLOATs may have +Inf, or not
 - SignedFLOATs may have both +Inf and -Inf, or neither
 """
-inf(x::T) where {W,P,T<:BinaryFloat{W,P}} = getfield(x, :inf)
+inf(x::T) where {W,P,T<:BinaryFLOAT{W,P}} = getfield(x, :inf)
 
 """
-     nan(<:BinaryFloat)
+     nan(<:BinaryFLOAT)
 
 true iff the format encodes NaN
 - UnsignedFLOATs may enode one NaN, or not
 - SignedFLOATs **always** encode one NaN
 """
-nan(x::T) where {W,P,T<:BinaryFloat{W,P}} = getfield(x, :nan)
+nan(x::T) where {W,P,T<:BinaryFLOAT{W,P}} = getfield(x, :nan)
 
 # characteristics
 
 """
-    ExpBits(::BinaryFloat{W,P})
+    ExpBits(::BinaryFLOAT{W,P})
 
 ExpBits is the number of bits in the exponent field.
 """
 ExpBits(::Type{<:SignedFLOAT{W,P}}) where {W,P} = W - P
 ExpBits(::Type{<:UnsignedFLOAT{W,P}}) where {W,P} = W - P + 1
 
-Width(x::BinaryFloat{W,P}) where {W,P} = Width(typeof(x))
-Precision(x::BinaryFloat{W,P}) where {W,P} = Precision(typeof(x))
-ExpBits(x::BinaryFloat{W,P}) where {W,P} = ExpBits(typeof(x))
-ExpBias(x::BinaryFloat{W,P}) where {W,P} = ExpBias(typeof(x))
-TrailingSignificandBits(x::BinaryFloat{W,P}) where {W,P} = TrailingSignificandBits(typeof(x))
+Width(x::BinaryFLOAT{W,P}) where {W,P} = Width(typeof(x))
+Precision(x::BinaryFLOAT{W,P}) where {W,P} = Precision(typeof(x))
+ExpBits(x::BinaryFLOAT{W,P}) where {W,P} = ExpBits(typeof(x))
+ExpBias(x::BinaryFLOAT{W,P}) where {W,P} = ExpBias(typeof(x))
+TrailingSignificandBits(x::BinaryFLOAT{W,P}) where {W,P} = TrailingSignificandBits(typeof(x))

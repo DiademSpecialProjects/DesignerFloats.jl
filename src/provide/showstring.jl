@@ -11,17 +11,17 @@ function Base.string(x::SignedFLOAT{W,P}; withnan=true, withinf=true) where {W,P
     string("SFloat", W, "p", P, specials)
 end
 
-function Base.show(io::IO, x::BinaryFloat{W,P}) where {W,P}
+function Base.show(io::IO, x::BinaryFLOAT{W,P}) where {W,P}
     str = string(x)
     print(io, str)
 end
 
-function pretty(io::IO, x::T;  withnan=true, withinf=true) where {W,P,T<:BinaryFloat{W,P}}
+function pretty(io::IO, x::T;  withnan=true, withinf=true) where {W,P,T<:BinaryFLOAT{W,P}}
     str = string(x; withnan, withinf)
     print(io, str)
 end
 
-function pretty(x::T; withnan=true, withinf=true) where {W,P,T<:BinaryFloat{W,P}}
+function pretty(x::T; withnan=true, withinf=true) where {W,P,T<:BinaryFLOAT{W,P}}
     pretty(stdout, x; withnan, withinf)
 end
 

@@ -1,11 +1,11 @@
 # concrete counts
 
-CountValues(x::BinaryFloat{W,P}) where {W,P} = CountValues(typeof(x))
-CountExponents(x::BinaryFloat{W,P}) where {W,P} = CountExponents(typeof(x))
-CountSignificands(x::BinaryFloat{W,P}) where {W,P} = CountSignificands(typeof(x))
+CountValues(x::BinaryFLOAT{W,P}) where {W,P} = CountValues(typeof(x))
+CountExponents(x::BinaryFLOAT{W,P}) where {W,P} = CountExponents(typeof(x))
+CountSignificands(x::BinaryFLOAT{W,P}) where {W,P} = CountSignificands(typeof(x))
 
 """
-    CountSigns(x::BinaryFloat{W,P})
+    CountSigns(x::BinaryFLOAT{W,P})
 
 - counts 1 for UnsignedFLOATs
 - counts 2 for SignedFLOATs
@@ -13,7 +13,7 @@ CountSignificands(x::BinaryFloat{W,P}) where {W,P} = CountSignificands(typeof(x)
 CountSigns
 
 """
-    CountNumericValues(x::BinaryFloat{W,P})
+    CountNumericValues(x::BinaryFLOAT{W,P})
 
 counts the distinct values of x ignoring NaN
 - the number of numeric value encodings
@@ -21,7 +21,7 @@ counts the distinct values of x ignoring NaN
 CountNumericValues
 
 """
-    CountFiniteValues(x::BinaryFloat{W,P})
+    CountFiniteValues(x::BinaryFLOAT{W,P})
 
 counts the distinct values of x ignoring Infs, NaN
 - the number of finite value encodings
@@ -29,7 +29,7 @@ counts the distinct values of x ignoring Infs, NaN
 CountFiniteValues
 
 """
-    CountOrdinaryValues(x::BinaryFloat{W,P})
+    CountOrdinaryValues(x::BinaryFLOAT{W,P})
 
 counts the distinct values of x ignoring Infs, NaN, Zero
 - the number of ordinary value encodings
@@ -37,7 +37,7 @@ counts the distinct values of x ignoring Infs, NaN, Zero
 CountOrdinaryValues
 
 """
-    CountSpecialValues(x::BinaryFloat{W,P})
+    CountSpecialValues(x::BinaryFLOAT{W,P})
 
 counts Zero, NaN, Infs
 """
@@ -64,7 +64,7 @@ CountFiniteValues(x::UnsignedFLOAT{W,P}) where {W,P} =
 CountFiniteValues(x::SignedFLOAT{W,P}) where {W,P} =
     CountNumericValues(x) - 2inf(x)
 
-CountOrdinaryValues(x::BinaryFloat{W,P}) where {W,P} =
+CountOrdinaryValues(x::BinaryFLOAT{W,P}) where {W,P} =
     CountFiniteValues(x) - 1 # Zero is Special, not Ordinary
 
 CountOrdinaryMagnitudes(x::SignedFLOAT{W,P}) where {W,P} =
