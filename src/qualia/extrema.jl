@@ -99,14 +99,14 @@ end
 function min_normal_exponent(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_exponents(x)
     iszero(n) && return nothing
-    -ExpBias(x)
+    -ExpBias(x) # constrast with 754, which results from having many NaNs
 end
 
 function max_normal_exponent(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_exponents(x)
     iszero(n) && return nothing
     isone(n) && return min_normal_exponent(x)
-    ExpBias(x)
+    ExpBias(x) # constrast with 754, which results from having many NaNs
 end
 
 function min_normal_raw_exponent(x::BinaryFloat{W,P}) where {W,P}

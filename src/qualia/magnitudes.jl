@@ -96,7 +96,7 @@ function normal_exponent_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     iszero(n) && return copy(NoValues)
     isone(n) && return ValType[min_normal_exponent(x)]
 
-    mn, mx = extremal_subnormal_exponents(x)
+    mn, mx = extremal_normal_exponents(x)
     mn2mx = range(start=mn, stop=mx, length=n)
     ValType[collect(mn2mx)...]
 end
