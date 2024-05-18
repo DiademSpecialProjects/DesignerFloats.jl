@@ -26,7 +26,7 @@ function all_values(x::SignedFloat{W,P}) where {W,P}
     if nan(x)
         Real[vcat(nonnegseq, NaN, NegOne .* nonnegseq[2:end])...]
     else
-        throw(ErrorException("SignedFloats should have NaN")
+        throw(ErrorException("SignedFloats should have NaN"))
     end
 end
 
