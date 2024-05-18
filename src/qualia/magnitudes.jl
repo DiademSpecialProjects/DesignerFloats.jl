@@ -184,14 +184,4 @@ function normal_exponent_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     ValType[collect(mn2mx)...]
 end
 
-function normal_significand_magnitudes(x::BinaryFloat{W,P}) where {W,P}
-    n = n_normal_significands(x)
-    iszero(n) && return copy(NoValues)
-    isone(n) && return ValType[min_normal_significand(x)]
-
-    mn, mx = extremal_normal_significands(x)
-    mn2mx = range(start=mn, stop=mx, length=n)
-    ValType[collect(mn2mx)...]
-end
-
 
