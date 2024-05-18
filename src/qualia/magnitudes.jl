@@ -9,7 +9,7 @@ end
 function finite_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     n = n_finite_magnitudes(x)
     iszero(n) && return copy(NoValues)
-    mags = admissible_finite_magnitudes(x)
+    mags = admissable_finite_magnitudes(x)
     nextra = length(mags) - n
     while nextra > 0
         nextra -= 1
@@ -21,7 +21,7 @@ end
 function ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     n = n_ordinary_magnitudes(x)
     iszero(n) && return copy(NoValues)
-    mags = admissible_ordinary_magnitudes(x)
+    mags = admissable_ordinary_magnitudes(x)
     nextra = length(mags) - n
     while nextra > 0
         nextra -= 1
@@ -30,15 +30,15 @@ function ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     mags
 end
 
-function admissible_finite_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function admissable_finite_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     n = n_finite_magnitudes(x)
     iszero(n) && return copy(NoValues)
-    mags = admissible_ordinary_magnitudes(x)
+    mags = admissable_ordinary_magnitudes(x)
     pushfirst!(mags, Zero)
     mags
 end
 
-function admissible_ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+function admissable_ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     n = n_magnitudes(x)
     iszero(n) && return copy(NoValues)
     vcat(subnormal_magnitudes(x), admissable_normal_magnitudes(x))
@@ -61,14 +61,14 @@ end
 function normal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_magnitudes(x)
     iszero(n) && return copy(NoValues)
-    mags = admissible_normal_magnitudes(x)
+    mags = admissable_normal_magnitudes(x)
     nan(x) && pop!(mags)
     inf(x) && pop!(mags)
     mags
 end
 
-function admissible_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
-    n = n_admissible_normal_magnitudes(x)
+function admissable_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P}
+    n = n_admissable_normal_magnitudes(x)
     iszero(n) && return copy(NoValues)
     xps = range(extremal_normal_exponent_values(x)..., length=n_normal_exponents(x))
     sgs = range(extremal_normal_significands(x)..., length=n_normal_significands(x))

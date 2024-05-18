@@ -35,9 +35,9 @@ n_subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
     n_subnormal_exponents(x) * n_subnormal_significands(x)
 
 n_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
-    n_admissible_normal_magnitudes(x) - inf(x) - nan(x)
+    n_admissable_normal_magnitudes(x) - inf(x) - nan(x)
 
-n_admissible_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+n_admissable_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
     n_normal_exponents(x) * n_normal_significands(x)
 
 n_special_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
