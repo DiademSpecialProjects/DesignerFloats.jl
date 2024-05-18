@@ -19,21 +19,21 @@ end
 function signbits_exponents_significands(x::BinaryFloat{W,P}) where {W,P}
     signs = all_sign_values(x)
     exponents = all_exponent_values(x)
-    significands = all_abssignificand_values(x)
+    significands = all_significand_absvalues(x)
     (signs, exponents, significands)
 end
 
 function signs_exponents_significands(x::BinaryFloat{W,P}) where {W,P}
     numsigns = map(x -> 1 - 2 * x, all_sign_values(x))
     exponents = all_exponent_values(x)
-    significands = all_abssignificand_values(x)
+    significands = all_significand_absvalues(x)
     (numsigns, exponents, significands)
 end 
 
 function signs_exponents_significands_values(x::BinaryFloat{W,P}) where {W,P}
     numsigns = map(x -> 1 - 2 * x, all_sign_values(x))
     exponents = all_exponent_values(x)
-    significands = all_abssignificand_values(x)
+    significands = all_significand_absvalues(x)
     values = all_values(x)
     (numsigns, exponents, significands, values)
 end
