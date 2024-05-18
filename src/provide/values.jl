@@ -3,9 +3,6 @@ function all_encodings(x::UnsignedFloat{W,P}) where {W,P}
     offsets = all_offsets(x)
     offset2value = Dictionary(offsets, values)
     value2offset = Dictionary(values, offsets)
-    # indices = all_indices(x)
-    # index2value = Dictionary(indices, values)
-    # value2index = Dictionary(values, indices)
     (offset2value, value2offset)
 end
 
