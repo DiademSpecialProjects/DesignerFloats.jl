@@ -62,11 +62,11 @@ n_subnormal_exponents(::Type{<:BinaryFloat{W,P}}) where {W,P} =
 """
 function n_normal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     P==W && return 0
-    CountExponents(T)
+    CountExponents(T) - 1 # raw 0 is used for subnormal exponent 
 end
 
 n_ordinary_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
-   n_normal_exponents(T)
+   n_subnormal_exponents(T) +n_normal_exponents(T)
 
 """
      n_subnormal_signficands(::BinaryFloat{W,P})
