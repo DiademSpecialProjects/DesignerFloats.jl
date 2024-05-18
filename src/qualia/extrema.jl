@@ -96,18 +96,30 @@ function max_subnormal_exponent(x::BinaryFloat{W,P}) where {W,P}
     error("Should Not Be Reached (n==$(n))")
 end
 
-
 function min_normal_exponent(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_exponents(x)
     iszero(n) && return nothing
-    PosOne # 0 - ExpBias(x)
+    min_normal_raw_exponent(x) - ExpBias(x)
 end
 
 function max_normal_exponent(x::BinaryFloat{W,P}) where {W,P}
     n = n_normal_exponents(x)
     iszero(n) && return nothing
+    isone(n) && return min_normal_exponent(x)
+    ExpBias(x)
+end
+
+function min_normal_raw_exponent(x::BinaryFloat{W,P}) where {W,P}
+    n = n_normal_exponents(x)
+    iszero(n) && return nothing
+    PosOne # 0 - ExpBias(x)
+end
+
+function max_normal_raw_exponent(x::BinaryFloat{W,P}) where {W,P}
+    n = n_normal_exponents(x)
+    iszero(n) && return nothing
     isone(n)  && return min_normal_exponent(x)
-    Zero + n # ExpBias(x)
+    Zero + n
 end
 
 function min_subnormal_significand(x::BinaryFloat{W,P}) where {W,P}
