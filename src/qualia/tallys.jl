@@ -26,7 +26,7 @@ n_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
 tallys the magnitudes, including {Zero}
 """
 n_finite_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
-    n_ordinary_magnitudes(x) + 1
+    n_magnitudes(x) - inf(x)
 
 n_ordinary_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
     CountOrdinaryMagnitudes(x)
@@ -35,6 +35,9 @@ n_subnormal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
     n_subnormal_exponents(x) * n_subnormal_significands(x)
 
 n_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
+    n_admissible_normal_magnitudes(x) - inf(x) - nan(x)
+
+n_admissible_normal_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
     n_normal_exponents(x) * n_normal_significands(x)
 
 n_special_magnitudes(x::BinaryFloat{W,P}) where {W,P} =
