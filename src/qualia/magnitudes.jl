@@ -171,7 +171,7 @@ function subnormal_exponent_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
 
     mn, mx = extremal_subnormal_exponents(x)
     mn2mx = range(start=mn, stop=mx, length=n)
-    ValType[collect(mn2mx)...]
+    ValType[((2.0).^collect(mn2mx))...]
 end
 
 function normal_exponent_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
@@ -181,7 +181,7 @@ function normal_exponent_magnitudes(x::BinaryFLOAT{W,P}) where {W,P}
 
     mn, mx = extremal_normal_exponents(x)
     mn2mx = range(start=mn, stop=mx, length=n)
-    ValType[collect(mn2mx)...]
+    ValType[((2.0).^collect(mn2mx))...]
 end
 
 
