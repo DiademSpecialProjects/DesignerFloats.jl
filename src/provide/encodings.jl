@@ -41,9 +41,9 @@ end
 function encodings_signs_exponents_significands_values(x::BinaryFLOAT{W,P}) where {W,P}
     n = n_values(x)
     if n <= 256
-        encodings = map(UInt8, collect(1:n))
+        encodings = map(UInt8, collect(0:n-1))
     else
-        encodings = map(UInt16, collect(1:n))
+        encodings = map(UInt16, collect(0:n-1))
     end
     (encodings, signs_exponents_significands_values(x)...)  
 end
