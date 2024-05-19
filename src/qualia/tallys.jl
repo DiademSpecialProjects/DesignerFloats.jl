@@ -37,6 +37,10 @@ n_subnormal_magnitudes(x::BinaryFLOAT{W,P}) where {W,P} =
 n_normal_magnitudes(x::BinaryFLOAT{W,P}) where {W,P} =
     n_admissable_normal_magnitudes(x) - inf(x) - nan(x)
 
+n_normal_signficand_magnitudes(x::BinaryFLOAT{W,P}) where {W,P} =
+    n_normal_significand_magnitudes(typeof(x))
+
+
 n_admissable_normal_magnitudes(x::BinaryFLOAT{W,P}) where {W,P} =
     n_normal_exponents(x) * n_normal_significands(x)
 
@@ -98,6 +102,8 @@ function n_normal_signficands(::Type{T}) where {W,P,T<:BinaryFLOAT{W,P}}
     P == 1 && return 1
     CountSignificands(T)
 end
+
+n_normal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFLOAT{W,P}} = n_normal_significands(T)
 
 n_ordinary_signficands(::Type{T}) where {W,P,T<:BinaryFLOAT{W,P}} =
     n_normal_signficands(T)
