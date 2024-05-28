@@ -52,7 +52,7 @@ n_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     max(n_subnormal_significands(T), n_normal_significands(T))
 
 """
-    n_significands(::BinaryFloat{W,P})
+    n_normal_significands(::BinaryFloat{W,P})
 
 counts the normal significands
 """
