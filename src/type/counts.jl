@@ -72,7 +72,7 @@ n_exponent_bits(::Type{<:UnsignedBinaryFloat{W,P}}) where {W,P} = W - P + 1
 
 counts the individual values that the exponent may take
 """
-n_exponent_values(T::Type{<:BinaryFloat{W,P}) where {W,P} = 2^n_exponent_bits(T)
+n_exponent_values(T::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^n_exponent_bits(T)
 
 """
     exponent_bias(T::Type{<:BinaryFloat{W,P}) where {W,P} = 
