@@ -100,8 +100,8 @@ n_normal_values(::Type{T}) where {T<:BinaryFloat} = n_ordinary_values(T) - n_sub
 
 n_finite_magnitudes(::Type{T}) where {T<:UnsignedFloat} = n_finite_values(T)
 n_finite_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = n_finite_values(T)
-n_finite_magnitudes(::Type{T}) where {T<:SignedFloat} = n_finite_values(T) >> 1
-n_finite_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = n_finite_values(T) >> 1
+n_finite_magnitudes(::Type{T}) where {T<:SignedFloat} = (n_finite_values(T) + 1) >> 1
+n_finite_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = (n_finite_values(T) + 1) >> 1
 
 n_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_finite_magnitudes(T) + has_infinity(T)
 n_numeric_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_magnitudes(T)
