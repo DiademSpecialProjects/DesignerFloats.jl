@@ -14,8 +14,8 @@ is_finite(X::T) where {T<:BinaryFloat} = is_finite(T)
 has_infinity(::Type{T}) where {T<:BinaryFloat} = !is_finite(T)
 has_infinity(x::T) where {T<:BinaryFloat} = !is_finite(T)
 
-isinteger(x::BinaryFloat) = isinteger(value(x))
-isfinite(x::BinaryFloat) = isfinite(value(x))
-isinf(x::BinaryFloat) = isinf(value(x))
-isnan(x::BinaryFloat) = isnan(value(x))
+Base.isinteger(x::BinaryFloat) = isinteger(value(x))
+Base.isfinite(x::BinaryFloat) = isfinite(value(x))
+Base.isinf(x::BinaryFloat) = isinf(value(x))
+Base.isnan(x::BinaryFloat) = isnan(value(x))
 
