@@ -10,7 +10,7 @@
 const FPValue = Float32
 const Encoding = UInt16
 
-struct SignedFloat{Width, Precision} <: SignedBinaryFloat{Width, Precision}
+mutable struct SignedFloat{Width, Precision} <: SignedBinaryFloat{Width, Precision}
    value::FPValue
    code::Encoding
 end
@@ -21,8 +21,7 @@ SignedFloat(Width, Precision) =
         throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
     end
    
-
-struct FiniteSignedFloat{Width, Precision} <: SignedBinaryFloat{Width, Precision}
+mutable struct FiniteSignedFloat{Width, Precision} <: SignedBinaryFloat{Width, Precision}
    value::FPValue
    code::Encoding
 end
@@ -33,7 +32,7 @@ FiniteSignedFloat(Width, Precision) =
         throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
     end
 
-struct UnsignedFloat{Width, Precision} <: UnsignedBinaryFloat{Width, Precision}
+mutable struct UnsignedFloat{Width, Precision} <: UnsignedBinaryFloat{Width, Precision}
    value::FPValue
    code::Encoding
 end
@@ -44,7 +43,7 @@ UnsignedFloat(Width, Precision) =
         throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
     end
 
-struct FiniteUnsignedFloat{Width, Precision} <: UnsignedBinaryFloat{Width, Precision}
+mutable struct FiniteUnsignedFloat{Width, Precision} <: UnsignedBinaryFloat{Width, Precision}
    value::FPValue
    code::Encoding
 end
