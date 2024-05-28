@@ -1,78 +1,97 @@
 """
-     BinaryFLOAT{Width, Precision}
+     BinaryFloat{Width, Precision}
 
 This is an abstract type, the subtype of AbstractFloat.
 
-- All BinaryFLOAT formats encode one Zero value
+- All BinaryFloat formats encode one Zero value
     - Zero is neither positive nor negative 
     - there is no -0 value
     - when converting from a format with -0, -0 maps to 0
 
 It is the immediate (and shared) supertype of 
-SignedFLOAT and UnsignedFLOAT.
+SignedFloat and UnsignedFloat.
 
 - Width is the storage width in bits.
 - Precision is significand (with implicit bit) bitwidth. 
 """
-abstract type BinaryFLOAT{W,P} <: AbstractFloat end
+abstract type BinaryFloat{W,P} <: AbstractFloat end
 
 """
-     Width(::BinaryFLOAT{W,P})
+     n_bits(::BinaryFloat{W,P})
 
-Width is a bit count: the storage width (memory spanned).
+n_bits is a bit count: the storage width (memory spanned).
 """
-Width(::Type{<:BinaryFLOAT{W,P}}) where {W,P} = W
+n_bits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W
 
 """
-     Precision(::BinaryFLOAT{W,P})
+     n_significant_bits(::BinaryFloat{W,P})
 
 Precision is a bit count of complete significand.
     - this includes the implicit bit
     - (0b1 for normal values, 0b0 for subnormals).
-
-When realized, this the "significand".
 """
-Precision(::Type{<:BinaryFLOAT{W,P}}) where {W,P} = P
+n_significant_bits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
 
 """
-    ExpBias(x::BinaryFLOAT{W,P})
+     n_trailing_bits(::BinaryFloat{W,P})
 
-ExpBias is the offset applied to the raw exponent field.
+The trailing significand bits count the significand bits (those explicitly stored).
+    - this excludes the implicit bit
 """
-ExpBias(::Type{T}) where {W,P,T<:BinaryFLOAT{W,P}}  = (2^ExpBits(T) - 1) >> 1
-
-"""
-     TrailingSignificandBits(::BinaryFLOAT{W,P})
-
-This is explict significand field width in bits.
-- by definition this is Precision - 1
-
-When realized, this is the "trailing_significand".
-"""
-TrailingSignificandBits(::Type{<:BinaryFLOAT{W,P}}) where {W,P} = P - 1
+n_trailing_bits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
 
 """
-    CountValues(::BinaryFLOAT{W,P})
+    n_values(::BinaryFloat{W,P})
 
 counts the distinct values of x
 - the number of encodings
 """
-CountValues(::Type{<:BinaryFLOAT{W,P}}) where {W,P} = 2^W
+n_values(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^W
 
 """
-    CountExponents(::BinaryFLOAT{W,P})
+    n_numeric_values(::BinaryFloat{W,P})
 
-counts the distinct exponent values
-- the number of (biased) exponents
+counts the distinct numeric values of x 
+- excludes NaN
 """
-CountExponents(::Type{T}) where {W,P,T<:BinaryFLOAT{W,P}} = 2^ExpBits(T)
+n_numeric_values(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^W - 1
 
 """
-    CountSignificands(::BinaryFLOAT{W,P})
+    n_significands(::BinaryFloat{W,P})
 
 counts the significand values available 
 - max(n_subnormal_signficands, n_normal_significands)
 """
-CountSignificands(::Type{T}) where {W,P,T<:BinaryFLOAT{W,P}} =
-    2^TrailingSignificandBits(T)
+n_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^(P-1)
 
+"""
+    n_subnormal_significands(::BinaryFloat{W,P})
+
+counts the subnormal significand values available 
+"""
+n_subnormal_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^(P-1) - 1
+
+abstract type SignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
+abstract type UnsignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
+
+"""
+    n_exponent_bits(<: BinaryFloat{W,P})
+
+counts the bits comprising the exponent field
+"""
+n_exponent_bits(::Type{<:SignedBinaryFloat{W,P}}) where {W,P} = W-P
+n_exponent_bits(::Type{<:UnsignedBinaryFloat{W,P}}) where {W,P} = W-P+1
+
+"""
+    n_exponent_values(<: BinaryFloat{W,P})
+
+counts the individual values that the exponent may take
+"""
+n_exponent_values(T::Type{<:BinaryFloat{W,P}) where {W,P} = 2^n_exponent_bits(T)
+
+"""
+    exponent_bias(T::Type{<:BinaryFloat{W,P}) where {W,P} = 
+
+ExpBias is the offset applied to the raw exponent field.
+"""
+exponent_bias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}  = (2^exponent_bits(T) - 1) >> 1
