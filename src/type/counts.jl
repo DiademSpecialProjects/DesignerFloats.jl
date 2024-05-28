@@ -76,11 +76,20 @@ n_exponent_bits(::Type{<:SignedBinaryFloat{W,P}}) where {W,P} = W - P
 n_exponent_bits(::Type{<:UnsignedBinaryFloat{W,P}}) where {W,P} = W - P + 1
 
 """
-    n_exponent_values(<: BinaryFloat{W,P})
+    n_normal_exponents(<: BinaryFloat{W,P})
 
-counts the individual values that the exponent may take
+counts the individual values that the exponent may take in normal values
 """
-n_exponent_values(T::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^n_exponent_bits(T)
+n_normal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
+    P == W ? 0 : 2^n_exponent_bits(T)
+
+"""
+    n_subnormal_exponents(<: BinaryFloat{W,P})
+
+counts the individual values that the exponent may take in subnormal values
+"""
+n_subnormal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
+    P == 1 ? 2^n_exponent_bits(T) : 1
 
 """
     exponent_bias(T::Type{<:BinaryFloat{W,P}) where {W,P} = 
