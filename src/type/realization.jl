@@ -14,21 +14,46 @@ struct SignedFloat{Width, Precision} <: SignedBinaryFloat{Width, Precision}
    value::FPValue
    code::Encoding
 end
+SignedFloat(Width, Precision) = 
+    if 1 <= Precision < Width
+        SignedFloat{Width, Precision}(zero(FPValue), zero(Encoding))
+    else
+        throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
+    end
+   
 
 struct FiniteSignedFloat{Width, Precision} <: SignedBinaryFloat{Width, Precision}
    value::FPValue
    code::Encoding
 end
+FiniteSignedFloat(Width, Precision) =
+    if 1 <= Precision < Width
+        FiniteSignedFloat{Width, Precision}(zero(FPValue), zero(Encoding))
+    else
+        throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
+    end
 
 struct UnsignedFloat{Width, Precision} <: UnsignedBinaryFloat{Width, Precision}
    value::FPValue
    code::Encoding
 end
+UnsignedFloat(Width, Precision) =
+    if 1 <= Precision < Width
+        UnsignedFloat{Width, Precision}(zero(FPValue), zero(Encoding))
+    else
+        throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
+    end
 
 struct FiniteUnsignedFloat{Width, Precision} <: UnsignedBinaryFloat{Width, Precision}
    value::FPValue
    code::Encoding
 end
+FiniteUnsignedFloat(Width, Precision) =
+    if 1 <= Precision < Width
+        FiniteUnsignedFloat{Width, Precision}(zero(FPValue), zero(Encoding))
+    else
+        throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
+    end
 
 value(x::BinaryFloat} = x.value
 code(x::BinaryFloat} = x.code
