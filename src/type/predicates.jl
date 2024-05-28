@@ -18,4 +18,4 @@ Base.isinteger(x::BinaryFloat) = isinteger(value(x))
 Base.isfinite(x::BinaryFloat) = isfinite(value(x))
 Base.isinf(x::BinaryFloat) = isinf(value(x))
 Base.isnan(x::BinaryFloat) = isnan(value(x))
-
+Base.signbit(x::BinaryFloat) = signbit(value(x))
