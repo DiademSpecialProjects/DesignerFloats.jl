@@ -5,16 +5,22 @@
 ##### For non-commercial use, _provide attribution_ and tell me how you are using this material.
 ----
 
-The abstract type for all FastFloats is `BinaryFLOAT`.
+The abstract type for all FastFloats is `BinaryFloat`.
 
-There are two general types of BinaryFLOAT, SignedFLOAT and UnsignedFLOAT.
+There are four concrete types of BinaryFloat. All have 1 Zero and 1 NaN.
+- SignedFloat
+  - signed values with infinities
+- FiniteSignedFloat
+  - signed values without infinities
+- UnsignedFloat
+  - unsigned (non-negative) values with infinity
+- FiniteUnsignedFloat
+  - unsigned (non-negative) values without infinity
 
-Concrete types specify a Bitwdith (number of bits spanned by the representation) and a Precision (number of significand bits, including the implicit bit).
+Concrete types specify a Width (number of bits spanned by the representation) and a Precision (number of significant bits, includes the implicit bit).
 
-All concrete fast floats have a single Zero value, which is neither positive nor negative. SignedFLOATs always have a single NaN and they may have signed infinities. UnsignedFLOATs may have a single NaN and they may have a positive infinity.  
-
-- Bitwidths of 3,4..15,16 are supported for both types.
-- Precisions of 1..bitwidth are supported for both types.
+- Widths of 3,4..15,16 are supported for all types.
+- Precisions of 1..bitwidth-1 are supported for all types.
 
 ## Constructors
 
