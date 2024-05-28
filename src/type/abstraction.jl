@@ -17,6 +17,33 @@ SignedFloat and UnsignedFloat.
 abstract type BinaryFloat{W,P} <: AbstractFloat end
 
 """
+     SignedBinaryFloat{Width, Precision}
+
+This is an abstract type, the subtype of BinaryFloat.
+
+It is the immediate (and shared) supertype of 
+SignedFloat and FiniteSignedFloat.
+
+- Width is the storage width in bits.
+- Precision is significand (with implicit bit) bitwidth. 
+"""
+abstract type SignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
+
+
+"""
+     UnsignedBinaryFloat{Width, Precision}
+
+This is an abstract type, the subtype of BinaryFloat.
+
+It is the immediate (and shared) supertype of
+UnsignedFloat and FiniteUnsignedFloat.
+
+- Width is the storage width in bits.
+- Precision is significand (with implicit bit) bitwidth. 
+"""
+abstract type UnsignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
+
+"""
      n_bits(::BinaryFloat{W,P})
 
 n_bits is a bit count: the storage width (memory spanned).
@@ -70,9 +97,6 @@ n_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^(P-1)
 counts the subnormal significand values available 
 """
 n_subnormal_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^(P-1) - 1
-
-abstract type SignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
-abstract type UnsignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
 
 """
     n_exponent_bits(<: BinaryFloat{W,P})
