@@ -37,6 +37,14 @@ UFloat53f = FiniteUnsignedFloat(width, precision)
 
 ## Exported Functions
 ```
+SignedFloat, FiniteSignedFloat, UnsignedFloat, FiniteUnsignedFloat,
+width, precision, n_bits, n_values, n_numeric_values,
+n_significant_bits, n_trailing_bits, n_signficands, n_subnormal_significands,
+n_exponent_bits, n_exponent_values, exponent_bias,
+is_signed, is_unsigned, is_finite, has_infinity,
+value, code, valuecode, value!, code!
+```
+```
 all_values(x::BinaryFloat)
 - a vector of Rational + Float64 values in encoding order
 
