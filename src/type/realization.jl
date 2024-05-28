@@ -54,11 +54,20 @@ FiniteUnsignedFloat(Width, Precision) =
         throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
     end
 
-value(x::BinaryFloat) = x.value
+value(x::T) where {T<:BinaryFloat} = getfield(x, :value)
 value(::Type{T}, x::BinaryFloat) where {T<:AbstractFloat} = T(value(x))
 
-code(x::BinaryFloat} = x.code
-code(::Type{T}, x::BinaryFloat} where {T:<Integer} = T(x.code)
+code(x::T) where {T<:BinaryFloat} = getfield(x, :code)
+code(::Type{T}, x::BinaryFloat} where {T:<Integer} = T(code(x))
+
+valuecode(x::T) where {T<:BinaryFloat} = (value(x), code(x))
+
+value!(x::T, v::FPValue) where {T<:BinaryFloat} = setfield!(x, :value, v)
+code!(x::T, v::Encoding) where {T<:BinaryFloat} = setfield!(x, :code, v)
+
+value!(x::T, v::AbstractFloat) where {T<:BinaryFloat} = setfield!(x, :value, FPValue(v))
+code!(x::T, v::Integer) where {T<:BinaryFloat} = setfield!(x, :code, Encoding(v))
+
 
 
 
