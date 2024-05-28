@@ -89,22 +89,24 @@ n_numeric_values(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^W - 1
 counts the significand values available 
 - max(n_subnormal_signficands, n_normal_significands)
 """
-n_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^(P-1)
+n_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} =
+    P == W ? 0 : 2^n_trailing_bits(T)
 
 """
     n_subnormal_significands(::BinaryFloat{W,P})
 
 counts the subnormal significand values available 
 """
-n_subnormal_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^(P-1) - 1
+n_subnormal_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} = 
+    P == 1 ? 0 : (P == W ? 2^n_trailing_bits(T) : 2^n_trailing_bits(T) - 1)
 
 """
     n_exponent_bits(<: BinaryFloat{W,P})
 
 counts the bits comprising the exponent field
 """
-n_exponent_bits(::Type{<:SignedBinaryFloat{W,P}}) where {W,P} = W-P
-n_exponent_bits(::Type{<:UnsignedBinaryFloat{W,P}}) where {W,P} = W-P+1
+n_exponent_bits(::Type{<:SignedBinaryFloat{W,P}}) where {W,P} = W - P
+n_exponent_bits(::Type{<:UnsignedBinaryFloat{W,P}}) where {W,P} = W - P + 1
 
 """
     n_exponent_values(<: BinaryFloat{W,P})
@@ -116,8 +118,8 @@ n_exponent_values(T::Type{<:BinaryFloat{W,P}) where {W,P} = 2^n_exponent_bits(T)
 """
     exponent_bias(T::Type{<:BinaryFloat{W,P}) where {W,P} = 
 
-ExpBias is the offset applied to the raw exponent field.
-"""
+exponent_bias is the offset applied to the raw exponent field.
+""'
 exponent_bias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}  = (2^exponent_bits(T) - 1) >> 1
 
 # for concrete types
