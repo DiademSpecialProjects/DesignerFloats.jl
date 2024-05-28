@@ -25,22 +25,22 @@ Concrete types specify a Width (number of bits spanned by the representation) an
 ## Constructors
 
 ```
-bitwidth  = 5
+width  = 5
 precision = 3
 
-SFloat53  = SignedFLOAT(bitwidth, precision; inf=false)
-SFloat53i = SignedFLOAT(bitwidth, precision; inf=true)
+SFloat53i = SignedFoat(width, precision)
+SFloat53f = FiniteSignedFloat(width, precision)
 
-UFloat53n = UnsignedFLOAT(bitwidth, precision; inf=false, nan=true)
-UFloat53i = UnsignedFLOAT(bitwidth, precision; inf=true, nan=false)
+UFloat53i = UnsignedFloat(width, precision)
+UFloat53f = FiniteUnsignedFloat(width, precision)
 ```
 
 ## Exported Functions
 ```
-all_values(x::BinaryFLOAT)
+all_values(x::BinaryFloat)
 - a vector of Rational + Float64 values in encoding order
 
-all_encodings(x::BinaryFLOAT)
+all_encodings(x::BinaryFloat)
 - a unit step vector of UInt8 or UInt16 values starting with 0
 - the matching all_values vector
 ```
