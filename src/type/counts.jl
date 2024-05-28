@@ -86,10 +86,28 @@ n_special_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 2 # 0, NaN
 n_special_values(::Type{T}) where {T<:SignedFloat} = 4 # 0, NaN, +/- Inf
 n_special_values(::Type{T}) where {T<:FiniteSignedFloat} = 2 # 0, NaN
 
+n_inf_values(::Type{T}) where {T<:UnsignedFloat} = 1
+n_inf_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 0
+n_inf_values(::Type{T}) where {T<:SignedFloat} = 2
+n_inf_values(::Type{T}) where {T<:FiniteSignedFloat} = 0
+
 n_ordinary_values(::Type{T}) where {T<:BinaryFloat} = n_values(T) - n_special_values(T)
 n_finite_values(::Type{T}) where {T<:BinaryFloat} = n_ordinary_values(T) + 1 # 0
+n_numeric_values(::Type{T}) where {T<:BinaryFloat} = n_finite_values(T) + n_inf_values(T)
+
 n_subnormal_values(::Type{T}) where {T<:BinaryFloat} = 2 * n_subnormals(T)
 n_normal_values(::Type{T}) where {T<:BinaryFloat} = n_ordinary_values(T) - n_subnormal_values(T)
+
+n_finite_magnitudes(::Type{T}) where {T<:UnsignedFloat} = n_finite_values(T)
+n_finite_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = n_finite_values(T)
+n_finite_magnitudes(::Type{T}) where {T<:SignedFloat} = n_finite_values(T) >> 1
+n_finite_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = n_finite_values(T) >> 1
+
+n_numeric_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_finite_magnitudes(T) + has_infinity(T)
+n_ordinary_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_finite_magnitudes(T) - 1 # Zero
+
+n_subnormal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_subnormals(T)
+n_normal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_ordinary_magnitudes(T) - n_subnormal_magnitudes(T)
 
 # for concrete types
      
@@ -107,5 +125,13 @@ exponent_bias(x::T) where {T<:BinaryFloat} = exponent_bias(T)
 
 n_ordinary_values(x::T) where {T<:BinaryFloat} = n_ordinary_values(T)
 n_finite_values(x::T) where {T<:BinaryFloat} = n_finite_values(T)
+n_numeric_values(x::T) where {T<:BinaryFloat} = n_numeric_values(T)
 n_subnormal_values(x::T) where {T<:BinaryFloat} = n_subnormal_values(T)
 n_normal_values(x::T) where {T<:BinaryFloat} = n_normal_values(T)
+
+n_ordinary_magnitudes(x::T) where {T<:BinaryFloat} = n_ordinary_magnitudes(T)
+n_finite_magnitudes(x::T) where {T<:BinaryFloat} = n_finite_magnitudes(T)
+n_numeric_magnitudes(x::T) where {T<:BinaryFloat} = n_numeric_magnitudes(T)
+n_subnormal_magnitudes(x::T) where {T<:BinaryFloat} = n_subnormal_magnitudes(T)
+n_normal_magnitudes(x::T) where {T<:BinaryFloat} = n_normal_magnitudes(T)
+
