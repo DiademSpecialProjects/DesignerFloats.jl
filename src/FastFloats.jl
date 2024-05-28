@@ -6,7 +6,7 @@ export BinaryFloat, SignedBinaryFloat, UnsignedBinaryFloat,
        n_significant_bits, n_trailing_bits, n_signficands, n_subnormal_significands,
        n_exponent_bits, n_exponent_values, exponent_bias,
        is_signed, is_unsigned, is_finite, has_infinity,
-       value, code, value!, code!
+       value, code, valuecode, value!, code!
 
 using BitOperations                     # bitfields: mask, shift, unmask
 using BitIntegers, Quadmath             # Int1024, Float128
