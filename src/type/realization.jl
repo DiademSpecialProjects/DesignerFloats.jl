@@ -3,8 +3,8 @@
 #=
    concrete subtypes of BinaryFloat
 
-- subtypes of UnsignedBinaryFloat encode non-negative values
-- subtypes of SignedBinaryFloat encode non-negative and negative values
+- subtypes of UnsignedBinaryFloat encode positive and special values
+- subtypes of SignedBinaryFloat encode positive, negative and special values
 =#
 
 const FPValue = Float64
