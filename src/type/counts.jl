@@ -49,8 +49,16 @@ counts the significand values available
 - max(n_subnormal_signficands, n_normal_significands)
 """
 n_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
-    P == W ? 0 : 2^n_trailing_bits(T)
+    max(n_subnormal_significands(T), n_normal_significands(T))
 
+"""
+    n_significands(::BinaryFloat{W,P})
+
+counts the normal significands
+"""
+n_normal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    P == W ? 0 : 2^n_trailing_bits(T)
+   
 """
     n_subnormal_significands(::BinaryFloat{W,P})
 
