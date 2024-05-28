@@ -49,6 +49,7 @@ abstract type UnsignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
 n_bits is a bit count: the storage width (memory spanned).
 """
 n_bits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W
+width(::Type{<:BinaryFloat{W,P}}) where {W,P} = W
 
 """
      n_significant_bits(::BinaryFloat{W,P})
@@ -58,6 +59,7 @@ Precision is a bit count of complete significand.
     - (0b1 for normal values, 0b0 for subnormals).
 """
 n_significant_bits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
+Base.precision(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
 
 """
      n_trailing_bits(::BinaryFloat{W,P})
@@ -124,6 +126,8 @@ exponent_bias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}  = (2^exponent_bits(T) 
 
 # for concrete types
      
+width(x::T) where {T<:BinaryFloat} = n_bits(T)
+Base.precision(x::T) where {T<:BinaryFloat} = Base.precision(T)
 n_bits(x::T) where {T<:BinaryFloat} = n_bits(T)
 n_significant_bits(x::T) where {T<:BinaryFloat} = n_significant_bits(T)
 n_trailing_bits(x::T) where {T<:BinaryFloat} = n_trailing_bits(T)
