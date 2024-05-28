@@ -7,7 +7,7 @@
 - subtypes of SignedBinaryFloat encode non-negative and negative values
 =#
 
-const FPValue = Float32
+const FPValue = Float64
 const Encoding = UInt16
 
 mutable struct SignedFloat{Width, Precision} <: SignedBinaryFloat{Width, Precision}
@@ -54,8 +54,11 @@ FiniteUnsignedFloat(Width, Precision) =
         throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
     end
 
-value(x::BinaryFloat} = x.value
+value(x::BinaryFloat) = x.value
+value(::Type{T}, x::BinaryFloat) where {T<:AbstractFloat} = T(value(x))
+
 code(x::BinaryFloat} = x.code
+code(::Type{T}, x::BinaryFloat} where {T:<Integer} = T(x.code)
 
 is_signed(::Type{T}) where {T<:UnsignedBinaryFloat} = false
 is_signed(::Type{T}) where {T<:SignedBinaryFloat} = true
