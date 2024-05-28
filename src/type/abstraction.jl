@@ -95,3 +95,18 @@ n_exponent_values(T::Type{<:BinaryFloat{W,P}) where {W,P} = 2^n_exponent_bits(T)
 ExpBias is the offset applied to the raw exponent field.
 """
 exponent_bias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}  = (2^exponent_bits(T) - 1) >> 1
+
+# for concrete types
+     
+n_bits(x::T) where {T<:BinaryFloat} = n_bits(T)
+n_significant_bits(x::T) where {T<:BinaryFloat} = n_significant_bits(T)
+n_trailing_bits(x::T) where {T<:BinaryFloat} = n_trailing_bits(T)
+n_values(x::T) where {T<:BinaryFloat} = n_values(T)
+n_significands(x::T) where {T<:BinaryFloat} = n_significands(T)
+n_subnormal_significands(x::T) where {T<:BinaryFloat} = n_subnormal_significands(T)
+n_exponent_bits(x::T) where {T<:BinaryFloat} = n_exponent_bits(T)
+n_exponent_values(x::T) where {T<:BinaryFloat} = n_exponent_values(T)
+exponent_bias(x::T) where {T<:BinaryFloat} = exponent_bias(T)
+
+
+     
