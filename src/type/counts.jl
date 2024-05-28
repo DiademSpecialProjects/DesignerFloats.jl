@@ -48,7 +48,7 @@ n_numeric_values(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^W - 1
 counts the significand values available 
 - max(n_subnormal_signficands, n_normal_significands)
 """
-n_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} =
+n_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     P == W ? 0 : 2^n_trailing_bits(T)
 
 """
@@ -56,7 +56,7 @@ n_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} =
 
 counts the subnormal significand values available 
 """
-n_subnormal_significands(::Type{<:BinaryFloat{W,P}}) where {W,P} = 
+n_subnormal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 
     P == 1 ? 0 : (P == W ? 2^n_trailing_bits(T) : 2^n_trailing_bits(T) - 1)
 
 """
@@ -95,7 +95,7 @@ n_ordinary_values(::Type{T}) where {T<:BinaryFloat} = n_values(T) - n_special_va
 n_finite_values(::Type{T}) where {T<:BinaryFloat} = n_ordinary_values(T) + 1 # 0
 n_numeric_values(::Type{T}) where {T<:BinaryFloat} = n_finite_values(T) + n_inf_values(T)
 
-n_subnormal_values(::Type{T}) where {T<:BinaryFloat} = 2 * n_subnormals(T)
+n_subnormal_values(::Type{T}) where {T<:BinaryFloat} = 2 * n_subnormal_significands(T)
 n_normal_values(::Type{T}) where {T<:BinaryFloat} = n_ordinary_values(T) - n_subnormal_values(T)
 
 n_finite_magnitudes(::Type{T}) where {T<:UnsignedFloat} = n_finite_values(T)
@@ -107,7 +107,7 @@ n_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_finite_magnitudes(T) + has_in
 n_numeric_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_magnitudes(T)
 n_ordinary_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_finite_magnitudes(T) - 1 # Zero
 
-n_subnormal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_subnormals(T)
+n_subnormal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_subnormal_significands(T)
 n_normal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_ordinary_magnitudes(T) - n_subnormal_magnitudes(T)
 
 # for concrete types
