@@ -119,7 +119,7 @@ n_exponent_values(T::Type{<:BinaryFloat{W,P}) where {W,P} = 2^n_exponent_bits(T)
     exponent_bias(T::Type{<:BinaryFloat{W,P}) where {W,P} = 
 
 exponent_bias is the offset applied to the raw exponent field.
-""'
+"""
 exponent_bias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}  = (2^exponent_bits(T) - 1) >> 1
 
 # for concrete types
