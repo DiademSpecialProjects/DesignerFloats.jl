@@ -75,6 +75,16 @@ counts the bits comprising the exponent field
 n_exponent_bits(::Type{<:SignedBinaryFloat{W,P}}) where {W,P} = W - P
 n_exponent_bits(::Type{<:UnsignedBinaryFloat{W,P}}) where {W,P} = W - P + 1
 
+
+"""
+    n_exponents(::BinaryFloat{W,P})
+
+counts the exponent values available 
+- max(n_subnormal_exponents, n_normal_exponentss)
+"""
+n_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    max(n_subnormal_exponents(T), n_normal_exponents(T))
+
 """
     n_normal_exponents(<: BinaryFloat{W,P})
 
@@ -139,7 +149,9 @@ n_significands(x::T) where {T<:BinaryFloat} = n_significands(T)
 n_normal_significands(x::T) where {T<:BinaryFloat} = n_normal_significands(T)
 n_subnormal_significands(x::T) where {T<:BinaryFloat} = n_subnormal_significands(T)
 n_exponent_bits(x::T) where {T<:BinaryFloat} = n_exponent_bits(T)
-n_exponent_values(x::T) where {T<:BinaryFloat} = n_exponent_values(T)
+n_exponents(x::T) where {T<:BinaryFloat} = n_exponents(T)
+n_subnormal_exponents(x::T) where {T<:BinaryFloat} = n_subnormal_exponents(T)
+n_normal_exponents(x::T) where {T<:BinaryFloat} = n_normal_exponents(T)
 exponent_bias(x::T) where {T<:BinaryFloat} = exponent_bias(T)
 
 n_ordinary_values(x::T) where {T<:BinaryFloat} = n_ordinary_values(T)
@@ -148,6 +160,7 @@ n_numeric_values(x::T) where {T<:BinaryFloat} = n_numeric_values(T)
 n_subnormal_values(x::T) where {T<:BinaryFloat} = n_subnormal_values(T)
 n_normal_values(x::T) where {T<:BinaryFloat} = n_normal_values(T)
 
+n_magnitudes(x::T) where {T<:BinaryFloat) = n_magnitudes(T)
 n_ordinary_magnitudes(x::T) where {T<:BinaryFloat} = n_ordinary_magnitudes(T)
 n_finite_magnitudes(x::T) where {T<:BinaryFloat} = n_finite_magnitudes(T)
 n_numeric_magnitudes(x::T) where {T<:BinaryFloat} = n_numeric_magnitudes(T)
