@@ -6,6 +6,7 @@ export BinaryFloat, SignedBinaryFloat, UnsignedBinaryFloat,
        n_significant_bits, n_trailing_bits, n_exponent_bits,
        n_signficands, n_subnormal_significands, n_normal_significands,
        n_exponents, n_subnormal_exponents, n_normal_exponents, exponent_bias,
+       n_magnitudes, n_finite_magnitudes, n_ordinary_magnitudes,
        is_signed, is_unsigned, is_finite, has_infinity,
        value, code, valuecode, value!, code!
 
