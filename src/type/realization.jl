@@ -58,7 +58,7 @@ value(x::T) where {T<:BinaryFloat} = getfield(x, :value)
 value(::Type{T}, x::BinaryFloat) where {T<:AbstractFloat} = T(value(x))
 
 code(x::T) where {T<:BinaryFloat} = getfield(x, :code)
-code(::Type{T}, x::BinaryFloat} where {T:<Integer} = T(code(x))
+code(::Type{T}, x::BinaryFloat) where {T:<Integer} = T(code(x))
 
 valuecode(x::T) where {T<:BinaryFloat} = (value(x), code(x))
 
