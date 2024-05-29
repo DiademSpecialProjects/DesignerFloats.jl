@@ -8,7 +8,7 @@ export BinaryFloat, SignedBinaryFloat, UnsignedBinaryFloat,
        n_exponents, n_subnormal_exponents, n_normal_exponents, exponent_bias,
        n_magnitudes, n_finite_magnitudes, n_ordinary_magnitudes,
        n_subnormal_magnitudes, n_normal_magnitudes,
-       is_signed, is_unsigned, is_finite, has_infinity,
+       is_signed, is_unsigned, is_finite, is_extended, has_infinity,
        value, code, valuecode, value!, code!
 
 using BitOperations                     # bitfields: mask, shift, unmask
