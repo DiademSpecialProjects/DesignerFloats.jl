@@ -22,7 +22,7 @@ abstract type BinaryFloat{W,P} <: AbstractFloat end
 This is an abstract type, the subtype of BinaryFloat.
 
 It is the immediate (and shared) supertype of 
-SignedFloat and FiniteSignedFloat.
+ExtendedSignedFloat and FiniteSignedFloat.
 
 - Width is the storage width in bits.
 - Precision is significand (with implicit bit) bitwidth. 
@@ -35,11 +35,66 @@ abstract type SignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
 This is an abstract type, the subtype of BinaryFloat.
 
 It is the immediate (and shared) supertype of
-UnsignedFloat and FiniteUnsignedFloat.
+ExtendedUnsignedFloat and FiniteUnsignedFloat.
 
 - Width is the storage width in bits.
 - Precision is significand (with implicit bit) bitwidth. 
 """
 abstract type UnsignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
+#=
+"""
+     ExtendedSignedBinaryFloat{Width, Precision}
 
-     
+This is an abstract type, a subtype of SignedBinaryFloat.
+
+It is the immediate supertype of the struct `ExtendedSignedFloat`.
+
+- Width is the storage width in bits.
+- Precision is significand (with implicit bit) bitwidth. 
+
+see [`ExtendedSignedFloat`](@ref)
+"""
+abstract type ExtendedSignedBinaryFloat{W,P} <: SignedBinaryFloat{W,P}     
+
+"""
+     FiniteSignedBinaryFloat{Width, Precision}
+
+This is an abstract type, a subtype of SignedBinaryFloat.
+
+It is the immediate supertype of the struct `FiniteSignedFloat`.
+
+- Width is the storage width in bits.
+- Precision is significand (with implicit bit) bitwidth. 
+
+see [`FiniteSignedFloat`](@ref)
+"""
+abstract type FiniteSignedBinaryFloat{W,P} <: SignedBinaryFloat{W,P}     
+
+"""
+     ExtendedUnsignedBinaryFloat{Width, Precision}
+
+This is an abstract type, a subtype of SignedBinaryFloat.
+
+It is the immediate supertype of the struct `ExtendedUnsignedFloat`.
+
+- Width is the storage width in bits.
+- Precision is significand (with implicit bit) bitwidth. 
+
+see [`ExtendedUnsignedFloat`](@ref)
+"""
+abstract type ExtendedUnsignedBinaryFloat{W,P} <: UnsignedBinaryFloat{W,P}     
+
+"""
+     FiniteUnsignedBinaryFloat{Width, Precision}
+
+This is an abstract type, a subtype of UnsignedBinaryFloat.
+
+It is the immediate supertype of the struct `FiniteUnsignedFloat`.
+
+- Width is the storage width in bits.
+- Precision is significand (with implicit bit) bitwidth. 
+
+see [`FiniteUnsignedFloat`](@ref)
+"""
+abstract type FiniteUnsignedBinaryFloat{W,P} <: UnsignedBinaryFloat{W,P}     
+=#
