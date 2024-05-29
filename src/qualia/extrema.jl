@@ -22,7 +22,7 @@ min_biased_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0
 max_biased_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_exponent_bits(T) - 1
 
 min_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = min_biased_exponent(T)-exponent_bias(T)
-max_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max_biased_exponent(T)-exponent_bias(T)
+max_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max_biased_exponent(T)-exponent_bias(T)-1
 
 function min_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_exponents(T)
@@ -71,7 +71,7 @@ end
 function normal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return 1:0
-    range(start=min_subnormal_exponent(T), stop=max_subnormal_exponent(T), length=n)
+    range(start=min_normal_exponent(T), stop=max_normal_exponent(T), length=n)
 end
 
 min_normal_exponent(x::T) where {T} = min_normal_exponent(T)
