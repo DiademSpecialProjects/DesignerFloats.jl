@@ -78,23 +78,23 @@ end
 latex_packages = ["tabularray", "booktabs", "enumitem", "xspace", "xfrac"]
 
 preamble = """
-\usepackage{microtype}%
+\\usepackage{microtype}%
 
-\usepackage{ragged2e}%
+\\usepackage{ragged2e}%
 
-\usepackage{graphicx}%
+\\usepackage{graphicx}%
 
-\usepackage{tabularray}%
+\\usepackage{tabularray}%
 
-\usepackage{booktabs}%
+\\usepackage{booktabs}%
 % more space between rows%
-\renewcommand{\arraystretch}{1.325}%
+\\renewcommand{\\arraystretch}{1.325}%
 %
-\usepackage{xfrac}%
-\newcommand{\frc}[2]{{$\mathbf{\sfrac{#1}{#2}}$}}%
+\\usepackage{xfrac}%
+\\newcommand{\\frc}[2]{{$\\mathbf{\\sfrac{#1}{#2}}$}}%
 
-\newcommand{\NaN}[0]{\small{\textsc{\textsf{NaN}}}}%
-\newcommand{\nan}[0]{\footnotesize{\textsc{\textsf{NaN}}}}%
+\\newcommand{\\NaN}[0]{\\small{\\textsc{\\textsf{NaN}}}}%
+\\newcommand{\\nan}[0]{\\footnotesize{\\textsc{\\textsf{NaN}}}}%
 """
 
 #=
