@@ -182,37 +182,20 @@ n_subnormal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_subnormal_significa
 n_normal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_ordinary_magnitudes(T) - n_subnormal_magnitudes(T)
 
 # for concrete types
-     
-width(x::T) where {T<:BinaryFloat} = n_bits(T)
-n_bits(x::T) where {T<:BinaryFloat} = n_bits(T)
-n_values(x::T) where {T<:BinaryFloat} = n_values(T)
+
+for F in (:width, :n_bits, :n_values, :n_significant_bits, :n_exponent_bits,
+          :exponent_bias, :n_trailing_bits, :n_significands, 
+          :nmax_normal_significands, :nmax_subnormal_significands, 
+          :n_normal_significands, :n_subnormal_significands, 
+          :n_normal_exponents, :n_subnormal_exponents,
+          :n_finite_magnitudes, :n_numeric_magnitudes, :n_magnitudes,
+          :n_ordinary_magnitudes, :n_subnormal_magnitudes, :n_normal_magnitudes,
+          :n_special_values, :n_inf_values, 
+          :n_subnormal_values, :n_normal_values, :n_ordinary_values,
+          :n_finite_values)
+    @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
+end
+
 Base.precision(x::T) where {T<:BinaryFloat} = Base.precision(T)
-
-n_significant_bits(x::T) where {T<:BinaryFloat} = n_significant_bits(T)
-n_trailing_bits(x::T) where {T<:BinaryFloat} = n_trailing_bits(T)
-n_significands(x::T) where {T<:BinaryFloat} = n_significands(T)
-nmax_normal_significands(x::T) where {T<:BinaryFloat} = nmax_normal_significands(T)
-nmax_subnormal_significands(x::T) where {T<:BinaryFloat} = nmax_subnormal_significands(T)
-n_normal_significands(x::T) where {T<:BinaryFloat} = n_normal_significands(T)
-n_subnormal_significands(x::T) where {T<:BinaryFloat} = n_subnormal_significands(T)
-
-n_exponent_bits(x::T) where {T<:BinaryFloat} = n_exponent_bits(T)
-n_exponents(x::T) where {T<:BinaryFloat} = n_exponents(T)
-n_subnormal_exponents(x::T) where {T<:BinaryFloat} = n_subnormal_exponents(T)
-n_normal_exponents(x::T) where {T<:BinaryFloat} = n_normal_exponents(T)
-exponent_bias(x::T) where {T<:BinaryFloat} = exponent_bias(T)
-
-n_ordinary_values(x::T) where {T<:BinaryFloat} = n_ordinary_values(T)
-n_finite_values(x::T) where {T<:BinaryFloat} = n_finite_values(T)
-n_numeric_values(x::T) where {T<:BinaryFloat} = n_numeric_values(T)
-n_subnormal_values(x::T) where {T<:BinaryFloat} = n_subnormal_values(T)
-n_normal_values(x::T) where {T<:BinaryFloat} = n_normal_values(T)
-
-n_magnitudes(x::T) where {T<:BinaryFloat} = n_magnitudes(T)
-n_ordinary_magnitudes(x::T) where {T<:BinaryFloat} = n_ordinary_magnitudes(T)
-n_finite_magnitudes(x::T) where {T<:BinaryFloat} = n_finite_magnitudes(T)
-n_numeric_magnitudes(x::T) where {T<:BinaryFloat} = n_numeric_magnitudes(T)
-n_subnormal_magnitudes(x::T) where {T<:BinaryFloat} = n_subnormal_magnitudes(T)
-n_normal_magnitudes(x::T) where {T<:BinaryFloat} = n_normal_magnitudes(T)
 
 

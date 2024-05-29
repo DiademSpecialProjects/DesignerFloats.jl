@@ -45,11 +45,6 @@ function subnormal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     range(start=min_subnormal_exponent(T), stop=max_subnormal_exponent(T), length=n)
 end
 
-min_subnormal_exponent(x::T) where {T} = min_subnormal_exponent(T)
-max_subnormal_exponent(x::T) where {T} = max_subnormal_exponent(T)
-minmax_subnormal_exponents(x::T) where {T} = minmax_subnormal_exponent(T)
-subnormal_exponent_range(x::T) where {T} = subnormal_exponent_range(T)
-
 function min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return nothing
@@ -73,11 +68,6 @@ function normal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     iszero(n) && return 1:0
     RationalNK.((2.0).^range(start=min_exponent(T), stop=max_exponent(T), length=n))
 end
-
-min_normal_exponent(x::T) where {T} = min_normal_exponent(T)
-max_normal_exponent(x::T) where {T} = max_normal_exponent(T)
-minmax_normal_exponents(x::T) where {T} = minmax_normal_exponent(T)
-normal_exponent_range(x::T) where {T} = normal_exponent_range(T)
 
 # significands
 
@@ -105,11 +95,6 @@ function subnormal_significand_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     range(start=min_subnormal_significand(T), stop=max_subnormal_significand(T), length=n)
 end
 
-min_subnormal_significand(x::T) where {T} = min_subnormal_significand(T)
-max_subnormal_significand(x::T) where {T} = max_subnormal_significand(T)
-minmax_subnormal_significands(x::T) where {T} = minmax_subnormal_significands(T)
-subnormal_significand_range(x::T) where {T} = subnormal_significand_range(T)
-
 function min_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_significands(T)
     iszero(n) && return nothing
@@ -134,7 +119,14 @@ function normal_significand_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     range(start=min_normal_significand(T), stop=max_normal_significand(T), length=n)
 end
 
-min_normal_significand(x::T) where {T} = min_normal_significand(T)
-max_normal_significand(x::T) where {T} = max_normal_significand(T)
-minmax_normal_significands(x::T) where {T} = minmax_normal_significands(T)
-normal_significand_range(x::T) where {T} = normal_significand_range(T)
+for F in (:min_subnormal_exponent, :max_subnormal_exponent,
+          :minmax_subnormal_exponents, :subnormal_exponent_range,
+          :min_subnormal_significand, max_subnormal_significand,
+          :minmax_subnormal_significands, :subnormal_significand_range,
+          :min_normal_exponent, :max_normal_exponent,
+          :minmax_normal_exponents, :normal_exponent_range,
+          :min_normal_significand, max_normal_significand,
+          :minmax_normal_significands, :normal_significand_range)
+
+    @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
+end
