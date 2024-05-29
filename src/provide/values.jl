@@ -1,4 +1,4 @@
-function offsets_and_values(x::T) where {W,P,T<:UnsignedBinaryFloat{W,P}}
+function offsets_and_values(x::T) where {W,P,T<:BinaryFloat{W,P}}
     values = all_values(x)
     offsets = all_offsets(x)
     offset2value = Dictionary(offsets, values)
@@ -6,7 +6,7 @@ function offsets_and_values(x::T) where {W,P,T<:UnsignedBinaryFloat{W,P}}
     (offset2value, value2offset)
 end
 
-all_significand_absvalues(x::T) where {W,P,T<:UnsignedBinaryFloat{W,P}} =
+all_significand_absvalues(x::T) where {W,P,T<:BinaryFloat{W,P}} =
    map(abs, all_significand_values(x))
 
 function all_sign_values(x::T) where {W,P,T<:UnsignedBinaryFloat{W,P}}
@@ -22,7 +22,7 @@ end
 
 offsets are 0-based
 """
-function all_offsets(x::T) where {W,P,T<:UnsignedBinaryFloat{W,P}}
+function all_offsets(x::T) where {W,P,T<:BinaryFloat{W,P}}
     n = CountValues(x)
     if n <= 256
         offsets = map(UInt8, collect(0:n-1))
