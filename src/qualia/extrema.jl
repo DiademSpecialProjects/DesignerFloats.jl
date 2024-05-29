@@ -6,8 +6,8 @@
 
 function simple_values(minval, maxval)
     (isnothing(minval) && isnothing(maxval)) && return copy(NoValues)
-    isnothing(maxval)  && return ValType[minval]
-    isnothing(minval)  && return ValType[maxval]
+    isnothing(maxval)  && return Real[minval]
+    isnothing(minval)  && return Real[maxval]
     
     if isequal(minval, maxval)
         Real[minval]
@@ -31,6 +31,18 @@ end
 max_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P} =
     min_subnormal_exponent(T)
 
+function minmax_subnormal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
+    n = n_subnormal_exponents(T)
+    iszero(n) && return copy(NoValues)
+    simple_values(min_subnormal_exponent(T), max_subnormal_exponent(T))
+end
+
+function subnormal_exponent_range (::Type{T}) where {W,P,T<:BinaryFloat{W,P}
+    n = n_subnormal_exponents(T)
+    iszero(n) && return 1:0
+    UnitRange(minmax_subnormal_exponents(T)...)
+end
+
 function min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P} 
     n = n_normal_exponents(T)
     iszero(n) && return nothing
@@ -43,18 +55,17 @@ function max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     2.0^max_exponent(T)
 end
 
-function minmax_subnormal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
-    n = n_subnormal_exponents(T)
-    iszero(n) && return copy(NoValues)
-    simple_values(min_subnormal_exponent(T), max_subnormal_exponent(T))
-end
-
 function minmax_normal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     n = n_normal_exponents(T)
     iszero(n) && return copy(NoValues)
     simple_values(min_normal_exponent(T), max_normal_exponent(T))
 end
 
+function normal_exponent_range (::Type{T}) where {W,P,T<:BinaryFloat{W,P}
+    n = n_normal_exponents(T)
+    iszero(n) && return 1:0
+    UnitRange(minmax_normal_exponents(T)...)
+end
 
 
 
