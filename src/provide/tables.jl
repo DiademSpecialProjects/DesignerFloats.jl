@@ -18,7 +18,9 @@ function prettytable(x::T; target=:text) where {W,P,T<:BinaryFloat{W,P}}
     if target != :latex
        pretty_table(data; formatters=(fmt1,fmt3), header, alignment)
     else
-       pretty_table(String,data; formatters=(fmt1,fmt4), header, alignment, backend=Val(:latex))
+       tbl = pretty_table(String,data; formatters=(fmt1,fmt4), header, alignment, backend=Val(:latex))
+       latextbl = replace(tbl, "\\textbackslash{}" => "\\", "\\}"=>"}", "\\{"=>"{")
+       return(latextbl)
     end
 end
 
@@ -48,7 +50,7 @@ function latexfraction(numer, denom)
     prettynumer = mathsf(numer)
     prettydenom = mathsf(denom)
     prettyfraction = LaTeXString(string("\\frc{",prettynumer,"}{",prettydenom,"}"))
-    latexify(prettyfraction)
+    String(latexify(prettyfraction))
 end
 
 Base.String(x::LaTeXString) = x.s
