@@ -191,6 +191,8 @@ Base.precision(x::T) where {T<:BinaryFloat} = Base.precision(T)
 n_significant_bits(x::T) where {T<:BinaryFloat} = n_significant_bits(T)
 n_trailing_bits(x::T) where {T<:BinaryFloat} = n_trailing_bits(T)
 n_significands(x::T) where {T<:BinaryFloat} = n_significands(T)
+nmax_normal_significands(x::T) where {T<:BinaryFloat} = nmax_normal_significands(T)
+nmax_subnormal_significands(x::T) where {T<:BinaryFloat} = nmax_subnormal_significands(T)
 n_normal_significands(x::T) where {T<:BinaryFloat} = n_normal_significands(T)
 n_subnormal_significands(x::T) where {T<:BinaryFloat} = n_subnormal_significands(T)
 
