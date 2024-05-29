@@ -1,3 +1,8 @@
+exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    collect(normal_exponent_range(T))
+
+significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    collect(normal_significand_range(T))
 
 function subnormal_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     iszero(n_subnormal_significands(T)) && return Real[]
@@ -41,6 +46,7 @@ function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
 end
 
 for F in (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
-           :max_finite_magnitudes, :magnitudes, :all_magnitudes, :all_values)
+           :max_finite_magnitudes, :significand_magnitudes, :exponent_magnitudes,
+           :magnitudes, :all_magnitudes, :all_values)
     @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
 end
