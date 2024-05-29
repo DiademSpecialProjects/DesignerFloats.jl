@@ -21,8 +21,6 @@ end
 #   latex backend for prettytable
 =#
 
-using Dictionaries,LatexStrings, Latexify, PrettyTables
-
 function latexfrac(numer, denom)
     prettynumer = mathsf(numer)
     prettydenom = mathsf(denom)
