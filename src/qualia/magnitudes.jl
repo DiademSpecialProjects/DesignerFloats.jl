@@ -5,10 +5,34 @@ function ordinary_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     vcat(subnormals, normals)[1:n_ordinary_magnitudes(T)]
 end
 
+function finite_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    vcat(Zero, ordinary_exponent_magnitudes(T))
+end
+
+function all_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    result = finite_exponent_magnitudes(T) 
+    if has_infinity(T)
+        push!(result, PosInf)
+    end
+    result
+end
+
 function ordinary_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     subnormals = collect(subnormal_significand_range(T))
     normals = vcat(fill(collect(normal_significand_range(T)), cld(n_normal_magnitudes(T), n_normal_significands(T)))...)
     vcat(subnormals, normals)[1:n_ordinary_magnitudes(T)]
+end
+
+function finite_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    vcat(Zero, ordinary_significand_magnitudes(T))
+end
+
+function all_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    result = finite_significand_magnitudes(T)
+    if has_infinity(T)
+        push!(result, PosInf)
+    end
+    result
 end
 
 function ordinary_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
@@ -20,11 +44,11 @@ function finite_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
 end
 
 function all_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    result = finite_magnitudes(T)
     if has_infinity(T)
-        vcat(finite_magnitudes(T), PosInf)
-    else
-        finite_magnitudes(T)
+        push!(result, PosInf)
     end
+    result
 end
 
 exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
@@ -76,6 +100,8 @@ end
 for F in (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
           :max_finite_magnitudes, :significand_magnitudes, :exponent_magnitudes,
           :ordinary_significand_magnitudes, :ordinary_exponent_magnitudes,
+          :finite_significand_magnitudes, :finite_exponent_magnitudes,
+          :all_significand_magnitudes, :all_exponent_magnitudes,
           :magnitudes, :all_magnitudes, :all_values)
     @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
 end
