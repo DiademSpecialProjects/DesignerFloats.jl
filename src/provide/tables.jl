@@ -21,6 +21,8 @@ end
 #   latex backend for prettytable
 =#
 
+const LString = Union{LaTeXString, String}
+
 function latexfrac(numer, denom)
     prettynumer = mathsf(numer)
     prettydenom = mathsf(denom)
@@ -40,8 +42,6 @@ Base.String(x::LaTeXString) = x.s
 function latexmath(wrap::String, x::LString)
     latexify( LaTeXString( string(wrap , "{" , String(x) , "}") ) )
 end 
-
-const LString = Union{String,LaTeXString}
 
 sup(x::LString) = latexmath(string("^{", x, "}"))
 sub(x::LString) = latexmath(string("_{", x, "}"))
