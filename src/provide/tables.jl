@@ -18,7 +18,7 @@ function prettytable(x::T; target=:text) where {W,P,T<:BinaryFloat{W,P}}
     if target != :latex
        pretty_table(data; formatters=(fmt1,fmt4), header, alignment)
     else
-       pretty_table(String,data; formatters=(fmt1,fmt3), header, alignment; backend=Val(:latex))
+       pretty_table(String,data; formatters=(fmt1,fmt3), header, alignment, backend=Val(:latex))
     end
 end
 
