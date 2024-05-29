@@ -13,12 +13,12 @@ function prettytable(x::T; target=:text) where {W,P,T<:BinaryFloat{W,P}}
 
     fmt1(v,i,j)=(j==1 ? string("0x",@sprintf("%02x",v)) : v)
     fmt3(v,i,j)=(j>=3 && isa(v,Rational) ? string(numerator(v),"/",denominator(v)) : v)
-    fmt4(v,i,j)=(j>=3 && isa(v,Rational) ? string("\\frc{",numerator(v),"}{",denominator(v),"") : v)
+    fmt4(v,i,j)=(j>=3 && isa(v,Rational) ? string("\\frc{",numerator(v),"}{",denominator(v),"}") : v)
 
     if target != :latex
-       pretty_table(data; formatters=(fmt1,fmt4), header, alignment)
+       pretty_table(data; formatters=(fmt1,fmt3), header, alignment)
     else
-       pretty_table(String,data; formatters=(fmt1,fmt3), header, alignment, backend=Val(:latex))
+       pretty_table(String,data; formatters=(fmt1,fmt4), header, alignment, backend=Val(:latex))
     end
 end
 
