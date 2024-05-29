@@ -6,8 +6,7 @@ const IntNK = Int2K
 const RationalNK = Rational{IntNK}
 const Rational64 = Rational{Int64}
 
-const ValType  = Union{Int64, IntNK, Float64, Rational64, RationalNK}
-const NoValues = ValType[]
+const NoValues = Real[]
 
 const Zero   = RationalNK( 0, 1)
 const PosOne = RationalNK( 1, 1)
