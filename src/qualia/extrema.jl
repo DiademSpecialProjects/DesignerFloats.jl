@@ -131,7 +131,7 @@ end
 function normal_significand_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_significands(T)
     iszero(n) && return 1:0
-    RationalNK.((2.0).^range(start=min_normal_signficand(T), stop=max_normal_significand(T), length=n))
+    RationalNK.((2.0).^range(start=min_normal_significand(T), stop=max_normal_significand(T), length=n))
 end
 
 min_normal_significand(x::T) where {T} = min_normal_significand(T)

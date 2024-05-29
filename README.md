@@ -39,7 +39,7 @@ UFloat53f = FiniteUnsignedFloat(width, precision)
 ```
 SignedFloat, FiniteSignedFloat, UnsignedFloat, FiniteUnsignedFloat,
 width, precision, n_bits, n_values, n_numeric_values,
-n_significant_bits, n_trailing_bits, n_signficands, n_subnormal_significands,
+n_significant_bits, n_trailing_bits, n_significands, n_subnormal_significands,
 n_exponent_bits, n_exponent_values, exponent_bias,
 n_numeric_magnitudes, n_finite_magnitudes, n_ordinary_magnitudes,
 n_subnormal_magnitudes, n_normal_magnitudes,

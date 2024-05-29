@@ -70,7 +70,7 @@ n_trailing_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_trailing_bits
     n_significands(::BinaryFloat{W,P})
 
 counts the significand values available 
-- max(n_subnormal_signficands, n_normal_significands)
+- max(n_subnormal_significands, n_normal_significands)
 """
 n_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     max(n_subnormal_significands(T), n_normal_significands(T))
