@@ -73,16 +73,40 @@ max_ordinary_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 max_finite_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     vcat(0//1, subnormal_magnitudes(T), normal_magnitudes(T))
 
-function magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    mags = Real[max_finite_magnitudes(T)...]
-    if has_infinity(T)
-        mags[end] = 1//0
+function all_exponent_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    mags = all_exponent_magnitudes(T)
+    if is_signed(T)
+        negmags = Real[-1 .* mags...]
+        negmags[1] = NaN
+        vals = vcat(mags, negmags)
+    else
+        vals = mags
+        if has_infinity(T)
+            vals[end-1] = 1 // 0
+        end
+        vals[end] = NaN
     end
-    mags
+    vals
+end
+
+function all_significand_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    mags = all_significand_magnitudes(T)
+    if is_signed(T)
+        negmags = Real[-1 .* mags...]
+        negmags[1] = NaN
+        vals = vcat(mags, negmags)
+    else
+        vals = mags
+        if has_infinity(T)
+            vals[end-1] = 1 // 0
+        end
+        vals[end] = NaN
+    end
+    vals
 end
 
 function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    mags = magnitudes(T)
+    mags = all_magnitudes(T)
     if is_signed(T)
         negmags = Real[-1 .* mags...]
         negmags[1] = NaN
