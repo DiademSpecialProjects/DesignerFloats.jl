@@ -13,9 +13,7 @@ function all_significand_values(x::T) where {W,P,T<:UnsignedBinaryFloat{W,P}}
     n = n_values(x)
     iszero(n) && return copy(NoValues)
     seq = significand_magnitudes(x)
-    if nan(x)
-        push!(seq, NaN)
-    end
+    push!(seq, NaN)
     Real[seq...]
 end
 
@@ -23,11 +21,7 @@ function all_significand_values(x::T) where {W,P,T<:SignedBinaryFloat{W,P}}
     n = n_values(x)
     iszero(n) && return copy(NoValues)
     nonnegseq = significand_magnitudes(x)
-    if nan(x)
-        Real[vcat(nonnegseq, NaN, NegOne .* nonnegseq[2:end])...]
-    else
-        throw(ErrorException("SignedFLOATs should have NaN"))
-    end
+    Real[vcat(nonnegseq, NaN, NegOne .* nonnegseq[2:end])...]
 end
 
 function all_exponent_values(x::T) where {W,P,T<:BinaryFloat{W,P}}
