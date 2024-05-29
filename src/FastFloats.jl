@@ -17,6 +17,7 @@ using BitIntegers, Quadmath             # Int1024, Float128
 using Dictionaries                      # order stable associative arrays
 using CSV, Tables, DataFrames           # tables in memory and in files
 using Printf, PrettyTables              # hexadecimal strings
+using LaTeXStrings, Latexify            # for prettytable latex backend
 
 include("type/constants.jl")
 include("type/abstraction.jl")

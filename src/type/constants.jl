@@ -6,7 +6,7 @@ const Int1K = BitIntegers.Int1024
 const Int2K = Int2048
 const Int3K = Int3072
 const Int4K = Int4096
-const IntNK = Int4K
+const IntNK = Int2K
 
 const RationalNK = Rational{IntNK}
 const Rational64 = Rational{Int64}
