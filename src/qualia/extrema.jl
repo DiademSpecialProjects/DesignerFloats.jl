@@ -121,12 +121,11 @@ end
 
 for F in (:min_subnormal_exponent, :max_subnormal_exponent,
           :minmax_subnormal_exponents, :subnormal_exponent_range,
-          :min_subnormal_significand, max_subnormal_significand,
+          :min_subnormal_significand, :max_subnormal_significand,
           :minmax_subnormal_significands, :subnormal_significand_range,
           :min_normal_exponent, :max_normal_exponent,
           :minmax_normal_exponents, :normal_exponent_range,
-          :min_normal_significand, max_normal_significand,
+          :min_normal_significand, :max_normal_significand,
           :minmax_normal_significands, :normal_significand_range)
-
     @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
 end
