@@ -171,6 +171,9 @@ function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
         vals = vcat(mags, negmags)
     else
         vals = mags
+        if has_infinity(T)
+            vals[end-1] = 1//0
+        end
         vals[end] = NaN
     end
     vals
