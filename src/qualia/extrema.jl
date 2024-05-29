@@ -27,7 +27,7 @@ max_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max_biased_exponent(T)
 function min_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_exponents(T)
     iszero(n) && return nothing
-    (2.0)^min_exponent(T)
+    Rational{Int128}(2,1)^min_exponent(T)
 end
 
 max_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
@@ -42,7 +42,7 @@ end
 function subnormal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_exponents(T)
     iszero(n) && return 1:0
-    UnitRange(minmax_subnormal_exponents(T)...)
+    range(start=min_subnormal_exponent(T), stop=max_subnormal_exponent(T), length=n)
 end
 
 min_subnormal_exponent(x::T) where {T} = min_subnormal_exponent(T)
@@ -53,13 +53,13 @@ subnormal_exponent_range(x::T) where {T} = subnormal_exponent_range(T)
 function min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return nothing
-    (2.0)^min_exponent(T)
+    Rational{Int128}(2,1)^min_exponent(T)
 end
 
 function max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return nothing
-    (2.0)^max_exponent(T)
+    Rational{Int128}(2,1)^max_exponent(T)
 end
 
 function minmax_normal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
@@ -71,7 +71,7 @@ end
 function normal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return 1:0
-    UnitRange(minmax_normal_exponents(T)...)
+    range(start=min_subnormal_exponent(T), stop=max_subnormal_exponent(T), length=n)
 end
 
 min_normal_exponent(x::T) where {T} = min_normal_exponent(T)
@@ -102,7 +102,7 @@ end
 function subnormal_significand_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_significands(T)
     iszero(n) && return 1:0
-    StepRange(min_subnormal_significand(T), 1//n, max_subnormal_significand(T))
+    StepRange(min_subnormal_significand(T), 1//(n+1), max_subnormal_significand(T))
 end
 
 min_subnormal_significand(x::T) where {T} = min_subnormal_significand(T)
