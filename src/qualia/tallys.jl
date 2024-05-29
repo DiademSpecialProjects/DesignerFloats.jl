@@ -84,7 +84,7 @@ otherwise
 """
 function n_subnormal_signficands(::Type{T}) where {W,P,T<:BinaryFLOAT{W,P}}
     P == 1 && return 0
-    P == 2 && return 1
+   # P == 2 && return 1
     P == W && n_normal_signficands(T) - 2
     n_normal_signficands(T) - 1
 end
