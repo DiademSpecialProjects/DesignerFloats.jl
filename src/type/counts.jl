@@ -90,7 +90,7 @@ n_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 counts the individual values that the exponent may take in normal values
 """
 n_normal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
-    P == W ? 0 : (P == 1 ? 2^n_exponent_bits(T) - 1 : 2^n_exponent_bits(T))
+    P == W ? 0 : 2^n_exponent_bits(T)
 
 """
     n_subnormal_exponents(<: BinaryFloat{W,P})
