@@ -102,7 +102,7 @@ end
 function subnormal_significand_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_significands(T)
     iszero(n) && return 1:0
-    StepRange(min_subnormal_significand(T), 1//(n+1), max_subnormal_significand(T))
+    RationalNK.((2.0).^range(start=min_subnormal_signficand(T), stop=max_subnormal_significand(T), length=n))
 end
 
 min_subnormal_significand(x::T) where {T} = min_subnormal_significand(T)
@@ -131,7 +131,7 @@ end
 function normal_significand_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_significands(T)
     iszero(n) && return 1:0
-    StepRange(min_normal_significand(T), 1//n, max_normal_significand(T))
+    RationalNK.((2.0).^range(start=min_normal_signficand(T), stop=max_normal_significand(T), length=n))
 end
 
 min_normal_significand(x::T) where {T} = min_normal_significand(T)
