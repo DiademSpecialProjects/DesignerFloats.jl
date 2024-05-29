@@ -52,7 +52,7 @@ function all_sign_values(x::T) where {W,P,T<:UnsignedBinaryFloat{W,P}}
     fill(0, n_values(x))
 end
 
-function all_sign_values((x::T) where {W,P,T<:SignedBinaryFloat{W,P}}
+function all_sign_values(x::T) where {W,P,T<:SignedBinaryFloat{W,P}}
     vcat( fill(0, n_values(x)>>1), fill(1, n_values(x)>>1) )
 end
 
