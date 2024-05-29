@@ -1,4 +1,4 @@
-function prettytable(x::T) where {W,P,T<:BinaryFloat{W,P}}
+function prettytable(String, x::T) where {W,P,T<:BinaryFloat{W,P}}
     vecs = [encodings_signs_exponents_significands_values(x)...]
     #header = [:encoding, :sign, :exponent, :significand, :value]
     header = [:hex, :sign, :exp, :sig, :value]
@@ -13,10 +13,24 @@ function prettytable(x::T) where {W,P,T<:BinaryFloat{W,P}}
 
     fmt1(v,i,j)=(j==1 ? string("0x",@sprintf("%02x",v)) : v)
     fmt3(v,i,j)=(j>=3 && isa(v,Rational) ? string(numerator(v),"/",denominator(v)) : v)
+    fmt4(v,i,j)=(j>=3 && isa(v,Rational) ? string("\\frc{"numerator(v),"}{",denominator(v),"") : v)
 
-    pretty_table(data; formatters=(fmt1,fmt3), header, alignment)
+    if backend==Val(:latex)
+       pretty_table(data; formatters=(fmt1,fmt4), header, alignment)
+    else
+       pretty_table(data; formatters=(fmt1,fmt3), header, alignment)
+    end
 end
 
+function latextable(String, x::T) where {W,P,T<:BinaryFloat{W,P}}
+    conf = prettyconf()
+    prettytable(x; backend=Val(:latex))
+end
+
+function prettyconf(target=:latex)
+    # use: pretty_table_with_conf(conf, args...; kwargs...)
+    conf = set_pt_conf(;backend=Val(target), )
+end
 #=
 #   latex backend for prettytable
 =#
