@@ -150,7 +150,7 @@ n_subnormal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
 
 exponent_bias is the offset applied to the raw exponent field.
 """
-exponent_bias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}  = (2^exponent_bits(T) - 1) >> 1
+exponent_bias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}  = (2^n_exponent_bits(T) - 1) >> 1
   
 n_special_values(::Type{T}) where {T<:UnsignedFloat} = 3 # 0, NaN, Inf
 n_special_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 2 # 0, NaN
