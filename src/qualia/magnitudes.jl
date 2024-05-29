@@ -1,13 +1,13 @@
 function ordinary_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     subnormals = fill(min_subnormal_exponent(T), n_subnormal_significands(T))
     normals = vcat(fill(collect(normal_exponent_range(T)), cld(n_normal_magnitudes(T), n_normal_exponents(T)))...)
-    vcat(subnormals, normals)[1:n_ordinary_magnitudes]
+    vcat(subnormals, normals)[1:n_ordinary_magnitudes(T)]
 end
 
 function ordinary_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     subnormals = collect(subnormal_significand_range(T))
     normals = vcat(fill(collect(normal_significand_range(T)), cld(n_normal_magnitudes(T), n_normal_significands(T)))...)
-    vcat(subnormals, normals)[1:n_ordinary_magnitudes]
+    vcat(subnormals, normals)[1:n_ordinary_magnitudes(T)]
 end
 
 exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =

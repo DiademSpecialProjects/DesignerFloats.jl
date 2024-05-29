@@ -20,7 +20,7 @@ end
 function all_significand_values(x::T) where {W,P,T<:SignedBinaryFloat{W,P}}
     n = n_values(x)
     iszero(n) && return copy(NoValues)
-    nonnegseq = significand_magnitudes(x)
+    nonnegseq = ordinary_significand_magnitudes(x)
     Real[vcat(nonnegseq, NaN, NegOne .* nonnegseq[2:end])...]
 end
 
