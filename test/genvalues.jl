@@ -1,6 +1,6 @@
 using CSV, Tables, DataFrames, PrettyTables, LaTeXStrings, Latexify
 
-destpath = joinpath(s"C:/temp","P3109")
+destpath = realpath(joinpath(s"C:/temp","P3109"))
 
 minwidth = 2
 maxwidth = 12
