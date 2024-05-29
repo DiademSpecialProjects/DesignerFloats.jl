@@ -68,23 +68,3 @@ code!(x::T, v::Encoding) where {T<:BinaryFloat} = setfield!(x, :code, v)
 value!(x::T, v::AbstractFloat) where {T<:BinaryFloat} = setfield!(x, :value, FPValue(v))
 code!(x::T, v::Integer) where {T<:BinaryFloat} = setfield!(x, :code, Encoding(v))
 
-is_signed(x::T) where {T} = is_signed(T)
-is_unsigned(x::T) where {T} = is_unsigned(T)
-
-is_finite(::Type{T}) where {T<:FiniteSignedFloat} = true
-is_finite(::Type{T}) where {T<:FiniteUnsignedFloat} = true
-is_finite(::Type{T}) where {T<:SignedFloat} = false
-is_finite(::Type{T}) where {T<:UnsignedFloat} = false
-
-is_extended(::Type{T}) where {T<:FiniteSignedFloat} = false
-is_extended(::Type{T}) where {T<:FiniteUnsignedFloat} = false
-is_extended(::Type{T}) where {T<:SignedFloat} = true
-is_extended(::Type{T}) where {T<:UnsignedFloat} = true
-
-has_infinity(::Type{T}) where {T} = is_extended(T)
-
-is_finite(x::T) where {T} = is_finite(T)
-is_extended(x::T) where {T} = is_extended(T)
-has_infinity(x::T) where {T} = has_infinity(T)
-
-
