@@ -5,26 +5,15 @@
 
 n_bits is a bit count: the storage width (memory spanned).
 """
-n_bits(::Type{<:BinaryFloat{W,P}}) where {W,P} = W
-width(::Type{<:BinaryFloat{W,P}}) where {W,P} = W
+n_bits(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = W
 
 """
-     n_significant_bits(::BinaryFloat{W,P})
+     width(::BinaryFloat{W,P})
 
-Precision is a bit count of complete significand.
-    - this includes the implicit bit
-    - (0b1 for normal values, 0b0 for subnormals).
+this is a bit count: the storage width (memory spanned).
+- synonym for [`n_bits`](@ref)
 """
-n_significant_bits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
-Base.precision(::Type{<:BinaryFloat{W,P}}) where {W,P} = P
-
-"""
-     n_trailing_bits(::BinaryFloat{W,P})
-
-The trailing significand bits count the significand bits (those explicitly stored).
-    - this excludes the implicit bit
-"""
-n_trailing_bits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
+width(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = W
 
 """
     n_values(::BinaryFloat{W,P})
@@ -32,15 +21,50 @@ n_trailing_bits(::Type{<:BinaryFloat{W,P}}) where {W,P} = P - 1
 counts the distinct values of x
 - the number of encodings
 """
-n_values(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^W
+n_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^W
 
 """
     n_numeric_values(::BinaryFloat{W,P})
 
-counts the distinct numeric values of x 
+counts the distinct numeric values
 - excludes NaN
+
+see [`n_values`](@ref)
 """
-n_numeric_values(::Type{<:BinaryFloat{W,P}}) where {W,P} = 2^W - 1
+n_numeric_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = n_values(T) - 1
+
+"""
+     n_significant_bits(::BinaryFloat{W,P})
+
+Precision is a bit count of complete significand.
+    - this includes the implicit bit
+    - (0b1 for normal values, 0b0 for subnormals).
+
+this is a synonym for `precision`.
+
+see [`n_trailing_bits`](@ref)
+"""
+n_significant_bits(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P
+Base.precision(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P
+
+"""
+     n_trailing_bits(::BinaryFloat{W,P})
+
+The trailing significand bits count the significand bits (those explicitly stored).
+    - this excludes the implicit bit
+
+see [`n_significant_bits`](@ref)
+"""
+n_trailing_bits(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P - 1
+
+"""
+    n_trailing_values(::BinaryFloat{W,P})
+
+counts the distinct values available from the trailing_bits
+
+see [`n_trailing_bits`](@ref)
+"""
+n_trailing_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_trailing_bits(T)
 
 """
     n_significands(::BinaryFloat{W,P})
@@ -52,13 +76,34 @@ n_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     max(n_subnormal_significands(T), n_normal_significands(T))
 
 """
+    nmax_normal_significands(::BinaryFloat{W,P})
+
+counts the maximum number of normal significands available
+
+- a specific type may have fewer normal significands
+"""
+nmax_normal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    P == W ? 0 : 2^n_trailing_bits(T)
+
+"""
+    nmax_subnormal_significands(::BinaryFloat{W,P})
+
+counts the maximum number subnormal significand values available 
+
+- a specific type may have fewer subnormal significands
+"""
+nmax_subnormal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 
+    P == 1 ? 0 : (P == W ? 2^n_trailing_bits(T) : 2^n_trailing_bits(T) - 1)
+
+"""
     n_normal_significands(::BinaryFloat{W,P})
 
-counts the normal significands
+counts the maximum number of normal significands
+- a specific type may have fewer normal significands
 """
 n_normal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     P == W ? 0 : 2^n_trailing_bits(T)
-   
+
 """
     n_subnormal_significands(::BinaryFloat{W,P})
 
@@ -139,14 +184,16 @@ n_normal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_ordinary_magnitudes(T)
 # for concrete types
      
 width(x::T) where {T<:BinaryFloat} = n_bits(T)
-Base.precision(x::T) where {T<:BinaryFloat} = Base.precision(T)
 n_bits(x::T) where {T<:BinaryFloat} = n_bits(T)
+n_values(x::T) where {T<:BinaryFloat} = n_values(T)
+Base.precision(x::T) where {T<:BinaryFloat} = Base.precision(T)
+
 n_significant_bits(x::T) where {T<:BinaryFloat} = n_significant_bits(T)
 n_trailing_bits(x::T) where {T<:BinaryFloat} = n_trailing_bits(T)
-n_values(x::T) where {T<:BinaryFloat} = n_values(T)
 n_significands(x::T) where {T<:BinaryFloat} = n_significands(T)
 n_normal_significands(x::T) where {T<:BinaryFloat} = n_normal_significands(T)
 n_subnormal_significands(x::T) where {T<:BinaryFloat} = n_subnormal_significands(T)
+
 n_exponent_bits(x::T) where {T<:BinaryFloat} = n_exponent_bits(T)
 n_exponents(x::T) where {T<:BinaryFloat} = n_exponents(T)
 n_subnormal_exponents(x::T) where {T<:BinaryFloat} = n_subnormal_exponents(T)
