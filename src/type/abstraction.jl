@@ -42,9 +42,3 @@ ExtendedUnsignedFloat and FiniteUnsignedFloat.
 """
 abstract type UnsignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
 
-is_signed(::Type{T}) where {T<:SignedBinaryFloat} = true
-is_signed(::Type{T}) where {T<:UnsignedBinaryFloat} = false
-
-is_unsigned(::Type{T}) where {T<:SignedBinaryFloat} = false
-is_unsigned(::Type{T}) where {T<:UnsignedBinaryFloat} = true
-
