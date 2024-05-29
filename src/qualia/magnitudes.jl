@@ -22,6 +22,7 @@ function magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     end
     mags
 end
+all_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = magnitudes(T)
 
 function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     mags = magnitudes(T)
@@ -39,3 +40,7 @@ function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     vals
 end
 
+for F in (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
+           :max_finite_magnitudes, :magnitudes, :all_magnitudes, :all_values)
+    @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
+end
