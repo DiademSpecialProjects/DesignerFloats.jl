@@ -71,7 +71,7 @@ end
 function normal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return 1:0
-    range(start=min_normal_exponent(T), stop=max_normal_exponent(T), length=n)
+    Rational{Int128}.((2.0).^range(start=min_exponent(T), stop=max_exponent(T), length=n))
 end
 
 min_normal_exponent(x::T) where {T} = min_normal_exponent(T)
