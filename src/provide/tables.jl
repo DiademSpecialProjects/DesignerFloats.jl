@@ -91,7 +91,7 @@ preamble = """
 \\renewcommand{\\arraystretch}{1.325}%
 %
 \\usepackage{xfrac}%
-\\newcommand{\\frc}[2]{{$\\mathbf{\\sfrac{#1}{#2}}$}}%
+\\newcommand{\\frc}[2]{{\\ensuremath{\\mathbf{\\sfrac{#1}{#2}}}}}%
 
 \\newcommand{\\NaN}[0]{\\small{\\textsc{\\textsf{NaN}}}}%
 \\newcommand{\\nan}[0]{\\footnotesize{\\textsc{\\textsf{NaN}}}}%
