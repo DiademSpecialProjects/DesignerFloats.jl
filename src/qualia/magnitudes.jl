@@ -11,6 +11,22 @@ function ordinary_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,
     vcat(subnormals, normals)[1:n_ordinary_magnitudes(T)]
 end
 
+function ordinary_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+   ordinary_significand_magnitudes(T) .* ordinary_exponent_magnitudes(T)
+end
+
+function finite_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    vcat(Zero, ordinary_magnitudes(T))
+end
+
+function all_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    if has_infinity(T)
+        vcat(finite_magnitudes(T), PosInf)
+    else
+        finite_magnitudes(T)
+    end
+end
+
 exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     collect(normal_exponent_range(T))
 
@@ -40,7 +56,6 @@ function magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     end
     mags
 end
-all_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = magnitudes(T)
 
 function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     mags = magnitudes(T)
