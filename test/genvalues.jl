@@ -1,7 +1,9 @@
-using CSV
+using CSV, Tables, DataFrames
+
+destpath = joinpath(s"C:/temp","P3109")
 
 minwidth = 2
-maxwidth = 4
+maxwidth = 12
 
 results = []
 
@@ -15,7 +17,9 @@ for width in minwidth:maxwidth
      xuv = all_values(xu)
      fuv = all_values(fu)
      fsv = all_values(fs)
-     res = (; width, prec, xsv, fsv, xuv, fuv)
+     basename = string("Binary",width,"p",prec)
+     names = Tuple(Symbol.(["width","prec","si"*basename, "sf"*basename, "ui"*basename, "uf"*basename ]))
+     res = NamedTuple{names}((width, prec, xsv, fsv, xuv, fuv))
      push!(results, res)
   end
 end
