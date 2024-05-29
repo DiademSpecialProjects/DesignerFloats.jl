@@ -110,7 +110,7 @@ n_normal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 counts the subnormal significand values available 
 """
 n_subnormal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 
-    P == 1 ? 0 : 2^n_trailing_bits(T) - 1)
+    P == 1 ? 0 : 2^n_trailing_bits(T) - 1
 
 """
     n_exponent_bits(<: BinaryFloat{W,P})
@@ -208,7 +208,7 @@ n_numeric_values(x::T) where {T<:BinaryFloat} = n_numeric_values(T)
 n_subnormal_values(x::T) where {T<:BinaryFloat} = n_subnormal_values(T)
 n_normal_values(x::T) where {T<:BinaryFloat} = n_normal_values(T)
 
-n_magnitudes(x::T) where {T<:BinaryFloat) = n_magnitudes(T)
+n_magnitudes(x::T) where {T<:BinaryFloat} = n_magnitudes(T)
 n_ordinary_magnitudes(x::T) where {T<:BinaryFloat} = n_ordinary_magnitudes(T)
 n_finite_magnitudes(x::T) where {T<:BinaryFloat} = n_finite_magnitudes(T)
 n_numeric_magnitudes(x::T) where {T<:BinaryFloat} = n_numeric_magnitudes(T)
