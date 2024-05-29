@@ -76,7 +76,7 @@ max_finite_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 function all_exponent_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     mags = all_exponent_magnitudes(T)
     if is_signed(T)
-        negmags = Real[-1 .* mags...]
+        negmags = mags
         negmags[1] = NaN
         vals = vcat(mags, negmags)
     else
