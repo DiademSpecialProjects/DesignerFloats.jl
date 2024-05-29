@@ -1,5 +1,7 @@
 BitIntegers.@define_integers 2048
 BitIntegers.@define_integers 3072
+BitIntegers.@define_integers 4096
+
 const Int1K = BitIntegers.Int1024
 const Int2K = Int2048
 const Int3K = Int3072
