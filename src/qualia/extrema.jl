@@ -107,7 +107,7 @@ end
 
 min_subnormal_significand(x::T) where {T} = min_subnormal_significand(T)
 max_subnormal_significand(x::T) where {T} = max_subnormal_significand(T)
-minmax_subnormal_significands(x::T) where {T} = minmax_subnormal_significand(T)
+minmax_subnormal_significands(x::T) where {T} = minmax_subnormal_significands(T)
 subnormal_significand_range(x::T) where {T} = subnormal_significand_range(T)
 
 function min_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
@@ -136,5 +136,5 @@ end
 
 min_normal_significand(x::T) where {T} = min_normal_significand(T)
 max_normal_significand(x::T) where {T} = max_normal_significand(T)
-minmax_normal_significands(x::T) where {T} = minmax_normal_significand(T)
+minmax_normal_significands(x::T) where {T} = minmax_normal_significands(T)
 normal_significand_range(x::T) where {T} = normal_significand_range(T)
