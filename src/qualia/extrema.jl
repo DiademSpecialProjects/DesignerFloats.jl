@@ -25,7 +25,7 @@ max_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P} = max_biased_exponent(T)-
 function min_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     n = n_subnormal_exponents(T)
     iszero(n) && return nothing
-    2.0^min_exponent(T)
+    (2.0)^min_exponent(T)
 end
 
 max_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P} =
@@ -37,22 +37,27 @@ function minmax_subnormal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     simple_values(min_subnormal_exponent(T), max_subnormal_exponent(T))
 end
 
-function subnormal_exponent_range (::Type{T}) where {W,P,T<:BinaryFloat{W,P}
+function subnormal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     n = n_subnormal_exponents(T)
     iszero(n) && return 1:0
     UnitRange(minmax_subnormal_exponents(T)...)
 end
 
+min_subnormal_exponent(x::T) where {T} = min_subnormal_exponent(T)
+max_subnormal_exponent(x::T) where {T} = max_subnormal_exponent(T)
+minmax_subnormal_exponents(x::T) where {T} = minmax_subnormal_exponent(T)
+subnormal_exponent_range(x::T) where {T} = subnormal_exponent_range(T)
+
 function min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P} 
     n = n_normal_exponents(T)
     iszero(n) && return nothing
-    2.0^min_exponent(T)
+    (2.0)^min_exponent(T)
 end
 
 function max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P} 
     n = n_normal_exponents(T)
     iszero(n) && return nothing
-    2.0^max_exponent(T)
+    (2.0)^max_exponent(T)
 end
 
 function minmax_normal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
@@ -61,13 +66,16 @@ function minmax_normal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     simple_values(min_normal_exponent(T), max_normal_exponent(T))
 end
 
-function normal_exponent_range (::Type{T}) where {W,P,T<:BinaryFloat{W,P}
+function normal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     n = n_normal_exponents(T)
     iszero(n) && return 1:0
     UnitRange(minmax_normal_exponents(T)...)
 end
 
-
+min_normal_exponent(x::T) where {T} = min_normal_exponent(T)
+max_normal_exponent(x::T) where {T} = max_normal_exponent(T)
+minmax_normal_exponents(x::T) where {T} = minmax_normal_exponent(T)
+normal_exponent_range(x::T) where {T} = normal_exponent_range(T)
 
 
 function extremal_subnormal_significands(x::BinaryFLOAT{W,P}) where {W,P}
