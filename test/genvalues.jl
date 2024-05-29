@@ -1,4 +1,4 @@
-using CSV, Tables, DataFrames
+using CSV, Tables, DataFrames, PrettyTables, LaTeXStrings, Latexify
 
 destpath = joinpath(s"C:/temp","P3109")
 
