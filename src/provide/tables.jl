@@ -1,4 +1,4 @@
-function prettytable(x::T) where {W,P,T<:BinaryFloat{W,P}
+function prettytable(x::T) where {W,P,T<:BinaryFloat{W,P}}
     vecs = [encodings_signs_exponents_significands_values(x)...]
     #header = [:encoding, :sign, :exponent, :significand, :value]
     header = [:hex, :sign, :exp, :sig, :value]
