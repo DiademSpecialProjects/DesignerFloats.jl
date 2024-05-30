@@ -20,7 +20,7 @@ function prettytable(x::T; target=:text) where {W,P,T<:BinaryFloat{W,P}}
     else
        tbl = pretty_table(String,data; formatters=(fmt1,fmt4), header, alignment, backend=Val(:latex))
        latextbl = replace(tbl, "\\textbackslash{}" => "\\", "\\}"=>"}", "\\{"=>"{", "NaN" => "\\NaN")
-       latextbl = replace(latextbl, "\\frc{1}{0}" => "\\Inf", "\\frc{-1}{0}" => "-\\Inf") 
+      # latextbl = replace(latextbl, "\\frc{1}{0}" => "\\Inf", "\\frc{-1}{0}" => "-\\Inf") 
        return(latextbl)
     end
 end
