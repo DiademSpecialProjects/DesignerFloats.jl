@@ -12,11 +12,20 @@ function prettytable(x::T; target=:text) where {W,P,T<:BinaryFloat{W,P}}
     data = collect(transpose(reshape(arr, 5,n_values(x))))
 
     fmt1(v,i,j)=(j==1 ? string("0x",@sprintf("%02x",v)) : v)
+    fmt2(v,i,j)=(j>=3 && isa(v,Rational) ? string(Float16(v)) : v)
     fmt3(v,i,j)=(j>=3 && isa(v,Rational) ? string(numerator(v),"/",denominator(v)) : v)
     fmt4(v,i,j)=(j>=3 && isa(v,Rational) ? string("\\frc{",numerator(v),"}{",denominator(v),"}") : v)
 
     if target != :latex
-       pretty_table(data; formatters=(fmt1,fmt3), header, alignment)
+        if target == :text
+           pretty_table(data; formatters=(fmt1,fmt3), header, alignment)
+        else
+           pretty_table(data; formatters=(fmt1,fmt2), header, alignment)
+        end
+    elseif target == :latex2
+        tbl = pretty_table(String, data; formatters=(fmt1, fmt2), header, alignment, backend=Val(:latex))
+        latextbl = replace(tbl, "\\textbackslash{}" => "\\", "\\}" => "}", "\\{" => "{", "NaN" => "\\NaN")
+        return(latextbl)
     else
        tbl = pretty_table(String,data; formatters=(fmt1,fmt4), header, alignment, backend=Val(:latex))
        latextbl = replace(tbl, "\\textbackslash{}" => "\\", "\\}"=>"}", "\\{"=>"{", "NaN" => "\\NaN")
@@ -25,9 +34,23 @@ function prettytable(x::T; target=:text) where {W,P,T<:BinaryFloat{W,P}}
     end
 end
 
+function fractable(x::T) where {W,P,T<:BinaryFloat{W,P}}
+    prettytable(x; target=:text)
+end
+
+function floattable(x::T) where {W,P,T<:BinaryFloat{W,P}}
+    prettytable(x; target=:text2)
+end
+
+
 function latextable(x::T) where {W,P,T<:BinaryFloat{W,P}}
     conf = prettyconf()
     prettytable(x; target=:latex)
+end
+
+function latextable2(x::T) where {W,P,T<:BinaryFloat{W,P}}
+    conf = prettyconf()
+    prettytable(x; target=:latex2)
 end
 
 function prettyconf(target=:latex)
