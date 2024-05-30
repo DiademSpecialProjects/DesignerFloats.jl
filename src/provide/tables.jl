@@ -41,12 +41,12 @@ function floattable(x::T) where {W,P,T<:BinaryFloat{W,P}}
 end
 
 
-function latextable(x::T) where {W,P,T<:BinaryFloat{W,P}}
+function latexfrac(x::T) where {W,P,T<:BinaryFloat{W,P}}
     conf = prettyconf()
     prettytable(x; target=:latex)
 end
 
-function latextable2(x::T) where {W,P,T<:BinaryFloat{W,P}}
+function latexfloat(x::T) where {W,P,T<:BinaryFloat{W,P}}
     conf = prettyconf()
     prettytable(x; target=:latex2)
 end
