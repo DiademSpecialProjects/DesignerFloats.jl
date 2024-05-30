@@ -22,7 +22,7 @@ end
 
 function ordinary_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     subnormals = collect(subnormal_significand_range(T))
-    normals = collect(normal_signficand_range(T))
+    normals = collect(normal_significand_range(T))
     if !isempty(normals)
         normals = vcat(fill(normals, cld(n_normal_magnitudes(T), n_normal_significands(T)))...)
     end
