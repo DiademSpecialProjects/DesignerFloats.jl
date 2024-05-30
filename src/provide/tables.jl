@@ -16,17 +16,15 @@ function prettytable(x::T; target=:text) where {W,P,T<:BinaryFloat{W,P}}
     fmt3(v,i,j)=(j>=3 && isa(v,Rational) ? string(numerator(v),"/",denominator(v)) : v)
     fmt4(v,i,j)=(j>=3 && isa(v,Rational) ? string("\\frc{",numerator(v),"}{",denominator(v),"}") : v)
 
-    if target != :latex
-        if target == :text
-           pretty_table(data; formatters=(fmt1,fmt3), header, alignment)
-        else
-           pretty_table(data; formatters=(fmt1,fmt2), header, alignment)
-        end
+    if target == :frac
+        pretty_table(data; formatters=(fmt1,fmt3), header, alignment)
+    elseif target == :float
+        pretty_table(data; formatters=(fmt1,fmt2), header, alignment)
     elseif target == :latex2
         tbl = pretty_table(String, data; formatters=(fmt1, fmt2), header, alignment, backend=Val(:latex))
         latextbl = replace(tbl, "\\textbackslash{}" => "\\", "\\}" => "}", "\\{" => "{", "NaN" => "\\NaN")
         return(latextbl)
-    else
+    else # target == :latex
        tbl = pretty_table(String,data; formatters=(fmt1,fmt4), header, alignment, backend=Val(:latex))
        latextbl = replace(tbl, "\\textbackslash{}" => "\\", "\\}"=>"}", "\\{"=>"{", "NaN" => "\\NaN")
       # latextbl = replace(latextbl, "\\frc{1}{0}" => "\\Inf", "\\frc{-1}{0}" => "-\\Inf") 
@@ -35,11 +33,11 @@ function prettytable(x::T; target=:text) where {W,P,T<:BinaryFloat{W,P}}
 end
 
 function fractable(x::T) where {W,P,T<:BinaryFloat{W,P}}
-    prettytable(x; target=:text)
+    prettytable(x; target=:frac)
 end
 
 function floattable(x::T) where {W,P,T<:BinaryFloat{W,P}}
-    prettytable(x; target=:text2)
+    prettytable(x; target=:float)
 end
 
 
