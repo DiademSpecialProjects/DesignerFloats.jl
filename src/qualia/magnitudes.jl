@@ -81,10 +81,7 @@ function all_exponent_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
         vals = vcat(mags, neghalf)
     else
         vals = mags
-        if has_infinity(T)
-            vals[end-1] = 1 // 0
-        end
-        vals[end] = 0//1
+        push!(vals, 0//1) # for NaN
     end
     vals
 end
@@ -97,10 +94,7 @@ function all_significand_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
         vals = vcat(mags, negmags)
     else
         vals = mags
-        if has_infinity(T)
-            vals[end-1] = 1 // 0
-        end
-        vals[end] = NaN
+        push!(vals, NaN)
     end
     vals
 end
@@ -113,10 +107,7 @@ function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
         vals = vcat(mags, negmags)
     else
         vals = mags
-        if has_infinity(T)
-            vals[end-1] = 1//0
-        end
-        vals[end] = NaN
+        push!(vals, NaN)
     end
     vals
 end
