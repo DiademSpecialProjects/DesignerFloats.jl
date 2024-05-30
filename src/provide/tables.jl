@@ -1,8 +1,8 @@
 function prettytable(x::T; target=:text) where {W,P,T<:BinaryFloat{W,P}}
     vecs = [encodings_signs_exponents_significands_values(x)...]
     #header = [:encoding, :sign, :exponent, :significand, :value]
-    header = [:hex, :sign, :exp, :sig, :value]
-    alignment = [:c, :r, :r, :r, :r]
+    header = [:code, :sgn, :exp, :sig, :value]
+    alignment = [:c, :r, :r, :r, :c]
     df = DataFrame(vecs, header)
     arr = Any[]
     mp = (map(x -> Any[x...], map(values, rowtable(df))))
