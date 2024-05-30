@@ -84,13 +84,13 @@ function all_exponent_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
         if has_infinity(T)
             vals[end-1] = 1 // 0
         end
-        vals[end] = NaN
+        vals[end] = 0//1
     end
     vals
 end
 
 function all_significand_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    mags = all_significand_magnitudes(T)
+    mags = Real[all_significand_magnitudes(T)...]
     if is_signed(T)
         negmags = Real[-1 .* mags...]
         negmags[1] = NaN
