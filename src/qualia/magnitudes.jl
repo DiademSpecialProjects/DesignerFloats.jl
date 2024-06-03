@@ -5,7 +5,7 @@ function ordinary_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
         normals = hcat(fill(normals, cld(n_normal_magnitudes(T), n_normal_exponents(T)))...)
         normals = vcat(normals'...)
     end
-    vcat(subnormals, normals)[1:n_ordinary_magnitudes(T)]
+    vcat(subnormals, normals)
 end
 
 function finite_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
