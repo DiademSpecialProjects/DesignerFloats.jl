@@ -15,7 +15,7 @@ end
 
 function all_subnormal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n_subnormals = n_subnormal_significands(T)
-    if iszero(n_subnormals) && return NoValues
+    iszero(n_subnormals) && return copy(NoValues)
     minexp = min_exponent(T)
     fill(minexp, n_subnormals)
 end
@@ -35,8 +35,6 @@ function all_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     end
     result
 end
-
-
 
 function ordinary_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     subnormals = collect(subnormal_exponent_range(T))
