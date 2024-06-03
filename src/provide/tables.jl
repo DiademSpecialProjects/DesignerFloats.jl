@@ -102,7 +102,7 @@ mathfrak(x::LString) = latexmath("\\mathfral", x)
 
 # math symbols
 
-greek_lc_chars = vcat(Char.(0x03b1:0x03C1), Char.(0x03c3:0x03c9))
+greek_lc_chars = append!(Char.(0x03b1:0x03C1), Char.(0x03c3:0x03c9))
 greek_lc_names = ["alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta", "iota", "kappa", "lambda", "mu", "nu", "xi", "omicron", "pi", "rho", "sigma", "tau", "upsilon", "phi", "chi", "psi", "omega"];
 greek_lc_maths = LaTeXString.(string.("\\", greek_lc_names));
 greek_lc = Dictionary(greek_lc_chars, greek_lc_maths);
