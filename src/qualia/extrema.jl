@@ -27,7 +27,7 @@ min_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0 - max_exponent(T)
 function min_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_exponents(T)
     iszero(n) && return nothing
-    RationalNK(2,1)^min_exponent(T)
+    convert(RationalNK, 2.0^min_exponent(T))
 end
 
 max_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
@@ -42,19 +42,19 @@ end
 function subnormal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_exponents(T)
     iszero(n) && return 1:0
-    range(start=min_subnormal_exponent(T), stop=max_subnormal_exponent(T), length=n)
+    collect(range(start=min_subnormal_exponent(T), stop=max_subnormal_exponent(T), length=n))
 end
 
 function min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return nothing
-    RationalNK(2,1)^min_exponent(T)
+    convert(RationalNK, 2.0^min_exponent(T))
 end
 
 function max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return nothing
-    RationalNK(2,1)^max_exponent(T)
+    convert(RationalNK, (2.0)^max_exponent(T))
 end
 
 function minmax_normal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
