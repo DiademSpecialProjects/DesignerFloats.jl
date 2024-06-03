@@ -28,6 +28,9 @@ include("qualia/counts.jl")
 include("qualia/extrema.jl")
 include("qualia/magnitudes.jl")
 
+include("rounding/modes.jl")
+include("rounding/toprecision.jl")
+
 include("provide/showstring.jl")
 include("provide/values.jl")
 include("provide/encodings.jl")

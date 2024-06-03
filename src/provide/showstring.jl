@@ -25,13 +25,13 @@ function pretty(x::T; withinf=true) where {W,P,T<:BinaryFloat{W,P}}
     pretty(stdout, x; withinf)
 end
 
-const ZeroStr = ["0","00","000","0000","00000","000000","0000000","00000000",]
+const ZeroStrings = ["0","00","000","0000","00000","000000","0000000","00000000",]
 
 function hexstring(x::Unsigned)
     hexstr = string(x, base=16)
     nhexdigits = length(hexstr)
     nzeros = max(2, nextpow(2, nhexdigits)) - nhexdigits
-    zs = zerostr[1:nzeros]
+    zs = ZeroStrings[1:nzeros]
     "0x" * zs * hexstr
 end
 
