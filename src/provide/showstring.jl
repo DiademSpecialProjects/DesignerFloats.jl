@@ -31,7 +31,7 @@ function hexstring(x::Unsigned)
     hexstr = string(x, base=16)
     nhexdigits = length(hexstr)
     nzeros = max(2, nextpow(2, nhexdigits)) - nhexdigits
-    zs = ZeroStrings[1:nzeros]
+    zs = ZeroStrings[nzeros]
     "0x" * zs * hexstr
 end
 
