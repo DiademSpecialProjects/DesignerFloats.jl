@@ -3,12 +3,12 @@ const Subscript = ("₁", "₂", "₃", "₄", "₅", "₆", "₇", "₈", "₉"
 
 function Base.string(x::UnsignedBinaryFloat{W,P}; withinf=true) where {W,P} 
     specials = string(withinf && has_infinity(x) ? "ᴵ" : "")
-    string("UFloat", W, "p", P, specials)
+    string("UFloat", W, "p", P, specials, "(",x.value, ", ", x.code, ")")
 end
 
 function Base.string(x::SignedBinaryFloat{W,P}; withinf=true) where {W,P} 
     specials = string(withinf && has_infinity(x) ? "ᴵ" : "")
-    string("SFloat", W, "p", P, specials)
+    string("SFloat", W, "p", P, specials, "(",x.value, ", ", x.code, ")")
 end
 
 function Base.show(io::IO, x::BinaryFloat{W,P}) where {W,P}
