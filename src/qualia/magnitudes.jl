@@ -23,9 +23,9 @@ end
 function all_normal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n_subnormal_mags = n_subnormal_significands(T)
     n_normal_mags = n_normal_magnitudes(T)
-    n_ordinary_
+    exps = 
     n_special_mags = n_special_magnitudes(T)
-
+end
 
 """
     all_exponent_magnitudes(::Type{T})
