@@ -5,7 +5,7 @@
 =#
 
 function simple_values(minval, maxval)
-    (isnothing(minval) && isnothing(maxval)) && return copy(NoValues)
+    (isnothing(minval) && isnothing(maxval)) && return NoValues()
     isnothing(maxval)  && return Real[minval]
     isnothing(minval)  && return Real[maxval]
     
@@ -35,7 +35,7 @@ max_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 
 function minmax_subnormal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_exponents(T)
-    iszero(n) && return copy(NoValues)
+    iszero(n) && return NoValues()
     simple_values(min_subnormal_exponent(T), max_subnormal_exponent(T))
 end
 
@@ -59,7 +59,7 @@ end
 
 function minmax_normal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
-    iszero(n) && return copy(NoValues)
+    iszero(n) && return NoValues()
     simple_values(min_normal_exponent(T), max_normal_exponent(T))
 end
 
@@ -85,7 +85,7 @@ end
 
 function minmax_subnormal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_significands(T)
-    iszero(n) && return copy(NoValues)
+    iszero(n) && return NoValues()
     simple_values(min_subnormal_significand(T), max_subnormal_significand(T))
 end
 
@@ -109,7 +109,7 @@ end
 
 function minmax_normal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_significands(T)
-    iszero(n) && return copy(NoValues)
+    iszero(n) && return NoValues()
     simple_values(min_normal_significand(T), max_normal_significand(T))
 end
 

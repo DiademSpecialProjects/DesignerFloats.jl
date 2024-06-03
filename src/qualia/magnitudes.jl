@@ -15,7 +15,7 @@ end
 
 function all_subnormal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n_subnormals = n_subnormal_significands(T)
-    iszero(n_subnormals) && return copy(NoValues)
+    iszero(n_subnormals) && return NoValues()
     minexp = min_exponent(T)
     fill(minexp, n_subnormals)
 end

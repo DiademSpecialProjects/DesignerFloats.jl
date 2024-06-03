@@ -11,7 +11,8 @@ const IntNK = Int2K
 const RationalNK = Rational{Int1K}
 const Rational64 = Rational{Int64}
 
-const NoValues = Real[]
+const NoValue = Real[]
+NoValues() = copy(NoValue)
 
 const Zero   = RationalNK( 0, 1)
 const PosOne = RationalNK( 1, 1)
