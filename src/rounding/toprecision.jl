@@ -11,12 +11,11 @@ function round_to_precision(z::AbstractFloat, precision::Integer, bias::Integer,
     # round mu to integer I according to rnd
     iota = floor(Int, mu)
     delta = mu - iota
-    if (rnd == RoundNearest && # RoundNearestTTE
-        ((delta > 0.5) || (delta == 0.5 && isodd(iota)))) ||
-       (rnd == RoundNearestTiesAway && (delta >= 0.5)) ||
-       (rnd == RoundUp && z > 0 && delta > 0) ||
-       (rnd == RoundDown && z < 0 && delta > 0)
-    then
+    if ((rnd == RoundNearest && # RoundNearestTTE
+         ((delta > 0.5) || (delta == 0.5 && isodd(iota)))) ||
+        (rnd == RoundNearestTiesAway && (delta >= 0.5)) ||
+        (rnd == RoundUp && z > 0 && delta > 0) ||
+        (rnd == RoundDown && z < 0 && delta > 0))
         iota += 1
     end
     # reconstruct from rounded iota
