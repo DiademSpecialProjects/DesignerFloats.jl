@@ -9,7 +9,7 @@ function round_to_precision(z::AbstractFloat, precision::Integer, bias::Integer,
     eta = max(floor(log2(abs(z))), 1-bias) - precision - 1
     mu = abs(z) * 2.0^(-eta)
     # round mu to integer I according to rnd
-    iota = floor(Int, M)
+    iota = floor(Int, mu)
     delta = mu - iota
     if (Rnd == RoundNearest && # RoundNearestTTE
         ((delta > 0.5) || (delta == 0.5 && isodd(iota)))) ||
