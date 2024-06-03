@@ -65,6 +65,9 @@ valuecode(x::T) where {T<:BinaryFloat} = (value(x), code(x))
 value!(x::T, v::FPValue) where {T<:BinaryFloat} = setfield!(x, :value, v)
 code!(x::T, v::Encoding) where {T<:BinaryFloat} = setfield!(x, :code, v)
 
+valuecode!(x::T, v::FPValue, ̧c::Encoding) where {T<:BinaryFloat} = (value!(x, v); code!(x, c))
+
 value!(x::T, v::AbstractFloat) where {T<:BinaryFloat} = setfield!(x, :value, FPValue(v))
 code!(x::T, v::Integer) where {T<:BinaryFloat} = setfield!(x, :code, Encoding(v))
 
+valuecode!(x::T, v::AbstractFloat, ̧c::Integer) where {T<:BinaryFloat} = (value!(x, FPValue(v)); code!(x, Encoding(c)))
