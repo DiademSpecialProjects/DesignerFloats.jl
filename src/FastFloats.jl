@@ -12,6 +12,8 @@ export BinaryFloat, SignedBinaryFloat, UnsignedBinaryFloat,
        is_signed, is_unsigned, is_finite, is_extended, has_infinity,
        value, code, valuecode, value!, code!
 
+import Base: precision, exponent_bias
+
 using BitOperations                     # bitfields: mask, shift, unmask
 using BitIntegers, Quadmath             # Int1024, Float128
 using Dictionaries                      # order stable associative arrays
