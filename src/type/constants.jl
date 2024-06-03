@@ -8,7 +8,7 @@ const Int3K = Int3072
 const Int4K = Int4096
 const IntNK = Int2K
 
-const RationalNK = Rational{IntNK}
+const RationalNK = Rational{Int1K}
 const Rational64 = Rational{Int64}
 
 const NoValues = Real[]

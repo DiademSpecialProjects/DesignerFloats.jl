@@ -1,3 +1,43 @@
+
+"""
+    all_exponents(::Type{T})
+
+provides the exponent magnitudes in ascending order, with repetitions.
+- IMPORTANT: this is the not the same as `all_exponent_magnitudes`, which has no repetitions.
+
+[`all_exponent_magnitudes`](@ref)
+"""
+function all_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    subnormal_exponents = all_subnormal_exponents(T)
+    normal_exponents = all_normal_exponents(T)
+    vcat(subnormal_exponents, normal_exponents)
+end
+
+function all_subnormal_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n_subnormals = n_subnormal_significands(T)
+    if iszero(n_subnormals) && return NoValues
+    minexp = min_exponent(T)
+    fill(minexp, n_subnormals)
+end
+
+"""
+    all_exponent_magnitudes(::Type{T})
+
+provides the exponent magnitudes in ascending order, without repetitions.
+- IMPORTANT: this is the not the same as `all_exponents`, which has repetitions.
+
+[`all_exponents``](@ref)
+"""
+function all_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    result = finite_exponent_magnitudes(T)
+    if has_infinity(T)
+        push!(result, PosInf)
+    end
+    result
+end
+
+
+
 function ordinary_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     subnormals = collect(subnormal_exponent_range(T))
     normals = collect(normal_exponent_range(T))
@@ -10,14 +50,6 @@ end
 
 function finite_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     vcat(Zero, ordinary_exponent_magnitudes(T))
-end
-
-function all_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    result = finite_exponent_magnitudes(T) 
-    if has_infinity(T)
-        push!(result, PosInf)
-    end
-    result
 end
 
 function ordinary_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}

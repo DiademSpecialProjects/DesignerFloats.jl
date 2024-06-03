@@ -71,3 +71,4 @@ value!(x::T, v::AbstractFloat) where {T<:BinaryFloat} = setfield!(x, :value, FPV
 code!(x::T, v::Integer) where {T<:BinaryFloat} = setfield!(x, :code, Encoding(v))
 
 valuecode!(x::T, v::AbstractFloat, c::Integer) where {T<:BinaryFloat} = (value!(x, FPValue(v)); code!(x, Encoding(c)))
+

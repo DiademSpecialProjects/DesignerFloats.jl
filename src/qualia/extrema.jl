@@ -18,11 +18,11 @@ end
 
 # exponents
 
-min_biased_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0
 max_biased_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_exponent_bits(T) - 1
+min_biased_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0
 
-min_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = min_biased_exponent(T)-exponent_bias(T)
-max_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max_biased_exponent(T)-exponent_bias(T)-1
+max_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = (2^(n_exponent_bits(T) - 1)) - 1
+min_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0 - max_exponent(T)
 
 function min_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_exponents(T)

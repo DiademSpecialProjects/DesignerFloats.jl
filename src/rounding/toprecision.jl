@@ -1,4 +1,4 @@
-round_to_precision(x::T; rnd::RoundingMode=RoundNearest) where {W,P,T<:BinaryFloat{W,P}} =
+round_to_precision(x::T, rnd::RoundingMode=RoundNearest) where {W,P,T<:BinaryFloat{W,P}} =
     round_to_precision(value(x), precision(x), exponent_bias(x), rnd)
 
 function round_to_precision(z::AbstractFloat, precision::Integer, bias::Integer, rnd::RoundingMode)
