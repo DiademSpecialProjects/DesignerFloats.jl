@@ -26,7 +26,7 @@ function ordinary_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,
     if !isempty(normals)
         normals = vcat(fill(normals, cld(n_normal_magnitudes(T), n_normal_significands(T)))...)
     end
-    vcat(subnormals, normals)[1:n_ordinary_magnitudes(T)]
+    vcat(subnormals, normals)
 end
 
 function finite_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
