@@ -27,13 +27,6 @@ function all_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     return append!(subnormal_exponents, normal_exponents)
 end
 
-function all_subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    n_subnormals = n_subnormal_magnitudes(T)
-    iszero(n_subnormals) && return NoValues()
-    minexp = min_exponent(T)
-    fill(minexp, n_subnormals)
-end
-
 function all_normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     nnormals = n_normal_magnitudes(T)
     iszero(nnormals) && return NoValues()
@@ -104,7 +97,14 @@ function all_subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{
     end
     subnormal_exps
 end
-
+#=
+function all_subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n_subnormals = n_subnormal_magnitudes(T)
+    iszero(n_subnormals) && return NoValues()
+    minexp = min_exponent(T)
+    fill(minexp, n_subnormals)
+end
+=#
 function all_normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     iszero(n_subnormal_significands(T)) && return NoValues()
     nnormals = n_normal_magnitudes(T)
