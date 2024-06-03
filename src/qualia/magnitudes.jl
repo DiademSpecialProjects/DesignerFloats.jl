@@ -55,7 +55,7 @@ provides the exponent magnitudes in ascending order, without repetitions.
 
 [`all_exponents``](@ref)
 """
-function all_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+function all_exponent_magnitudes1(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     result = finite_exponent_magnitudes(T)
     if has_infinity(T)
         push!(result, PosInf)
