@@ -132,10 +132,13 @@ Base.exponent_bias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = (2^n_exponent_bi
     n_exponents(::BinaryFloat{W,P})
 
 counts the exponent values available 
-- max(n_subnormal_exponents, n_normal_exponentss)
+- max(n_subnormal_exponents, n_normal_exponents)
 """
 n_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     max(n_subnormal_exponents(T), n_normal_exponents(T))
+
+n_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    n_exponents(T)
 
 """
     n_normal_exponents(<: BinaryFloat{W,P})
@@ -145,6 +148,9 @@ counts the individual values that the exponent may take in normal values
 n_normal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
     P == W ? 0 : (is_signed(T) ? 2*max_exponent(T) + 1 : max_exponent(T) + 1)
 
+n_normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    n_normal_exponents(T)
+
 """
     n_subnormal_exponents(<: BinaryFloat{W,P})
 
@@ -152,6 +158,9 @@ counts the individual values that the exponent may take in subnormal values
 """
 n_subnormal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
     P == 1 ? 0 : 1
+
+n_subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    n_subnormal_exponents(T)
 
 n_special_values(::Type{T}) where {T<:UnsignedFloat} = 3 # 0, NaN, Inf
 n_special_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 2 # 0, NaN
@@ -192,7 +201,10 @@ n_normal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_ordinary_magnitudes(T)
 for F in (:width, :n_bits, :n_values, :n_significant_bits, :n_exponent_bits,
           :exponent_bias, :n_trailing_bits, :n_significands, 
           :nmax_normal_significands, :nmax_subnormal_significands, 
-          :n_normal_significands, :n_subnormal_significands, 
+          :n_normal_significand_magnitudes, :n_subnormal_significand_magnitudes, 
+          :n_normal_exponent_magnitudes, :n_subnormal_exponent_magnitudes,
+          :n_normal_significand_magnitudes, :n_subnormal_significand_magnitudes,
+          :n_normal_significands, :n_subnormal_significands,
           :n_normal_exponents, :n_subnormal_exponents,
           :n_finite_magnitudes, :n_numeric_magnitudes, :n_magnitudes,
           :n_ordinary_magnitudes, :n_subnormal_magnitudes, :n_normal_magnitudes,
