@@ -51,7 +51,7 @@ function ordinary_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_ordinary_magnitudes(T)
     subnormal_exps = all_subnormal_exponent_magnitudes(T)
     normal_exps = all_normal_exponent_magnitudes(T)
-    return append!(subnormals, normals)
+    return append!(subnormal_exps, normal_exps)
 end
 
 function finite_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
