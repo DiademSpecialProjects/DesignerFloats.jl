@@ -2,9 +2,9 @@ function subnormal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     n_subnormals = n_subnormal_values(T)
     iszero(n_subnormals) && return NoValues()
     n_subnormal_sigs = n_subnormal_trailing_significands(T)
-    subnormal_exponents = fill(min_subnormal_exponent(T), n_subnormal_sigs)
-    subnormal_significands = collect(range(start=min_subnormal_significand(T), stop=max_subnormal_significand(T), length=n_subnormal_sigs))
-    subnormal_signficands .* subnormal_exponents
+    subnormal_exps = fill(min_subnormal_exponent(T), n_subnormal_sigs)
+    subnormal_sigs = collect(range(start=min_subnormal_significand(T), stop=max_subnormal_significand(T), length=n_subnormal_sigs))
+    subnormal_sigs .* subnormal_exps
 end
 
 function normal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P}
@@ -12,9 +12,9 @@ function normal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     iszero(n_normals) && return NoValues()
     n_normal_sigs = n_normal_trailing_significands(T)
     n_normal_exps = n_normal_exponents(T)
-    normal_exponents = collect(range(start=min_normal_exponent(T), stop=max_normal_exponent(T), length=n_normal_exps))
-    normal_significands = collect(range(start=min_normal_significand(T), stop=max_normal_significand(T), length=n_normal_sigs))
-    vcat((subnormal_signficands .* subnormal_exponents')...)
+    normal_exps = collect(range(start=min_normal_exponent(T), stop=max_normal_exponent(T), length=n_normal_exps))
+    normal_sigs = collect(range(start=min_normal_significand(T), stop=max_normal_significand(T), length=n_normal_sigs))
+    vcat((normal_sigs .* normal_exps')...)
 end
 
 function min_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
