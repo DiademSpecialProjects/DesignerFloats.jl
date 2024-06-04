@@ -86,7 +86,7 @@ function normal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     reps = cld(n, nsigs)
     sigs = normal_significand_range(T)
     if reps > 1
-        sigs = collect(Iterators.flatten(fill(sigs, reps)...))
+        sigs = collect(Iterators.flatten(fill(sigs, reps)))
     end
     sigs
 end
@@ -99,7 +99,7 @@ function all_subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{
     subnormal_exps = iszero(nsubnormal_exps) ? NoValues() : subnormal_exponent_range(T)
     subnormal_reps = nsubnormals
     if !iszero(nsubnormal_exps) && subnormal_reps > 1
-        subnormal_exps = collect(Iterators.flatten(fill(subnormal_exps, subnormal_reps)...))
+        subnormal_exps = collect(Iterators.flatten(fill(subnormal_exps, subnormal_reps)))
     end
     subnormal_exps
 end
@@ -119,7 +119,7 @@ function all_normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P
     subnormals = collect(subnormal_exponent_range(T))
     normals = collect(normal_exponent_range(T))
     if !isempty(normals) && reps > 1
-        normals = collect(Iterators.flatten(fill(normals, reps)...))
+        normals = collect(Iterators.flatten(fill(normals, reps)))
     end
     normals
 end
