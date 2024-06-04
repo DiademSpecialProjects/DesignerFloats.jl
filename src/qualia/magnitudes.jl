@@ -218,7 +218,7 @@ function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     vals
 end
 
-all_significands(T::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+all_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     allsignificand_values(T)
 
 all_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
