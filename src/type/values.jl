@@ -54,7 +54,7 @@ end
 function max_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_trailing_significands(T)
     iszero(n) && return nothing
-    isone(n) && return min_normal_significand(T)
+    isone(n) && return min_subnormal_significand(T)
     n // (n + 1)
 end
 

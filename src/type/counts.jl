@@ -40,15 +40,6 @@ n_significand_bits(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P
 Base.precision(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P
 
 """
-    n_significand_values(::BinaryFloat{W,P})
-
-counts the distinct significand values of x
-
-see [`n_trailing_values`](@ref)
-"""
-n_signficand_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_significand_bits(T)
-
-"""
      n_trailing_bits(::BinaryFloat{W,P})
 
 The trailing significand bits count the significand bits (those explicitly stored).
@@ -63,10 +54,57 @@ n_trailing_bits(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P - 1
 
 counts the trailing significand values (those explicitly stored).
     - this excludes the implicit bit
+    - this includes 1.0
 
-see [`n_trailing_bits`](@ref),  [`n_significand_values`](@ref)
+see [`n_trailing_bits`](@ref)
 """
 n_trailing_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_trailing_bits(T)
+
+"""
+     n_subnormal_trailing_values(::BinaryFloat{W,P})
+
+counts the trailing significand values (those explicitly stored).
+    - this excludes the implicit bit
+    - this excludes 0.0
+
+see [`n_trailing_values`](@ref)
+"""
+n_subnormal_trailing_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max(0, n_trailing_values(T) - 1)
+
+
+#=
+"""
+    n_subnormal_trailing_significands(<: BinaryFloat{W,P})
+
+counts the individual values that the trailing significand may take in subnormal values
+"""
+function n_subnormal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
+    if isone(P)
+        0
+    elseif P == 2
+        1
+    elseif W == P
+        max(0, n_trailing_values(T) - 2)
+    else
+        max(0, n_trailing_values(T) - 1)
+    end
+end
+
+"""
+    n_normal_trailing_significands(<: BinaryFloat{W,P})
+
+counts the individual values that the trailing significand may take in normal values
+"""
+function n_normal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
+    if isone(P)
+        1
+    elseif W == P
+        0
+    else
+        n_trailing_values(T)
+    end
+end
+=#
 
 """
     n_exponent_bits(<: BinaryFloat{W,P})
@@ -110,38 +148,6 @@ function n_normal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P}
         n_exponent_values(T)
     else
         n_exponent_values(T) - 1
-    end
-end
-
-"""
-    n_subnormal_trailing_significands(<: BinaryFloat{W,P})
-
-counts the individual values that the trailing significand may take in subnormal values
-"""
-function n_subnormal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
-    if isone(P)
-        0
-    elseif P == 2
-        1
-    elseif W == P
-        max(0, n_trailing_values(T) - 2)
-    else
-        max(0, n_trailing_values(T) - 1)
-    end
-end
-
-"""
-    n_normal_trailing_significands(<: BinaryFloat{W,P})
-
-counts the individual values that the trailing significand may take in normal values
-"""
-function n_normal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
-    if isone(P)
-        1
-    elseif W == P
-        0
-    else
-        n_trailing_values(T)
     end
 end
 
