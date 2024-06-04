@@ -17,7 +17,7 @@ function all_sign_values(::Type{T}) where {W,P,T<:SignedBinaryFloat{W,P}}
     vcat( fill(0, n_values(T)>>1), fill(1, n_values(T)>>1) )
 end
 
-function all_signs((::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+function all_signs(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     2 .* all_sign_values(T) .- 1
 end
 
