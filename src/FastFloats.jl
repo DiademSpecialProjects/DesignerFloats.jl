@@ -11,6 +11,7 @@ export BinaryFloat, SignedBinaryFloat, UnsignedBinaryFloat,
        magnitudes, all_values,
        is_signed, is_unsigned, is_finite, is_extended, has_infinity,
        value, code, valuecode, value!, code!,
+       all_signs, all_exponents, all_signficands,
        round_to_precision
 
 import Base: precision, exponent_bias

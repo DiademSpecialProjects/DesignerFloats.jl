@@ -218,6 +218,12 @@ function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     vals
 end
 
+all_significands(T::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    allsignificand_values(T)
+
+all_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
+    all_exponent_values(T)
+
 for F in (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
           :max_finite_magnitudes, :significand_magnitudes, :exponent_magnitudes,
           :subnormal_significand_magnitudes, :subnormal_exponent_magnitudes,
@@ -225,6 +231,7 @@ for F in (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
           :ordinary_significand_magnitudes, :ordinary_exponent_magnitudes,
           :finite_significand_magnitudes, :finite_exponent_magnitudes,
           :all_significand_magnitudes, :all_exponent_magnitudes, :all_magnitudes,
-          :all_significand_values, :all_exponent_values, :all_values)
+          :all_significand_values, :all_exponent_values,
+          :all_exponents, :all_signficands, :all_values)
     @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
 end
