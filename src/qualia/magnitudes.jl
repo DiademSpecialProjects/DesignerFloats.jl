@@ -9,7 +9,7 @@ provides the exponent magnitudes in ascending order, with repetitions.
 """
 function all_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     subnormal_exps = subnormal_exponent_magnitudes(T)
-    normal_exps = normal_exponents(T)
+    normal_exps = normal_exponent_magnitudes(T)
     return append!(subnormal_exps, normal_exps)
 end
 
