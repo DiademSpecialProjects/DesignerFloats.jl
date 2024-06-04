@@ -48,26 +48,26 @@ end
 function min_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_trailing_significands(T)
     iszero(n) && return nothing
-    1 // (n + 1)
+    1//n
 end
 
 function max_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_trailing_significands(T)
     iszero(n) && return nothing
     isone(n) && return min_subnormal_significand(T)
-    n // (n + 1)
+    (n-1)//n
 end
 
 function min_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_trailing_significands(T)
     iszero(n) && return nothing
-    1//1 + 0//(n + 1)
+    1//1 + 0//n
 end
 
 function max_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_trailing_significands(T)
     iszero(n) && return nothing
     isone(n) && return min_normal_significand(T)
-    1 + n//(n + 1)
+    1 + (n-1)//n
 end
 
