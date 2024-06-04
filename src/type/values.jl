@@ -59,12 +59,12 @@ end
 function min_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_trailing_significands(T)
     iszero(n) && return nothing
-    1 // (n + 1)
+    1//1 + 0//(n + 1)
 end
 
 function max_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_trailing_significands(T)
     iszero(n) && return nothing
-    n // (n + 1)
+    1 + n//(n + 1)
 end
 
