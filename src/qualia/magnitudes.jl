@@ -55,7 +55,7 @@ function ordinary_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
 end
 
 function finite_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    return pushfirst!(ordinary_significand_magnitudes(T), Zero)
+    return vcat(Zero, ordinary_significand_magnitudes(T))
 end
 
 function ordinary_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
@@ -67,7 +67,7 @@ end
 function all_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     result = finite_significand_magnitudes(T)
     if has_infinity(T)
-        push!(result, PosInf)
+        result[end] = PosInf
     end
     result
 end
