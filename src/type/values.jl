@@ -30,7 +30,12 @@ max_biased_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_exponent_bi
 min_biased_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0
 
 max_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max_biased_exponent(T) - Base.exponent_bias(T)
-min_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0 - max_normal_exponent(T)
+
+function min_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 
+   n = n_normal_exponents(T)
+   iszero(n) && return nothing
+   0 - max_normal_exponent(T)
+rnf
 
 function min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
