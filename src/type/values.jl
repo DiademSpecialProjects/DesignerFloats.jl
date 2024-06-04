@@ -48,7 +48,7 @@ function max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return nothing
     isone(n) && return min_normal_exponent(T)
-    convert(RationalNK, 2.0^(Base.exponent_bias(T))
+    convert(RationalNK, 2.0^(Base.exponent_bias(T)))
 end
 
 function min_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
