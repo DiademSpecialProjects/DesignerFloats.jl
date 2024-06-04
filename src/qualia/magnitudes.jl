@@ -46,7 +46,7 @@ function all_exponent_magnitudes1(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
 end
 
 function finite_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    pushfirst!(ordinary_exponent_magnitudes(T), Zero)
+    pushfirst!(ordinary_exponent_magnitudes(T), Zero)s
 end
 
 function ordinary_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
