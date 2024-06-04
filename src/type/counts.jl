@@ -156,7 +156,7 @@ n_subnormal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
     n_subnormal_trailing_significands(T)
 
 max_n_normal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
-    n_normal_significands(T) * n_normal_exponents(T)
+    n_normal_trailing_significands(T) * n_normal_exponents(T)
 
 n_normal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
     max_n_normal_values(T) - n_subnormal_values(T)
