@@ -88,7 +88,7 @@ function normal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     if reps > 1
         sigs = collect(Iterators.flatten(fill(sigs, reps)))
     end
-    sigs
+    sigs[1:n]
 end
 
 function subnormal__exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
