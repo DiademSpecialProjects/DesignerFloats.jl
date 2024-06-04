@@ -35,7 +35,7 @@ function min_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
    n = n_normal_exponents(T)
    iszero(n) && return nothing
    0 - max_normal_exponent(T)
-rnf
+end
 
 function min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
