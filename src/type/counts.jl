@@ -71,8 +71,6 @@ see [`n_trailing_values`](@ref)
 """
 n_subnormal_trailing_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max(0, n_trailing_values(T) - 1)
 
-
-#=
 """
     n_subnormal_trailing_significands(<: BinaryFloat{W,P})
 
@@ -104,7 +102,6 @@ function n_normal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
         n_trailing_values(T)
     end
 end
-=#
 
 """
     n_exponent_bits(<: BinaryFloat{W,P})
