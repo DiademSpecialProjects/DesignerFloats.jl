@@ -72,6 +72,25 @@ function all_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     result
 end
 
+function subnormal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n = n_subnormal_significands(T)
+    iszero(n) && return NoValues()
+    return subnormal_significand_range(T)
+end
+
+function normal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n = n_normal_magnitudes(T)
+    iszero(n) && return NoValues()
+
+    nsigs = n_normal_significands(T)
+    reps = cld(n, nsigs)
+    sigs = normal_significand_range(T)
+    if reps > 1
+        sigs = fill(sigs, reps)
+    end
+    sigs
+end
+
 function all_subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     iszero(n_subnormal_significands(T)) && return NoValues()
     n = n_ordinary_magnitudes(T)
