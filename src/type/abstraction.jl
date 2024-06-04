@@ -26,6 +26,7 @@ ExtendedSignedFloat and FiniteSignedFloat.
 
 - Width is the storage width in bits.
 - Precision is significand (with implicit bit) bitwidth. 
+- the middle+1 encoding is used for NaN
 """
 abstract type SignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
 
@@ -39,6 +40,20 @@ ExtendedUnsignedFloat and FiniteUnsignedFloat.
 
 - Width is the storage width in bits.
 - Precision is significand (with implicit bit) bitwidth. 
+- the final encoding is used for NaN
 """
 abstract type UnsignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
 
+"""
+     SimpleBinaryFloat{Width, Precision}
+
+This is an abstract type, the subtype of BinaryFloat.
+
+It is the immediate (and shared) supertype of
+SimpleUnsignedFloat.
+
+- Width is the storage width in bits.
+- Precision is significand (with implicit bit) bitwidth. 
+- there is no NaN encoding
+"""
+abstract type SimpleBinaryFloat{W,P} <: UnsignedBinaryFloat{W,P} end

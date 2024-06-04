@@ -54,6 +54,17 @@ FiniteUnsignedFloat(Width, Precision) =
         throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
     end
 
+mutable struct SimpleUnsignedFloat{Width,Precision} <: UnsignedBinaryFloat{Width,Precision}
+    value::FPValue
+    code::Encoding
+end
+SimpleUnsignedFloat(Width, Precision) =
+    if 1 <= Precision < Width
+        FiniteUnsignedFloat{Width,Precision}(zero(FPValue), zero(Encoding))
+    else
+        throw(DomainError("!(1 <= Precision ($Precision) < Width ($Width))"))
+    end
+
 value(x::T) where {T<:BinaryFloat} = getfield(x, :value)
 value(::Type{T}, x::BinaryFloat) where {T<:AbstractFloat} = T(value(x))
 
