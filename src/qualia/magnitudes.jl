@@ -86,7 +86,7 @@ function normal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     reps = cld(n, nsigs)
     sigs = normal_significand_range(T)
     if reps > 1
-        sigs = fill(sigs, reps)
+        sigs = collect(Iterators.flatten(fill(sigs, reps)...))
     end
     sigs
 end
