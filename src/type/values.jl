@@ -26,10 +26,45 @@ end
 max_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     min_subnormal_exponent(T)
 
-
 max_biased_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_exponent_bits(T) - 1
 min_biased_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0
 
-max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max_biased_exponent(T) - Base.exponent_bias(T)
-min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0 - max_normal_exponent(T)
+max_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max_biased_exponent(T) - Base.exponent_bias(T)
+min_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 0 - max_normal_exponent(T)
+
+function min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n = n_normal_exponents(T)
+    iszero(n) && return nothing
+    convert(RationalNK, 2.0^min_exponent(T))
+end
+
+function max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n = n_normal_exponents(T)
+    iszero(n) && return nothing
+    convert(RationalNK, 2.0^max_exponent(T))
+end
+
+function min_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n = n_subnormal_significands(T)
+    iszero(n) && return nothing
+    1 // (n + 1)
+end
+
+function max_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n = n_subnormal_significands(T)
+    iszero(n) && return nothing
+    n // (n + 1)
+end
+
+function min_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n = n_normal_significands(T)
+    iszero(n) && return nothing
+    1 // (n + 1)
+end
+
+function max_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+    n = n_normal_significands(T)
+    iszero(n) && return nothing
+    n // (n + 1)
+end
 
