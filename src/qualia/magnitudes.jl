@@ -203,7 +203,7 @@ function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
 end
 
 all_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
-    allsignificand_values(T)
+    all_significand_values(T)
 
 all_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     all_exponent_values(T)
