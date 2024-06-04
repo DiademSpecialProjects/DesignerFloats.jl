@@ -69,7 +69,7 @@ end
 function all_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     result = finite_significand_magnitudes(T)
     if has_infinity(T)
-        vcat(result, PosInf)
+        push!(result, PosInf)
     end
     result
 end
