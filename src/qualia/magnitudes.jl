@@ -195,7 +195,7 @@ end
 function all_significand_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     mags = Real[all_significand_magnitudes(T)...]
     if is_signed(T)
-        negmags = Real[-1 .* mags...]
+        negmags = Real[(-1 .* mags)...]
         negmags[1] = NaN
         vals = append!(mags, negmags)
     else
