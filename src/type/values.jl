@@ -41,6 +41,7 @@ end
 function max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return nothing
+    isone(n) && return min_normal_exponent(T)
     convert(RationalNK, 2.0^max_exponent(T))
 end
 
@@ -53,6 +54,7 @@ end
 function max_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_trailing_significands(T)
     iszero(n) && return nothing
+    isone(n) && return min_normal_significand(T)
     n // (n + 1)
 end
 
@@ -65,6 +67,7 @@ end
 function max_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_trailing_significands(T)
     iszero(n) && return nothing
+    isone(n) && return min_normal_significand(T)
     1 + n//(n + 1)
 end
 
