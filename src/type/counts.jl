@@ -124,9 +124,9 @@ function n_subnormal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W
     elseif P == 2
         1
     elseif W == P
-        2^P - 1
+        max(0, n_trailing_values(T) - 2)
     else
-        n_trailing_values(T) - 1
+        max(0, n_trailing_values(T) - 1)
     end
 end
 
@@ -137,7 +137,7 @@ counts the individual values that the trailing significand may take in normal va
 """
 function n_normal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     if isone(P)
-        2^P - 1
+        1
     elseif W == P
         0
     else
