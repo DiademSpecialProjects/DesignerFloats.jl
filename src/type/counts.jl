@@ -73,8 +73,8 @@ n_trailing_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_trailing_bits
 
 counts the bits comprising the exponent field
 """
-n_exponent_bits(::Type{T}) where {{W, P, T<:SignedBinaryFloat{W,P}} = W - P
-n_exponent_bits(::Type(::Type{T}) where {W, P, T<:UnsignedBinaryFloat{W,P}} = W - P + 1
+n_exponent_bits(::Type{T}) where {W, P, T<:SignedBinaryFloat{W,P}} = W - P
+n_exponent_bits(::Type{T}) where {W, P, T<:UnsignedBinaryFloat{W,P}} = W - P + 1
 
 """
    n_exponent_values(<: BinaryFloat{W,P})
