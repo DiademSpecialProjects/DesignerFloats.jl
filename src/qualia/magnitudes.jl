@@ -163,12 +163,12 @@ significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 
 function subnormal_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     iszero(n_subnormal_significands(T)) && return NoValues()
-    vcat(subnormal_significand_range(T) * subnormal_exponent_range(T)' ...)[1:n_subnormal_magnitudes(T)]
+    subnormal_significand_magnitudes(T) .* subnormal_exponent_magnitudes(T)
 end
 
 function normal_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     iszero(n_normal_significands(T)) && return NoValues()
-    vcat(normal_significand_range(T) * normal_exponent_range(T)' ...)
+    normal_significand_magnitudes(T) .* normal_exponent_magnitudes(T)
 end
 
 max_ordinary_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
