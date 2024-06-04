@@ -1,13 +1,13 @@
 
 """
-    all_exponents(::Type{T})
+    all_ordinary_exponents(::Type{T})
 
-provides the exponent magnitudes in ascending order, with repetitions.
+provides the ordinary exponent magnitudes in ascending order, with repetitions.
 - IMPORTANT: this is the not the same as `all_exponent_magnitudes`, which has no repetitions.
 
 [`all_exponent_magnitudes`](@ref)
 """
-function all_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
+function all_ordinary_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     subnormal_exps = subnormal_exponent_magnitudes(T)
     normal_exps = normal_exponent_magnitudes(T)
     return append!(subnormal_exps, normal_exps)
@@ -27,22 +27,6 @@ function all_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
         exps = append!(exps, PosInf)
     end    
     exps
-end
-
-"""
-    all_exponent_magnitudes(::Type{T})
-
-provides the exponent magnitudes in ascending order, without repetitions.
-- IMPORTANT: this is the not the same as `all_exponents`, which has repetitions.
-
-[`all_exponents``](@ref)
-"""
-function all_exponent_magnitudes1(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    result = finite_exponent_magnitudes(T)
-    if has_infinity(T)
-        push!(result, PosInf)
-    end
-    result
 end
 
 function finite_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
