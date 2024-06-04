@@ -20,8 +20,7 @@ end
 function min_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_exponents(T)
     iszero(n) && return nothing
-    isone(n) && return 0 - Base.exponent_bias(T)
-    return min_normal_exponent(T)
+    return convert(RationalNK, 2.0^(0 - Base.exponent_bias(T)))
 end
 
 max_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
