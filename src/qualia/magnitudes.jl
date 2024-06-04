@@ -112,7 +112,7 @@ function subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
 end
 =#
 function normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    iszero(n_subnormal_significands(T)) && return NoValues()
+    iszero(n_normal_significands(T)) && return NoValues()
     nnormals = n_normal_magnitudes(T)
     nnormalexps = n_normal_exponents(T)
     reps = cld(nnormals, nnormalexps)
