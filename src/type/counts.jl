@@ -103,24 +103,47 @@ n_subnormal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
 
 counts the individual values that the exponent may take in subnormal values
 """
-n_normal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
-    P == W ? 0 : n_exponent_values(T)
+function n_normal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P}
+    if P == W
+        0
+    elseif isone(P)
+        n_exponent_values(T)
+    else
+        n_exponent_values(T) - 1
+    end
+end
 
 """
     n_subnormal_trailing_significands(<: BinaryFloat{W,P})
 
 counts the individual values that the trailing significand may take in subnormal values
 """
-n_subnormal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
-    P == 1 ? 0 : n_trailing_values(T) - 1 # -1 to remove Zero (which is Special)
+function n_subnormal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
+    if isone(P)
+        0
+    elseif P == 2
+        1
+    elseif W == P
+        2^P - 1
+    else
+        n_trailing_values(T) - 1
+    end
+end
 
 """
     n_normal_trailing_significands(<: BinaryFloat{W,P})
 
 counts the individual values that the trailing significand may take in normal values
 """
-n_normal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
-    P == W ? 0 : n_trailing_values(T)
+function n_normal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
+    if isone(P)
+        2^P - 1
+    elseif W == P
+        0
+    else
+        n_trailing_values(T)
+    end
+end
 
 n_special_values(::Type{T}) where {T<:UnsignedFloat} = 3 # 0, NaN, Inf
 n_special_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 2 # 0, NaN
