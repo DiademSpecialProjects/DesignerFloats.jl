@@ -18,7 +18,7 @@ function all_sign_values(::Type{T}) where {W,P,T<:SignedBinaryFloat{W,P}}
 end
 
 function all_signs(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    2 .* all_sign_values(T) .- 1
+    2 .* (1 .- all_sign_values(T)) .- 1
 end
 
 """
