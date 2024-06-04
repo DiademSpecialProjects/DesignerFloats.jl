@@ -4,7 +4,7 @@ function subnormal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     n_subnormal_sigs = n_subnormal_trailing_significands(T)
     subnormal_exps = fill(min_subnormal_exponent(T), n_subnormal_sigs)
     subnormal_sigs = collect(range(start=min_subnormal_significand(T), stop=max_subnormal_significand(T), length=n_subnormal_sigs))
-    subnormal_sigs .* subnormal_exps
+    RationalNK.(subnormal_sigs .* subnormal_exps)
 end
 
 function normal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P}
