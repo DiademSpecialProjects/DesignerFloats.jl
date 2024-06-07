@@ -26,11 +26,12 @@ using LaTeXStrings, Latexify            # for prettytable latex backend
 include("type/constants.jl")
 include("type/abstraction.jl")
 include("type/realization.jl")
+include("type/counts.jl")
 include("type/predicates.jl")
+include("type/values.jl")
 
-include("qualia/counts.jl")
-include("qualia/extrema.jl")
-include("qualia/magnitudes.jl")
+#include("qualia/extrema.jl")
+#include("qualia/magnitudes.jl")
 
 include("rounding/modes.jl")
 include("rounding/toprecision.jl")
