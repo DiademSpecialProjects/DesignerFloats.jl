@@ -3,7 +3,7 @@ function offsets_and_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     offsets = all_offsets(T)
     offset2value = Dictionary(offsets, values)
     value2offset = Dictionary(values, offsets)
-    (offset2value, value2offset)
+    (tovalue=offset2value, tooffset=value2offset)
 end
 
 all_significand_absvalues(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
