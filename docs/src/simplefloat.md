@@ -2,7 +2,7 @@ A `SimpleFloat` is a concrete binary floating-point type, implemented as a param
 
 A `SimpleFloat{3,2}` is developed:
 
-|      |            signficand              |            exponent       |         value          |
+
 | code | fractional | integer | significand | biased | unbiased | 2^    | significand * exponent |
 |------|------------|---------|-------------|--------|----------|-------|------------------------|
 | 0x00 |   0b0      |   0b0   |  0/2        |  0b00  |  -0b01   |  1/2  |            0           |
