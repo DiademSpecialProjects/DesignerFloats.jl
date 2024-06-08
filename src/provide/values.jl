@@ -36,7 +36,6 @@ function all_offsets(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     offsets
 end
 
-
 for F in (:offsets_and_values, :all_significand_absvalues, 
           :all_sign_values, :all_signs, :all_offsets)
     @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
