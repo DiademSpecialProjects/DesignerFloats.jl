@@ -1,3 +1,9 @@
+function ordinary_values(T::Type{<:BinaryFloat{W,P}}) where {W,P}
+    vals = subnormal_values(T)
+    append!(vals, normal_values(T))
+    vals
+end
+
 function subnormal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     n_subnormals = n_subnormal_values(T)
     iszero(n_subnormals) && return NoValues()
