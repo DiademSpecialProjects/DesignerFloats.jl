@@ -24,8 +24,8 @@ the smallest non-zero magnitude in T is encoded `one(Encoding)`
 see [`StableEncodings`](@ref)
 """ ConstEncodings
 
-const encodes_zero = Encoding(0)
-const encodes_tiny = Encoding(1)
+encodes_zero(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}} = Encoding(0)
+encodes_tiny_float(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}} = Encoding(1)
 
 """
     StableEncodings
@@ -36,13 +36,13 @@ _StableEncodings are fully determined and simply given over AbstractBinaryFloats
 -`encodes_min_subnormal`
 -`encodes_max_subnormal`
 -`encodes_min_normal`
--`encodes_max_normal`
+-`encodes_max_normal` (`encodes_max_float` is a synonym)
 -`encodes_inf` (`encodes_posinf` is a synonym)
 
 -`encodes_min_neg_subnormal`
 -`encodes_max_neg_subnormal`
 -`encodes_min_neg_normal`
--`encodes_max_neg_normal`
+-`encodes_max_neg_normal` (`encodes_max_neg_float` is a synonym)
 -`encodes_neginf`
 
 -`encodes_nan`
@@ -86,6 +86,8 @@ function encodes_max_normal(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
     end
 end
 
+encodes_max_float = encodes_max_normal
+
 function encodes_min_neg_subnormal(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
     n = n_subnormal_magnitudes(T)
     if !iszero(n)
@@ -122,6 +124,8 @@ function encodes_max_neg_normal(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W
     end
 end
 
+encodes_max_neg_float = encodes_max_neg_normal
+
 function encodes_inf(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
     if has_infinity(T)
         Encoding(encodes_max_normal(T) + one(Encoding))
@@ -149,4 +153,16 @@ function encodes_nan(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
     else
         nothing
     end
+
+for F in (:all_encodings, :min_encoding, :max_encoding, 
+          :encodes_zero, :encodes_tiny_float,
+          :encodes_min_subnormal, :encodes_max_subnormal,
+          :encodes_min_normal, :encodes_max_normal, :encodes_max_float,
+          :encodes_inf, :encodes_posinf,
+          :encodes_min_neg_subnormal, :encodes_max_neg_subnormal,
+          :encodes_min_neg_normal, :encodes_max_neg_normal, :encodes_max_neg_float,
+          :encodes_neginf, :encodes_nan)
+    @eval $F(x::T) where {W, P, T<:AbstractBinaryFloat{W,P}} =
+          $F(T)
 end
+
