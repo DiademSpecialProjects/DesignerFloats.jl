@@ -10,8 +10,6 @@ min_encoding(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}} =
 max_encoding(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}} =
     Encoding(n_values(T) - 1)
 
-min_normal_encoding(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}} =
-
 """
     ConstEncodings
 
@@ -40,7 +38,13 @@ _StableEncodings are fully determined and simply given over AbstractBinaryFloats
 -`encodes_min_normal`
 -`encodes_max_normal`
 -`encodes_inf` (`encodes_posinf` is a synonym)
+
+-`encodes_min_neg_subnormal`
+-`encodes_max_neg_subnormal`
+-`encodes_min_neg_normal`
+-`encodes_max_neg_normal`
 -`encodes_neginf`
+
 -`encodes_nan`
 
 see [`ConstEncodings`](@ref)
@@ -82,6 +86,42 @@ function encodes_max_normal(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
     end
 end
 
+function encodes_min_neg_subnormal(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
+    n = n_subnormal_magnitudes(T)
+    if !iszero(n)
+        Encoding((n_values(T) >> 1) + one(Encoding))
+    else
+        nothing
+    end
+end
+
+function encodes_max_neg_subnormal(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
+    n = n_subnormal_magnitudes(T)
+    if !iszero(n)
+        Encoding((n_values(T) >> 1) + Encoding(n))
+    else
+        nothing
+    end
+end
+
+function encodes_min_neg_normal(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
+    n = n_normal_magnitudes(T)
+    if !iszero(n)
+        Encoding(encodes_max_neg_subnormal(T) + one(Encoding))
+    else
+        nothing
+    end
+end
+
+function encodes_max_neg_normal(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
+    n = n_normal_magnitudes(T)
+    if !iszero(n)
+        Encoding(encodes_max_neg_subnormal(T) + n_normal_magnitudes(T))
+    else
+        nothing
+    end
+end
+
 function encodes_inf(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
     if has_infinity(T)
         Encoding(encodes_max_normal(T) + one(Encoding))
@@ -89,7 +129,7 @@ function encodes_inf(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
         nothing
     end
 end
-encodes_posinf = encodes_inf
+encodes_posinf = encodes_infs
 
 function encodes_neginf(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
     if is_signed(T) && has_infinity(T)
@@ -101,18 +141,10 @@ end
 
 function encodes_nan(::Type{T}) where {W, P, T<:AbstractBinaryFloat{W,P}}
     if has_nan(T)
-        if is_signed(T)
-            if has_infinity(T)
-                Encoding(encodes_inf(T) + one(Encoding))
-            else
-                Encoding(encodes_max_normal(T) + one(Encoding))
-            end
-        else # unsigned
-            if has_infinity(T)
-                Encoding(encodes_inf(T) + one(Encoding))
-            else
-                Encoding(encodes_max_normal(T) + one(Encoding))
-            end
+        if has_infinity(T)
+            Encoding(encodes_inf(T) + one(Encoding))
+        else
+            Encoding(encodes_max_normal(T) + one(Encoding))
         end
     else
         nothing
