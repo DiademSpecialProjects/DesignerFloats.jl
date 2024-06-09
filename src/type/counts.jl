@@ -26,7 +26,7 @@ n_nonnegative_values(::Type{T}) where {W,P,T<:SignedBinaryFloat{W,P}} =
     ((n_values(T) - n_nan_values(T)) >> 1) - (n_inf_values(T) >> 1)
 
 """
-     n_significand_bits(::BinaryFloat{W,P})
+     n_significant_bits(::BinaryFloat{W,P})
 
 Precision is a bit count of complete significand.
     - this includes the implicit bit
@@ -36,7 +36,7 @@ this is a synonym for `precision`.
 
 see [`n_trailing_bits`](@ref)
 """
-n_significand_bits(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P
+n_significant_bits(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P
 Base.precision(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P
 
 """
