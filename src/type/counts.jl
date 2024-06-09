@@ -192,13 +192,6 @@ function n_normal_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n_ordinary_magnitudes(T) - n_subnormal_magnitudes(T)
 end
 
-function n_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
-    n = n_values(T) - n_nan_values(T)
-    if is_signed(T)
-        n = n >> 1
-    end
-end
-
 function n_ordinary_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n = n_values(T) - n_nan_values(T)
     if is_signed(T)
@@ -219,7 +212,7 @@ n_subnormal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
     W==P ? n_nonnegative_values(T) : max(0, n_subnormal_significands(T))
 
 max_n_normal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
-    n_normal_significands(T) * n_normal_exponents(T)
+    max(n_normal_magnitudes(T), n_normal_significands(T) * n_normal_exponents(T))
 
 n_normal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
     max(0, max_n_normal_values(T) - n_subnormal_values(T))

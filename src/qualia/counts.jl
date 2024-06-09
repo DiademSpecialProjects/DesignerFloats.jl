@@ -184,16 +184,23 @@ n_numeric_values(::Type{T}) where {T<:BinaryFloat} = n_finite_values(T) + n_inf_
 n_subnormal_values(::Type{T}) where {T<:BinaryFloat} = 2 * n_subnormal_significands(T)
 n_normal_values(::Type{T}) where {T<:BinaryFloat} = n_ordinary_values(T) - n_subnormal_values(T)
 
+n_finite_magnitudes(::Type{T}) where {T<:SimpleFloat} = n_finite_values(T)
 n_finite_magnitudes(::Type{T}) where {T<:UnsignedFloat} = n_finite_values(T)
 n_finite_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = n_finite_values(T)
 n_finite_magnitudes(::Type{T}) where {T<:SignedFloat} = (n_finite_values(T) + 1) >> 1
 n_finite_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = (n_finite_values(T) + 1) >> 1
 
-n_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_finite_magnitudes(T) + has_infinity(T)
+n_magnitudes(::Type{T}) where {T<:SimpleFloat} = n_finite_values(T)
+n_magnitudes(::Type{T}) where {T<:UnsignedFloat} = n_finite_values(T) + has_infinity(T)
+n_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = n_finite_values(T)
+n_magnitudes(::Type{T}) where {T<:SignedFloat} = (n_finite_values(T) + 1) >> 1 + has_infinity(T)
+n_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = (n_finite_values(T) + 1) >> 1
+
 n_numeric_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_magnitudes(T)
 n_ordinary_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_finite_magnitudes(T) - 1 # Zero
 
 n_subnormal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_subnormal_significands(T)
+n_nonnegative_magnitudess(::Type{T}) where {T<:BinaryFloat} = 
 n_normal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_ordinary_magnitudes(T) - n_subnormal_magnitudes(T)
 
 # for concrete types
