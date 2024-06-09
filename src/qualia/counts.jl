@@ -19,24 +19,6 @@ see [`n_values`](@ref)
 n_numeric_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = n_values(T) - 1
 
 """
-    n_trailing_values(::BinaryFloat{W,P})
-
-counts the distinct values available from the trailing_bits
-
-see [`n_trailing_bits`](@ref)
-"""
-n_trailing_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^n_trailing_bits(T)
-
-"""
-    n_significands(::BinaryFloat{W,P})
-
-counts the significand values available 
-- max(n_subnormal_significands, n_normal_significands)
-"""
-n_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
-    max(n_subnormal_significands(T), n_normal_significands(T))
-
-"""
     nmax_normal_significands(::BinaryFloat{W,P})
 
 counts the maximum number of normal significands available
@@ -55,23 +37,6 @@ counts the maximum number subnormal significand values available
 """
 nmax_subnormal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 
     P == 1 ? 0 : (P == W ? 2^n_trailing_bits(T) : 2^n_trailing_bits(T) - 1)
-
-"""
-    n_normal_significands(::BinaryFloat{W,P})
-
-counts the maximum number of normal significands
-- a specific type may have fewer normal significands
-"""
-n_normal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
-    P == W ? 0 : 2^n_trailing_bits(T)
-
-"""
-    n_subnormal_significands(::BinaryFloat{W,P})
-
-counts the subnormal significand values available 
-"""
-n_subnormal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 
-    P == 1 ? 0 : 2^n_trailing_bits(T) - 1
 
 """
     n_exponent_bits(<: BinaryFloat{W,P})
@@ -101,24 +66,8 @@ n_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 n_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     n_exponents(T)
 
-"""
-    n_normal_exponents(<: BinaryFloat{W,P})
-
-counts the individual values that the exponent may take in normal values
-"""
-n_normal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
-    P == W ? 0 : (is_signed(T) ? 2*max_exponent(T) + 1 : max_exponent(T) + 1)
-
 n_normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     n_normal_exponents(T)
-
-"""
-    n_subnormal_exponents(<: BinaryFloat{W,P})
-
-counts the individual values that the exponent may take in subnormal values
-"""
-n_subnormal_exponents(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
-    P == 1 ? 0 : 1
 
 n_subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     n_subnormal_exponents(T)
