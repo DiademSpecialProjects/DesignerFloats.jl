@@ -56,21 +56,7 @@ n_normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 n_subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     n_subnormal_exponents(T)
 
-n_special_values(::Type{T}) where {T<:UnsignedFloat} = 3 # 0, NaN, Inf
-n_special_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 2 # 0, NaN
-n_special_values(::Type{T}) where {T<:SignedFloat} = 4 # 0, NaN, +/- Inf
-n_special_values(::Type{T}) where {T<:FiniteSignedFloat} = 2 # 0, NaN
-
-n_special_magnitudes(::Type{T}) where {T<:UnsignedFloat} = 2 # 0, Inf
-n_special_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = 1 # 0
-n_special_magnitudes(::Type{T}) where {T<:SignedFloat} = 2 # 0, Inf
-n_special_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = 1 # 0
-
-n_inf_values(::Type{T}) where {T<:UnsignedFloat} = 1
-n_inf_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 0
-n_inf_values(::Type{T}) where {T<:SignedFloat} = 2
-n_inf_values(::Type{T}) where {T<:FiniteSignedFloat} = 0
-
+#=
 n_ordinary_values(::Type{T}) where {T<:BinaryFloat} = n_values(T) - n_special_values(T)
 n_finite_values(::Type{T}) where {T<:BinaryFloat} = n_ordinary_values(T) + 1 # 0
 n_numeric_values(::Type{T}) where {T<:BinaryFloat} = n_finite_values(T) + n_inf_values(T)
@@ -96,9 +82,9 @@ n_ordinary_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_finite_magnitudes(T)
 n_subnormal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_subnormal_significands(T)
 n_nonnegative_magnitudess(::Type{T}) where {T<:BinaryFloat} = 
 n_normal_magnitudes(::Type{T}) where {T<:BinaryFloat} = n_ordinary_magnitudes(T) - n_subnormal_magnitudes(T)
-
+=#
 # for concrete types
-
+#=
 for F in (:width, :n_bits, :n_values, :n_significant_bits, :n_exponent_bits,
           :exponent_bias, :n_trailing_bits, :n_significands, 
           :nmax_normal_significands, :nmax_subnormal_significands, 
@@ -113,6 +99,7 @@ for F in (:width, :n_bits, :n_values, :n_significant_bits, :n_exponent_bits,
           :n_finite_values)
     @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
 end
+=#
 
 Base.precision(x::T) where {T<:BinaryFloat} = Base.precision(T)
 
