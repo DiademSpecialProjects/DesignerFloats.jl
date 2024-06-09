@@ -188,18 +188,18 @@ function n_subnormal_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat}
     end    
 end
 
-function n_normal_magnitudes(::Type{T}) where {W, P, T<:BinaryFloats{W,P}}
+function n_normal_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n_ordinary_magnitudes(T) - n_subnormal_magnitudes(T)
 end
 
-function n_magnitudes(::Type{T}) where {W, P, T<:BinaryFloats{W,P}}
+function n_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n = n_values(T) - n_nan_values(T)
     if is_signed(T)
         n = n >> 1
     end
 end
 
-function n_ordinary_magnitudes(::Type{T}) where {W, P, T<:BinaryFloats{W,P}}
+function n_ordinary_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n = n_values(T) - n_nan_values(T)
     if is_signed(T)
         n = n >> 1
@@ -207,11 +207,11 @@ function n_ordinary_magnitudes(::Type{T}) where {W, P, T<:BinaryFloats{W,P}}
     n - 1 - has_infinity(T)
 end
 
-function n_finite_magnitudes(::Type{T}) where {W, P, T<:BinaryFloats{W,P}}
+function n_finite_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n_ordinary_magnitudes(T) + 1 # for Zero
 end
 
-function n_nonzero_magnitudes(::Type{T}) where {W, P, T<:BinaryFloats{W,P}}
+function n_nonzero_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n_finite_magnitudes + has_infinity(T)
 end
 

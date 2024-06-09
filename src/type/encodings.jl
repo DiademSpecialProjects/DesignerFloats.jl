@@ -13,7 +13,7 @@ max_encoding(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
 """
     ConstEncodings
 
-_ConstEncodings are invariant over BinaryFloats_
+_ConstEncodings are invariant over BinaryFloat_
 
 zero(T<:BinaryFloat) is encoded `zero(Encoding)`
 
@@ -30,7 +30,7 @@ encodes_tiny_float(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} = Encoding(1)
 """
     StableEncodings
 
-_StableEncodings are fully determined and simply given over BinaryFloats_
+_StableEncodings are fully determined and simply given over BinaryFloat_
 - a StableEncoding may be `nothing`, `encodes_inf(T) where !has_infinity(T)`
 
 -`encodes_min_subnormal`
