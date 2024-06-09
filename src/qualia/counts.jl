@@ -39,22 +39,6 @@ nmax_subnormal_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     P == 1 ? 0 : (P == W ? 2^n_trailing_bits(T) : 2^n_trailing_bits(T) - 1)
 
 """
-    n_exponent_bits(<: BinaryFloat{W,P})
-
-counts the bits comprising the exponent field
-"""
-n_exponent_bits(::Type{<:SignedBinaryFloat{W,P}}) where {W,P} = W - P
-n_exponent_bits(::Type{<:UnsignedBinaryFloat{W,P}}) where {W,P} = W - P + 1
-
-
-"""
-    exponent_bias(T::Type{<:BinaryFloat{W,P}) where {W,P} = 
-
-exponent_bias is the offset applied to the raw exponent field.
-"""
-Base.exponent_bias(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = (2^n_exponent_bits(T) - 1) >> 1
-
-"""
     n_exponents(::BinaryFloat{W,P})
 
 counts the exponent values available 
