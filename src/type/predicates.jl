@@ -12,7 +12,6 @@ is_finite(::Type{T}) where {T<:UnsignedFloat} = false
 
 is_extended(::Type{T}) where {T<:SimpleBinaryFloat} = false
 is_extended(::Type{T}) where {T<:FiniteSignedFloat} = false
-is_extended(::Type{T}) where {T<:FiniteSignedFloat} = false
 is_extended(::Type{T}) where {T<:FiniteUnsignedFloat} = false
 is_extended(::Type{T}) where {T<:SignedFloat} = true
 is_extended(::Type{T}) where {T<:UnsignedFloat} = true
