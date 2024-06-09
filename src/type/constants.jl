@@ -25,15 +25,12 @@ const NegInf = RationalNK(-1, 0)
 const One = Float128(1)
 const Two = Float128(2)
 
-Base.convert(::Type{Quadmath.Float128}, x::Int1024) =
-    Float128(BigFloat(BigInt(x)))
-Base.convert(::Type{Quadmath.Float128}, x::Int2048) =
-    Float128(BigFloat(BigInt(x)))
-
-Quadmath.Float128(x::Int1024) =
-    convert(Quadmath.Float128, x)
-Quadmath.Float128(x::Int2048) =
-    convert(Quadmath.Float128, x)
+for I in (:Int1024, :Int2048, :Int4096)
+  @eval begin
+    Base.convert(::Type{Quadmath.Float128}, x::$I) = Float128(BigFloat(BigInt(x)))
+    Quadmath.Float128(x::$I) = convert(Quadmath.Float128, x)
+  end
+end
 
 function Base.convert(::Type{RationalNK}, x::AbstractFloat)
     fr,xp = frexp(x)
@@ -42,5 +39,3 @@ function Base.convert(::Type{RationalNK}, x::AbstractFloat)
     qxp = signbit(xp) ? 1 // twopxp : twopxp
     qfr * qxp
 end
-
-# exRationalNK(x::AbstractFloat) = convert(RationalNK, x)
