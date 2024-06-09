@@ -78,13 +78,13 @@ counts the individual values that the trailing significand may take in subnormal
 """
 function n_subnormal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     if P==W
-        max(0, n_subnormal_values(T))
+        max(0, n_subnormal_trailing_values(T))
     elseif isone(P)
-        n_subnormal_values(T)
+        n_subnormal_trailing_values(T)
     elseif P == 2
         1
     else
-        max(0, n_trailing_values(T) - 1)
+        max(0, n_subnormal_trailing_values(T))
     end
 end
 n_subnormal_significands = n_subnormal_trailing_significands
