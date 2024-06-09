@@ -88,41 +88,19 @@ function subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}
     end
     subnormal_exps[1:nsubnormals]
 end
-#=
-function subnormal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    n_subnormals = n_subnormal_magnitudes(T)
-    iszero(n_subnormals) && return NoValues()
-    minexp = min_exponent(T)
-    fill(minexp, n_subnormals)
-end
-=#
+
 function normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     iszero(n_normal_significands(T)) && return NoValues()
     nnormals = n_normal_magnitudes(T)
-    nnormalexps = n_normal_exponents(T)
+    nnormal_exps = n_normal_exponents(T)
     reps = cld(nnormals, nnormalexps)
     subnormals = collect(subnormal_exponent_range(T))
-    normals = collect(normal_exponent_range(T))
-    if !isempty(normals) && reps > 1
-        normals = collect(Iterators.flatten(fill(normals, reps)))
+    normal_exps = collect(normal_exponent_range(T))
+    if !isempty(normal_exps) && reps > 1
+        normal_exps = collect(Iterators.flatten(map(x->fill(x,reps), normal_exps)))
     end
-    normals[1:nnormals]
+    normal_exps[1:nnormals]
 end
-#=
-
-function normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    nnormals = n_normal_magnitudes(T)
-    iszero(nnormals) && return NoValues()
-
-    nnormal_exps = n_normal_exponent_magnitudes(T)
-    normal_exps = normal_exponent_magnitudes(T)
-    reps = cld(nnormals, nnormal_exps)
-    if reps > 1
-        normal_exps = fill(normal_exps, reps)
-    end
-    return normal_exps[1:nnormals]
-end
-=#
 
 function ordinary_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
    return append!(subnormal_magnitudes(T), normal_magnitudes(T))
