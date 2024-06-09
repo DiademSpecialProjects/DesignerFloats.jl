@@ -40,4 +40,4 @@ function Base.convert(::Type{RationalNK}, x::AbstractFloat)
     qfr * qxp
 end
 
-RationalNK(x::AbstactFloat) = convert(RationalNK, x)
+RationalNK(x::AbstractFloat) = convert(RationalNK, x)
