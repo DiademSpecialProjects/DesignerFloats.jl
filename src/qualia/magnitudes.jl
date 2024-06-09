@@ -65,7 +65,7 @@ function subnormal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W
 end
 
 function normal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    n = n_normal_magnitudes(T)
+    n = n_normal_significands(T)
     iszero(n) && return NoValues()
 
     nsigs = n_normal_significands(T)
