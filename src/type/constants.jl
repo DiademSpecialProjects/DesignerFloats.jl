@@ -1,12 +1,14 @@
 BitIntegers.@define_integers 2048
 BitIntegers.@define_integers 3072
 BitIntegers.@define_integers 4096
+BitIntegers.@define_integers 5120
 
 const Int1K = BitIntegers.Int1024
 const Int2K = Int2048
 const Int3K = Int3072
 const Int4K = Int4096
-const IntNK = Int4K
+const Int5K = Int5120
+const IntNK = Int5K
 
 const RationalNK = Rational{IntNK}
 const Rational64 = Rational{Int64}
