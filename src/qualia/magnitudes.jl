@@ -28,7 +28,7 @@ function all_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     end    
     exps
 endm1
-
+#=
 function finite_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     pushfirst!(ordinary_exponent_magnitudes(T), Zero)
 end
@@ -57,6 +57,8 @@ function all_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     end
     result
 end
+=#
+
 #=
 function subnormal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_significands(T)
