@@ -60,7 +60,6 @@ end
 
 function subnormal_significand_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_significands(T)
-    reps = cld(m, n)
     iszero(n) && return NoValues()
     return subnormal_significand_range(T)[1:n]
 end
