@@ -193,7 +193,7 @@ all_significands(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 all_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     all_exponent_values(T)
 
-for F in (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
+symbols = (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
     :max_finite_magnitudes, :significand_magnitudes, :exponent_magnitudes,
     :subnormal_significand_magnitudes, :subnormal_exponent_magnitudes,
     :subnormal_signficands, :normal_significands,
@@ -204,5 +204,7 @@ for F in (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
     :all_significand_magnitudes, :all_exponent_magnitudes, :all_magnitudes,
     :all_significand_values, :all_exponent_values,
     :all_exponents, :all_signficands, :all_values)
+
+for F in symbols
     @eval $F(x::T) where {T<:BinaryFloat} = $F(T)
 end
