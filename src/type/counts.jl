@@ -178,7 +178,7 @@ n_nan_values(::Type{T}) where {T<:SimpleUnsignedFloat} = 0
 n_nan_values(::Type{T}) where {T<:SignedFloat} = 1
 n_nan_values(::Type{T}) where {T<:FiniteSignedFloat} = 1
 
-function n_subnormal_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat}
+function n_subnormal_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     if P==1
         0
     elseif P==W
@@ -215,13 +215,13 @@ function n_nonzero_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n_finite_magnitudes + has_infinity(T)
 end
 
-n_subnormal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
+n_subnormal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
     W==P ? n_nonnegative_values(T) : max(0, n_subnormal_trailing_significands(T))
 
-max_n_normal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
+max_n_normal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
     n_normal_trailing_significands(T) * n_normal_exponents(T)
 
-n_normal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P} =
+n_normal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
     max(0, max_n_normal_values(T) - n_subnormal_values(T))
 
 
