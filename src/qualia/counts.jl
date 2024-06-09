@@ -1,13 +1,6 @@
 # counts
 
 """
-     n_bits(::BinaryFloat{W,P})
-
-n_bits is a bit count: the storage width (memory spanned).
-"""
-n_bits(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = W
-
-"""
      width(::BinaryFloat{W,P})
 
 this is a bit count: the storage width (memory spanned).
