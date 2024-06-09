@@ -192,6 +192,8 @@ all_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
 for F in (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
           :max_finite_magnitudes, :significand_magnitudes, :exponent_magnitudes,
           :subnormal_significand_magnitudes, :subnormal_exponent_magnitudes,
+          :subnormal_signficands, :normal_significands,
+          :subnormal_exponents, :normal_exponents,
           :normal_significand_magnitudes, :normal_exponent_magnitudes,
           :ordinary_significand_magnitudes, :ordinary_exponent_magnitudes,
           :finite_significand_magnitudes, :finite_exponent_magnitudes,
