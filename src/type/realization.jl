@@ -54,11 +54,11 @@ FiniteUnsignedFloat(Width, Precision) =
         throw(DomainError("!(1 <= Precision ($Precision) <= Width ($Width))"))
     end
 
-mutable struct SimpleUnsignedFloat{Width,Precision} <: UnsignedBinaryFloat{Width,Precision}
+mutable struct SimpleFloat{Width,Precision} <: SimpleBinaryFloat{Width,Precision}
     value::FPValue
     code::Encoding
 end
-SimpleUnsignedFloat(Width, Precision) =
+SimpleFloat(Width, Precision) =
     if 1 <= Precision <= Width
         FiniteUnsignedFloat{Width,Precision}(zero(FPValue), zero(Encoding))
     else

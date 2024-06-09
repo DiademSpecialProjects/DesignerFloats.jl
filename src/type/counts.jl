@@ -150,31 +150,31 @@ end
 
 n_special_values(::Type{T}) where {T<:UnsignedFloat} = 3 # 0, NaN, Inf
 n_special_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 2 # 0, NaN
-n_special_values(::Type{T}) where {T<:SimpleUnsignedFloat} = 1 # 0
+n_special_values(::Type{T}) where {T<:SimpleFloat} = 1 # 0
 n_special_values(::Type{T}) where {T<:SignedFloat} = 4 # 0, NaN, +/- Inf
 n_special_values(::Type{T}) where {T<:FiniteSignedFloat} = 2 # 0, NaN
 
 n_special_magnitudes(::Type{T}) where {T<:UnsignedFloat} = 2 # 0, Inf
 n_special_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = 1 # 0
-n_special_magnitudes(::Type{T}) where {T<:SimpleUnsignedFloat} = 1 # 0
+n_special_magnitudes(::Type{T}) where {T<:SimpleFloat} = 1 # 0
 n_special_magnitudes(::Type{T}) where {T<:SignedFloat} = 2 # 0, Inf
 n_special_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = 1 # 0
 
 n_inf_magnitudes(::Type{T}) where {T<:UnsignedFloat} = 1
 n_inf_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = 0
-n_inf_magnitudes(::Type{T}) where {T<:SimpleUnsignedFloat} = 0
+n_inf_magnitudes(::Type{T}) where {T<:SimpleFloat} = 0
 n_inf_magnitudes(::Type{T}) where {T<:SignedFloat} = 1
 n_inf_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = 0
 
 n_inf_values(::Type{T}) where {T<:UnsignedFloat} = 1
 n_inf_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 0
-n_inf_values(::Type{T}) where {T<:SimpleUnsignedFloat} = 0
+n_inf_values(::Type{T}) where {T<:SimpleFloat} = 0
 n_inf_values(::Type{T}) where {T<:SignedFloat} = 2
 n_inf_values(::Type{T}) where {T<:FiniteSignedFloat} = 0
 
 n_nan_values(::Type{T}) where {T<:UnsignedFloat} = 1
 n_nan_values(::Type{T}) where {T<:FiniteUnsignedFloat} = 1
-n_nan_values(::Type{T}) where {T<:SimpleUnsignedFloat} = 0
+n_nan_values(::Type{T}) where {T<:SimpleFloat} = 0
 n_nan_values(::Type{T}) where {T<:SignedFloat} = 1
 n_nan_values(::Type{T}) where {T<:FiniteSignedFloat} = 1
 

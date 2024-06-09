@@ -50,7 +50,7 @@ abstract type UnsignedBinaryFloat{W,P} <: BinaryFloat{W,P} end
 This is an abstract type, the subtype of BinaryFloat.
 
 It is the immediate (and shared) supertype of
-SimpleUnsignedFloat.
+SimpleFloat.
 
 - Width is the storage width in bits.
 - Precision is significand (with implicit bit) bitwidth. 

@@ -1,7 +1,7 @@
 module FastFloats
 
-export BinaryFloat, SignedBinaryFloat, UnsignedBinaryFloat,
-       SignedFloat, FiniteSignedFloat, UnsignedFloat, FiniteUnsignedFloat,
+export BinaryFloat, SignedBinaryFloat, UnsignedBinaryFloat, SimpleBinaryFloat,
+       SignedFloat, FiniteSignedFloat, UnsignedFloat, FiniteUnsignedFloat, SimpleFloat,
        width, precision, n_bits, n_values, n_numeric_values,
        n_significant_bits, n_trailing_bits, n_exponent_bits,
        n_significands, n_subnormal_significands, n_normal_significands,
