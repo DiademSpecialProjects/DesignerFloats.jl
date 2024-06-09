@@ -20,13 +20,17 @@ function normal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     n_normal_exps = n_normal_exponents(T)
     normal_exps = collect(range(start=min_normal_exponent(T), stop=max_normal_exponent(T), length=n_normal_exps))
     normal_sigs = collect(range(start=min_normal_significand(T), stop=max_normal_significand(T), length=n_normal_sigs))
-    vcat((normal_sigs .* normal_exps')...)
+    rep_exps = cld(n_normals, n_normal_exps)
+    rep_sigs = cld(n_normals, n_normal_sigs)
+    sigs = collect(Iterators.flatten(fill(normal_sigs, rep_sigs)))[1:n_normals]
+    exps = collect(Iterators.flatten(transpose(hcat(fill(normal_exps, rep_exps)...))))[1:n_normals]
+    sigs .* exps
 end
 
 function min_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_exponents(T)
     iszero(n) && return nothing
-    return convert(RationalNK, 2.0^(0 - Base.exponent_bias(T)))
+    return convert(RationalNK, Two^(0 - Base.exponent_bias(T)))
 end
 
 max_subnormal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
@@ -46,14 +50,14 @@ end
 function min_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return nothing
-    convert(RationalNK, 2.0^(0-Base.exponent_bias(T)))
+    convert(RationalNK, Two^(0-Base.exponent_bias(T)))
 end
 
 function max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return nothing
     isone(n) && return min_normal_exponent(T)
-    convert(RationalNK, 2.0^(Base.exponent_bias(T)))
+    convert(RationalNK, Two^(Base.exponent_bias(T)))
 end
 
 function min_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
