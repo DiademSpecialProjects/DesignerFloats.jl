@@ -1,13 +1,17 @@
+is_signed(::Type{T}) where {T<:SimpleBinaryFloat} = false
 is_signed(::Type{T}) where {T<:UnsignedBinaryFloat} = false
 is_signed(::Type{T}) where {T<:SignedBinaryFloat} = true
 
 is_unsigned(::Type{T}) where {T<:BinaryFloat} = !is_signed(T)
 
+is_finite(::Type{T}) where {T<:SimpleBinaryFloat} = true
 is_finite(::Type{T}) where {T<:FiniteSignedFloat} = true
 is_finite(::Type{T}) where {T<:FiniteUnsignedFloat} = true
 is_finite(::Type{T}) where {T<:SignedFloat} = false
 is_finite(::Type{T}) where {T<:UnsignedFloat} = false
 
+is_extended(::Type{T}) where {T<:SimpleBinaryFloat} = false
+is_extended(::Type{T}) where {T<:FiniteSignedFloat} = false
 is_extended(::Type{T}) where {T<:FiniteSignedFloat} = false
 is_extended(::Type{T}) where {T<:FiniteUnsignedFloat} = false
 is_extended(::Type{T}) where {T<:SignedFloat} = true
