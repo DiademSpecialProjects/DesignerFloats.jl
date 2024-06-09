@@ -9,14 +9,6 @@ this is a bit count: the storage width (memory spanned).
 width(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = W
 
 """
-    n_values(::BinaryFloat{W,P})
-
-counts the distinct values of x
-- the number of encodings
-"""
-n_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = 2^W
-
-"""
     n_numeric_values(::BinaryFloat{W,P})
 
 counts the distinct numeric values
