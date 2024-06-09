@@ -192,7 +192,6 @@ function n_normal_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n_ordinary_magnitudes(T) - n_subnormal_magnitudes(T)
 end
 
-#=
 function n_ordinary_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n = n_values(T) - n_nan_values(T)
     if is_signed(T)
@@ -204,7 +203,7 @@ end
 function n_finite_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n_ordinary_magnitudes(T) + 1 # for Zero
 end
-=#
+
 n_ordinary_values(::Type{T}) where {T<:BinaryFloat} = n_values(T) - n_special_values(T)
 n_finite_values(::Type{T}) where {T<:BinaryFloat} = n_ordinary_values(T) + 1 # 0
 n_numeric_values(::Type{T}) where {T<:BinaryFloat} = n_finite_values(T) + n_inf_values(T)

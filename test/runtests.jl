@@ -1,6 +1,6 @@
 using FastFloats, Test
 
-for W in 2:4
+for W in 2:10
     sfssym = Symbol(string("sf",W,"s"))
     @eval $sfssym = []
     for P in 1:W
