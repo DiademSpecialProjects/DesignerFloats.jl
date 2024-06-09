@@ -31,7 +31,7 @@ include("type/predicates.jl")
 include("type/values.jl")
 
 #include("qualia/extrema.jl")
-#include("qualia/magnitudes.jl")
+include("qualia/magnitudes.jl")
 
 include("rounding/modes.jl")
 include("rounding/toprecision.jl")
