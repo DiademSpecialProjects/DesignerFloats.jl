@@ -16,7 +16,7 @@ end
 function normal_values(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     n_normals = n_normal_values(T)
     iszero(n_normals) && return NoValues()
-    n_normal_sigs = n_normal_trailing_significands(T)
+    n_normal_sigs = n_normal_significands(T)
     n_normal_exps = n_normal_exponents(T)
     normal_exps = collect(range(start=min_normal_exponent(T), stop=max_normal_exponent(T), length=n_normal_exps))
     normal_sigs = collect(range(start=min_normal_significand(T), stop=max_normal_significand(T), length=n_normal_sigs))
@@ -57,26 +57,26 @@ function max_normal_exponent(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
 end
 
 function min_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    n = n_subnormal_trailing_significands(T)
+    n = n_subnormal_significands(T)
     iszero(n) && return nothing
     1//n
 end
 
 function max_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    n = n_subnormal_trailing_significands(T)
+    n = n_subnormal_significands(T)
     iszero(n) && return nothing
     isone(n) && return min_subnormal_significand(T)
     (n-1)//n
 end
 
 function min_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    n = n_normal_trailing_significands(T)
+    n = n_normal_significands(T)
     iszero(n) && return nothing
     1//1 + 0//n
 end
 
 function max_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
-    n = n_normal_trailing_significands(T)
+    n = n_normal_significands(T)
     iszero(n) && return nothing
     isone(n) && return min_normal_significand(T)
     1 + (n-1)//n

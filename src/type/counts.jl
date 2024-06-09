@@ -72,11 +72,11 @@ see [`n_trailing_values`](@ref)
 n_subnormal_trailing_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = max(0, n_trailing_values(T) - 1)
 
 """
-    n_subnormal_trailing_significands(<: BinaryFloat{W,P})
+    n_subnormal_significands(<: BinaryFloat{W,P})
 
 counts the individual values that the trailing significand may take in subnormal values
 """
-function n_subnormal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
+function n_subnormal_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     if P==W
         max(0, n_subnormal_trailing_values(T))
     elseif isone(P)
@@ -87,14 +87,13 @@ function n_subnormal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W
         max(0, n_subnormal_trailing_values(T))
     end
 end
-n_subnormal_significands = n_subnormal_trailing_significands
 
 """
-    n_normal_trailing_significands(<: BinaryFloat{W,P})
+    n_normal_significands(<: BinaryFloat{W,P})
 
 counts the individual values that the trailing significand may take in normal values
 """
-function n_normal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
+function n_normal_significands(T::Type{<:BinaryFloat{W,P}}) where {W,P}
     if isone(P)
         1
     elseif W == P
@@ -185,7 +184,7 @@ function n_subnormal_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     elseif P==W
         n_ordinary_magnitudes(T)
     else
-        n_subnormal_trailing_significands(T)
+        n_subnormal_significands(T)
     end    
 end
 
@@ -217,10 +216,10 @@ function n_nonzero_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
 end
 
 n_subnormal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
-    W==P ? n_nonnegative_values(T) : max(0, n_subnormal_trailing_significands(T))
+    W==P ? n_nonnegative_values(T) : max(0, n_subnormal_significands(T))
 
 max_n_normal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
-    n_normal_trailing_significands(T) * n_normal_exponents(T)
+    n_normal_significands(T) * n_normal_exponents(T)
 
 n_normal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
     max(0, max_n_normal_values(T) - n_subnormal_values(T))
