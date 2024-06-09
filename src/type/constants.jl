@@ -36,8 +36,9 @@ Quadmath.Float128(x::Int2048) =
 function Base.convert(::Type{RationalNK}, x::AbstractFloat)
     fr,xp = frexp(x)
     qfr = RationalNK(fr)
-    qxp = signbit(xp) ? RationalNK(1,IntNK(2)^abs(xp)) : RationaNK(IntNK(2)^abs(xp),1)
+    twopxp = RationalNK(IntNK(Two^abs(xp)))
+    qxp = signbit(xp) ? 1 // twopxp : twopxp
     qfr * qxp
 end
 
-# RationalNK(x::AbstractFloat) = convert(RationalNK, x)
+# exRationalNK(x::AbstractFloat) = convert(RationalNK, x)
