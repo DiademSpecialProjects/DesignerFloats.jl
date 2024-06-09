@@ -15,21 +15,9 @@ is_extended(::Type{T}) where {T<:UnsignedFloat} = true
 
 has_infinity(::Type{T}) where {T} = is_extended(T)
 
-is_signed(x::T) where {T} = is_signed(T)
-is_unsigned(x::T) where {T} = is_unsigned(T)
-
-is_finite(x::T) where {T} = is_finite(T)
-is_extended(x::T) where {T} = is_extended(T)
-has_infinity(x::T) where {T} = has_infinity(T)
-
-is_signed(x::T) where {T<:BinaryFloat} = is_signed(T)
-is_unsigned(x::T) where {T<:BinaryFloat} = !is_signed(T)
-      
-is_finite(X::T) where {T<:BinaryFloat} = is_finite(T)
-is_extended(X::T) where {T<:BinaryFloat} = is_extended(T)
-
-has_infinity(::Type{T}) where {T<:BinaryFloat} = !is_finite(T)
-has_infinity(x::T) where {T<:BinaryFloat} = !is_finite(T)
+for F in (:is_signed, :is_unsigned, :is_finite, :is_extended, :has_infinity)
+    @eval $F(x::T) where {T<:BinaryFloat} = $F(T)
+end
 
 Base.isinteger(x::BinaryFloat) = isinteger(value(x))
 Base.isfinite(x::BinaryFloat) = isfinite(value(x))
