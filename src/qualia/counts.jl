@@ -101,6 +101,7 @@ for F in (:width, :n_bits, :n_values, :n_significant_bits, :n_exponent_bits,
 end
 =#
 
+
 Base.precision(x::T) where {T<:BinaryFloat} = Base.precision(T)
 
 
