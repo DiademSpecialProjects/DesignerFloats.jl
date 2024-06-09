@@ -190,15 +190,15 @@ all_exponents(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} =
     all_exponent_values(T)
 
 for F in (:subnormal_magnitudes, :normal_magnitudes, :max_ordinary_magnitudes,
-          :max_finite_magnitudes, :significand_magnitudes, :exponent_magnitudes,
-          :subnormal_significand_magnitudes, :subnormal_exponent_magnitudes,
-          :subnormal_signficands, :normal_significands,
-          :subnormal_exponents, :normal_exponents,
-          :normal_significand_magnitudes, :normal_exponent_magnitudes,
-          :ordinary_significand_magnitudes, :ordinary_exponent_magnitudes,
-          :finite_significand_magnitudes, :finite_exponent_magnitudes,
-          :all_significand_magnitudes, :all_exponent_magnitudes, :all_magnitudes,
-          :all_significand_values, :all_exponent_values,
-          :all_exponents, :all_signficands, :all_values)
-    @eval $F(x::T) where {W,P,T<:BinaryFloat{W,P}} = $F(T)
+    :max_finite_magnitudes, :significand_magnitudes, :exponent_magnitudes,
+    :subnormal_significand_magnitudes, :subnormal_exponent_magnitudes,
+    :subnormal_signficands, :normal_significands,
+    :subnormal_exponents, :normal_exponents,
+    :normal_significand_magnitudes, :normal_exponent_magnitudes,
+    :ordinary_significand_magnitudes, :ordinary_exponent_magnitudes,
+    :finite_significand_magnitudes, :finite_exponent_magnitudes,
+    :all_significand_magnitudes, :all_exponent_magnitudes, :all_magnitudes,
+    :all_significand_values, :all_exponent_values,
+    :all_exponents, :all_signficands, :all_values)
+    @eval $F(x::T) where {T<:BinaryFloat} = $F(T)
 end
