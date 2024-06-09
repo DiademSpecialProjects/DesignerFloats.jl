@@ -224,9 +224,6 @@ function n_nonzero_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}}
     n_finite_magnitudes(T) + has_infinity(T)
 end
 
-n_ordinary_magnitudes(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
-  n_nonzero_magnitudes(T) + 1
-
 n_subnormal_values(::Type{T}) where {W, P, T<:BinaryFloat{W,P}} =
     W==P ? n_nonnegative_values(T) : max(0, n_subnormal_significands(T))
 
