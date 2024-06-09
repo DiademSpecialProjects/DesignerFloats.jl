@@ -19,16 +19,6 @@ see [`n_values`](@ref)
 n_numeric_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = n_values(T) - 1
 
 """
-     n_trailing_bits(::BinaryFloat{W,P})
-
-The trailing significand bits count the significand bits (those explicitly stored).
-    - this excludes the implicit bit
-
-see [`n_significant_bits`](@ref)
-"""
-n_trailing_bits(::Type{T}) where {W,P,T<:BinaryFloat{W,P}} = P - 1
-
-"""
     n_trailing_values(::BinaryFloat{W,P})
 
 counts the distinct values available from the trailing_bits
