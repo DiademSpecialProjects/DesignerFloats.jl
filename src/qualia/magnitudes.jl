@@ -93,7 +93,7 @@ function normal_exponent_magnitudes(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     iszero(n_normal_significands(T)) && return NoValues()
     nnormals = n_normal_magnitudes(T)
     nnormal_exps = n_normal_exponents(T)
-    reps = cld(nnormals, nnormalexps)
+    reps = cld(nnormals, nnormal_exps)
     subnormals = collect(subnormal_exponent_range(T))
     normal_exps = collect(normal_exponent_range(T))
     if !isempty(normal_exps) && reps > 1
