@@ -87,6 +87,7 @@ function n_subnormal_trailing_significands(T::Type{<:BinaryFloat{W,P}}) where {W
         max(0, n_trailing_values(T) - 1)
     end
 end
+n_subnormal_significands = n_subnormal_trailing_signifcands
 
 """
     n_normal_trailing_significands(<: BinaryFloat{W,P})
