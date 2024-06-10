@@ -37,22 +37,7 @@ end
 
 signum(x::Real) = signbit(x) ? -1 : iszero(x) ? 0 : 1
 
-function Base.convert(::Type{Rational{I}}, x::Quadmath.Float128) where {I}
-  Q = Rational{I}
-  fr, xp = frexp(x)                          # x == fr * oftype(x, 2)
-  s, afr = signum(fr), abs(fr)               # afr in [1/2, 1) or 0
-  if isinteger(afr)
-    qfr = iszero(afr) ? Zero : One
-  else
-    ifr = convert(IntNK, convert(BigInt, afr * Shift128ToInt))
-    qfr = Q(ifr, IntOfShift128)
-  end
-  twopxp = RationalNK(IntNK(Two^abs(xp)))
-  qxp = signbit(xp) ? 1 // twopxp : twopxp
-  qfr * qxp
-end
-
-function Base.convert(::Type{Rational{I}}, x::AbstractFloat) where {I}
+function Base.convert(::Type{Rational{I}}, x::F) where {I<:Integer, F<:AbstractFloat}
   Q = Rational{I}
   ShiftFloatToInt = T(2)^(precision(T))
   IntOfShiftFloat = I(BigInt(ShiftFloatToInt))
