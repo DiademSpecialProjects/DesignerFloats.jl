@@ -52,7 +52,7 @@ function Base.convert(::Type{Rational{I}}, x::Quadmath.Float128) where {I}
   qfr * qxp
 end
 
-function Base.convert(::Type{Rational{I}}, x::T) where {I, T<:AbstractFloat}
+function Base.convert(::Type{Rational{I}}, x::AbstractFloat) where {I}
   Q = Rational{I}
   ShiftFloatToInt = T(2)^(precision(T))
   IntOfShiftFloat = I(BigInt(ShiftFloatToInt))
