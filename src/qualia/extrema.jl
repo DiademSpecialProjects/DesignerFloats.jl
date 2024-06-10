@@ -68,7 +68,7 @@ end
 function normal_exponent_range(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_normal_exponents(T)
     iszero(n) && return 1:0
-    exprange = collect(range(start=min_normal_exponent(T), stop=max_normal_eexponent(T), length=n))
+    exprange = collect(range(start=min_normal_exponent(T), stop=max_normal_exponent(T), length=n))
     qrange = map(x->convert(RationalNK, x), exprange)
     qrange
 end
