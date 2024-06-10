@@ -25,6 +25,9 @@ const NegInf = RationalNK(-1, 0)
 const One = Float128(1)
 const Two = Float128(2)
 
+const Shift128ToInt = Float128(2)^(precision(Float128))
+const IntOfShift128 = IntNK(BigInt(Shift128ToInt))
+
 for I in (:Int1024, :Int2048, :Int4096)
   @eval begin
     Base.convert(::Type{Quadmath.Float128}, x::$I) = Float128(BigFloat(BigInt(x)))
@@ -32,20 +35,34 @@ for I in (:Int1024, :Int2048, :Int4096)
   end
 end
 
+signum(x::Real) = signbit(x) ? -1 : iszero(x) ? 0 : 1
+
 function Base.convert(::Type{RationalNK}, x::Quadmath.Float128)
-  fr,xp = frexp(x)
-  ifr = fr < 1.0 ? IntNK(1/fr) : IntNK(fr)
-  qfr = fr < 1.0 ? RationalNK(1, ifr) : RationalNK(ifr, 1)
+  fr, xp = frexp(x)                          # x == fr * oftype(x, 2)
+  s, afr = signum(fr), abs(fr)               # afr in [1/2, 1) or 0
+  if isinteger(afr)
+    qfr = iszero(afr) ? Zero : One
+  else
+    ifr = convert(IntNK, convert(BigInt, afr * Shift128ToInt))
+    qfr = RationalNK(ifr, IntOfShift128)
+  end
   twopxp = RationalNK(IntNK(Two^abs(xp)))
   qxp = signbit(xp) ? 1 // twopxp : twopxp
   qfr * qxp
 end
 
-function Base.convert(::Type{RationalNK}, x::T) where {T<:AbstractFloat}
-    fr,xp = frexp(x)
-    ifr = fr < 1.0 ? IntNK(1/fr) : IntNK(fr)
-    qfr = fr < 1.0 ? RationalNK(1, ifr) : RationalNK(ifr, 1)
-    twopxp = RationalNK(IntNK(Two^abs(xp)))
-    qxp = signbit(xp) ? 1 // twopxp : twopxp
-    qfr * qxp
+function Base.convert(::Type{Rational{I}}, x::T) where {I, T<:AbstractFloat}
+  ShiftFloatToInt = T(2)^(precision(T))
+  IntOfShiftFloat = I(BigInt(ShiftFloatToInt))
+  fr, xp = frexp(x)                          # x == fr * oftype(x, 2)
+  s, afr = signum(fr), abs(fr)               # afr in [1/2, 1) or 0
+  if isinteger(afr)
+    qfr = iszero(afr) ? Zero : One
+  else
+    ifr = convert(I, convert(BigInt, afr * ShiftFloatToInt))
+    qfr = Rational{I}(ifr, IntOfShiftFloat)
+  end
+  twopxp = Rational{I}(I((Rational{I}(2,1))^abs(xp)))
+  qxp = signbit(xp) ? 1 // twopxp : twopxp
+  qfr * qxp
 end
