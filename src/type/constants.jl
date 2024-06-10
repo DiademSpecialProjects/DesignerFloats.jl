@@ -32,9 +32,19 @@ for I in (:Int1024, :Int2048, :Int4096)
   end
 end
 
-function Base.convert(::Type{RationalNK}, x::AbstractFloat)
+function Base.convert(::Type{RationalNK}, x::Quadmath.Float128)
+  fr,xp = frexp(x)
+  ifr = fr < 1.0 ? IntNK(1/fr) : IntNK(fr)
+  qfr = fr < 1.0 ? RationalNK(1, ifr) : RationalNK(ifr, 1)
+  twopxp = RationalNK(IntNK(Two^abs(xp)))
+  qxp = signbit(xp) ? 1 // twopxp : twopxp
+  qfr * qxp
+end
+
+function Base.convert(::Type{RationalNK}, x::T) where {T<:AbstractFloat}
     fr,xp = frexp(x)
-    qfr = RationalNK(fr)
+    ifr = fr < 1.0 ? IntNK(1/fr) : IntNK(fr)
+    qfr = fr < 1.0 ? RationalNK(1, ifr) : RationalNK(ifr, 1)
     twopxp = RationalNK(IntNK(Two^abs(xp)))
     qxp = signbit(xp) ? 1 // twopxp : twopxp
     qfr * qxp
