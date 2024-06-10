@@ -63,14 +63,14 @@ end
 function min_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_significands(T)
     iszero(n) && return nothing
-    1//(n+1)
+    1//max(2,n)
 end
 
 function max_subnormal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
     n = n_subnormal_significands(T)
     iszero(n) && return nothing
     isone(n) && return min_subnormal_significand(T)
-    (n-1)//n
+    max(1,n-1)//max(2,n)
 end
 
 function min_normal_significand(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
