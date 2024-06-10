@@ -51,7 +51,23 @@ function Base.convert(::Type{RationalNK}, x::Quadmath.Float128)
   qfr * qxp
 end
 
+function Base.convert(::Type{Rational{I}}, x::Quadmath.Float128) where {I}
+  Q = Rational{I}
+  fr, xp = frexp(x)                          # x == fr * oftype(x, 2)
+  s, afr = signum(fr), abs(fr)               # afr in [1/2, 1) or 0
+  if isinteger(afr)
+    qfr = iszero(afr) ? Zero : One
+  else
+    ifr = convert(IntNK, convert(BigInt, afr * Shift128ToInt))
+    qfr = Q(ifr, IntOfShift128)
+  end
+  twopxp = RationalNK(IntNK(Two^abs(xp)))
+  qxp = signbit(xp) ? 1 // twopxp : twopxp
+  qfr * qxp
+end
+
 function Base.convert(::Type{Rational{I}}, x::T) where {I, T<:AbstractFloat}
+  Q = Rational{I}
   ShiftFloatToInt = T(2)^(precision(T))
   IntOfShiftFloat = I(BigInt(ShiftFloatToInt))
   fr, xp = frexp(x)                          # x == fr * oftype(x, 2)
@@ -60,9 +76,9 @@ function Base.convert(::Type{Rational{I}}, x::T) where {I, T<:AbstractFloat}
     qfr = iszero(afr) ? Zero : One
   else
     ifr = convert(I, convert(BigInt, afr * ShiftFloatToInt))
-    qfr = Rational{I}(ifr, IntOfShiftFloat)
+    qfr = Q(ifr, IntOfShiftFloat)
   end
-  twopxp = Rational{I}(I((Rational{I}(2,1))^abs(xp)))
+  twopxp = Q(I((Q(2,1))^abs(xp)))
   qxp = signbit(xp) ? 1 // twopxp : twopxp
   qfr * qxp
 end
