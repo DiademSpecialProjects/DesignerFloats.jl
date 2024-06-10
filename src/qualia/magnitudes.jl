@@ -182,7 +182,9 @@ function all_values(::Type{T}) where {W,P,T<:BinaryFloat{W,P}}
         vals = append!(mags, negmags)
     else
         vals = mags
-        push!(vals, NaN)
+        if has_nan(T)
+            push!(vals, NaN)
+        end
     end
     vals
 end

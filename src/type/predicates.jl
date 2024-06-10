@@ -16,9 +16,15 @@ is_extended(::Type{T}) where {T<:FiniteUnsignedFloat} = false
 is_extended(::Type{T}) where {T<:SignedFloat} = true
 is_extended(::Type{T}) where {T<:UnsignedFloat} = true
 
-has_infinity(::Type{T}) where {T} = is_extended(T)
+has_infinity(::Type{T}) where {T<:BinaryFloat} = is_extended(T)
 
-for F in (:is_signed, :is_unsigned, :is_finite, :is_extended, :has_infinity)
+has_nan(::Type{T}) where {T<:SimpleBinaryFloat} = false
+has_nan(::Type{T}) where {T<:FiniteSignedFloat} = true
+has_nan(::Type{T}) where {T<:FiniteUnsignedFloat} = true
+has_nan(::Type{T}) where {T<:SignedFloat} = true
+has_nan(::Type{T}) where {T<:UnsignedFloat} = true
+
+for F in (:is_signed, :is_unsigned, :is_finite, :is_extended, :has_infinity, :has_nan)
     @eval $F(x::T) where {T<:BinaryFloat} = $F(T)
 end
 

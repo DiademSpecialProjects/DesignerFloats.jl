@@ -209,14 +209,14 @@ n_finite_values(::Type{T}) where {T<:BinaryFloat} = n_ordinary_values(T) + 1 # 0
 n_numeric_values(::Type{T}) where {T<:BinaryFloat} = n_finite_values(T) + n_inf_values(T)
 
 n_finite_magnitudes(::Type{T}) where {T<:SimpleFloat} = n_values(T)
-n_finite_magnitudes(::Type{T}) where {T<:UnsignedFloat} = n_values(T) - hasinf(T) - hasnan(T)
-n_finite_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = n_values(T) - hasnan(T)
-n_finite_magnitudes(::Type{T}) where {T<:SignedFloat} = (n_values(T) - hasnan(T)) >> 1 - hasinf(T)
-n_finite_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = (n_values(T) - hasnan(T)) >> 1
+n_finite_magnitudes(::Type{T}) where {T<:UnsignedFloat} = n_values(T) - hasinf(T) - has_nan(T)
+n_finite_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = n_values(T) - has_nan(T)
+n_finite_magnitudes(::Type{T}) where {T<:SignedFloat} = (n_values(T) - has_nan(T)) >> 1 - hasinf(T)
+n_finite_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = (n_values(T) - has_nan(T)) >> 1
 
 n_magnitudes(::Type{T}) where {T<:SimpleFloat} = n_finite_magnitudes(T)
-n_magnitudes(::Type{T}) where {T<:UnsignedFloat} = n_values(T) - hasnan(T)
-n_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = n_values(T) - hasnan(T)
+n_magnitudes(::Type{T}) where {T<:UnsignedFloat} = n_values(T) - has_nan(T)
+n_magnitudes(::Type{T}) where {T<:FiniteUnsignedFloat} = n_values(T) - has_nan(T)
 n_magnitudes(::Type{T}) where {T<:SignedFloat} = n_finite_magnitudes(T) + 1
 n_magnitudes(::Type{T}) where {T<:FiniteSignedFloat} = n_finite_magnitudes(T)
 

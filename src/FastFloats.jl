@@ -9,7 +9,7 @@ export BinaryFloat, SignedBinaryFloat, UnsignedBinaryFloat, SimpleBinaryFloat,
        n_magnitudes, n_finite_magnitudes, n_ordinary_magnitudes,
        n_subnormal_magnitudes, n_normal_magnitudes,
        magnitudes, all_values,
-       is_signed, is_unsigned, is_finite, is_extended, has_infinity,
+       is_signed, is_unsigned, is_finite, is_extended, has_infinity, has_nan,
        value, code, valuecode, value!, code!,
        all_signs, all_exponents, all_signficands,
        round_to_precision
